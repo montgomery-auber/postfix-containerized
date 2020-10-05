@@ -2,7 +2,8 @@
 # https://hub.docker.com/_/postfixadmin
 version: '3.7'
 services:
-   db:
+   mysql:
+     container_name: mysql
      image: mysql:5.7 ### - USE POSTGRES instead but also mysql - offer MAnanged db
      restart: unless-stopped
      environment:
@@ -10,17 +11,20 @@ services:
        MYSQL_DATABASE: postfixadmin
        MYSQL_USER: postfixadmin
        MYSQL_PASSWORD: postfixadminPassword  #### PUT into encrypted secrets
+     ports:
+       - "3306:3306"
 
    postfixadmin:
+     container_name: postfixadmin
      depends_on:
-       - db
+       - mysql 
      image: postfixadmin:latest
      ports:
        - "8000:80"
      restart: unless-stopped
      environment:
        POSTFIXADMIN_DB_TYPE: mysqli
-       POSTFIXADMIN_DB_HOST: db
+       POSTFIXADMIN_DB_HOST: mysql 
        POSTFIXADMIN_DB_USER: postfixadmin
        POSTFIXADMIN_DB_NAME: postfixadmin
        POSTFIXADMIN_DB_PASSWORD: postfixadminPassword #### PUT into encrypted secrets
@@ -41,11 +45,11 @@ services:
        - ./:/postfix-etc-containerized
        # Put it all in easy dir for backups - make links on host from original location 
        #Create linux user postfix and set UID / GID as same for containers - set for opt
-       - ./etc/postfix:/etc/postfix
-       - ./var/spool/postfix:/var/spool/postfix
-       - ./var/spool/mail:/var/spool/mail
-       - ./var/log:/var/log
-       - ./var/mail:/var/mail
+       #- ./etc/postfix:/etc/postfix
+       #- ./var/spool/postfix:/var/spool/postfix
+       #- ./var/spool/mail:/var/spool/mail
+       #- ./var/log:/var/log
+       #- ./var/mail:/var/mail
      ports:
        - 25:25
        - 465:465

@@ -4,17 +4,20 @@ create docker for postfix that send
 create that also receives 
 web interface for postfix 
 figure backup strategy for postfix 
-Put it all in easy dir for backups - make links on host from original location 
+Put it all in /opt/postfix-containerized easy dir for backups - make links on host from original location 
 Create linux user postfix and set UID / GID as same for containers - set for opt
 install script to create dirs on server under /opt/postfix
 things to remember - timezone in every container as well as asking in cloudformation 
-
+put sql db on volume 
 create certs container
+install compose on server
+in createpostfixfiles.sh put the password instance ID - be sure that these files dont exist 
 create dovecot container - start with dovecot on a different server
 figure backup strategy for
 ON AWS do it in /opt/postfix but still using ./ for docker-compose file
 figure where spam stuff goes, fail2ban ? or just spamhaus and spamassassin
 create different machine containers for webmail - maybe use a couple
+set default  password as instance ID 
 Encrypted ebs - https://aws.amazon.com/blogs/compute/must-know-best-practices-for-amazon-ebs-encryption/
  
 cloudformation to put it together 
@@ -50,16 +53,7 @@ drwx------    2 postfix  root          4096 Oct  5 13:08 trace
 bash-5.0#
 
 dirs to create
-
-       - /opt/postfix/etc/postfix:/etc/postfix
-       - /opt/postfix/var/spool/postfix:/var/spool/postfix
-       - /opt/postfix/var/spool/mail:/var/spool/mail
-       - /opt/postfix/var/log:/var/log
-       - /opt/postfix/var/mail:/var/mail
-
-
-mkdir -p /opt/postfix/etc/postfix /opt/postfix/var/spool/postfix /opt/postfix/var/spool/mail /opt/postfix/var/log /opt/postfix/var/mail 
-
+Copy 
 
 BACK to alpine 
 https://xc2.wb1.xyz/post/how-to-run-a-postfix-mail-server-in-a-docker-container/
@@ -167,16 +161,38 @@ http://gindi.home/postfixadmin-2.93/setup.php
 Please edit config.inc.php - change $CONF['configured'] to true after setting your database settings
 
 
+
+
+
+
+
 I did NOT do this before running postfixadmin install - see if its busted
+
+following is from https://wiki.alpinelinux.org/wiki/ISP_Mail_Server_3.x_HowTo
+
+
+grep vmail /etc/passwd
+
+postfix:x:100:101:postfix:/var/spool/postfix:/sbin/nologin
+vmail:x:101:102:vmail:/var/mail/domains:/sbin/nologin
+
+
+mkdir -p /var/mail/domains
+# do volume for domains 
+chown -R vmail:postdrop /var/mail/domains
+
+
+
 
 NOTE: with this encrypt configuration, dovecot is required by postfixadmin to encrypt the SuperAdmin password
 
 apk add dovecot
 
+
 Edit the /etc/postfix/main.cf file. Here's an example (don't forget to replace the uid/gid):
 
 # New install - don't need to be backward compatible 
-compatibility_level = 2 
+compatibility_level = 3 
 
 myhostname=home.gindi.cloud
 mydomain=home.gindi.cloud 
@@ -299,6 +315,12 @@ EOF
 chown -R postfix:postfix sql
 chmod 640 sql/*
 
+
+
+
+postfixadmin_1  | bash: connect: Connection refused
+postfixadmin_1  | bash: /dev/tcp/db/3306: Connection refused
+postfixadmin_1  | bash: connect: Connection refused
 
 
 
@@ -523,10 +545,37 @@ https://github.com/postfixadmin/docker/issues/6
 
 This did the trick
 docker exec -it postfix-etc-containerized_postfixadmin_1 /var/www/html/scripts/postfixadmin-cli admin add
+docker exec -it postfixadmin /var/www/html/scripts/postfixadmin-cli admin add
 
 user steve@charming.co.il
-password EthanDavid12
+password goodpasswordd12
 
+
+
+
+Admin:
+> steve@charming.co.il
+
+Password:
+> E 
+
+Password (again):
+> 
+
+Super admin:
+(Super admins have access to all domains, can manage domains and admin accounts.) (y/n)
+> y
+
+Domain:
+> home.gindi.cloud
+
+Active: (y/n)
+> y
+
+The admin steve@charming.co.il has been added!
+
+---------------------------------------------------------------
+root@DESKTOP-6VK9MUK:/home/steve/postfix-containerized#
 
 steve@DESKTOP-6VK9MUK:/mnt/c/Users/rabis/OneDrive/samples/Charming/scripts/postfix-server/postfix-etc-containerized$ docker exec -it postfix-etc-containerized_postfixadmin_1 /var/www/html/scripts/postfixadmin-cli --help
 
@@ -861,4 +910,7 @@ home:~# history
  233 vi interfaces
 
 home:~#
+
+
+mkdir -p /opt/postfix/etc/postfix /opt/postfix/var/spool/postfix /opt/postfix/var/spool/mail /opt/postfix/var/log /opt/postfix/var/mail 
 
