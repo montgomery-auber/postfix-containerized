@@ -42,20 +42,16 @@ services:
      volumes:
        - /etc/localtime:/etc/localtime:ro
        - /etc/timezone:/etc/timezone:ro 
-       - ./:/postfix-etc-containerized
-       # Put it all in easy dir for backups - make links on host from original location 
-       #Create linux user postfix and set UID / GID as same for containers - set for opt
-       #- ./etc/postfix:/etc/postfix
-       #- ./var/spool/postfix:/var/spool/postfix
-       #- ./var/spool/mail:/var/spool/mail
-       #- ./var/log:/var/log
-       #- ./var/mail:/var/mail
+       - ./etc/postfix:/etc/postfix
+       - ./var/spool/postfix:/var/spool/postfix
+       - ./var/spool/mail:/var/spool/mail
+       - ./var/log:/var/log
+       - ./var/mail:/var/mail
      ports:
-       - 25:25
-       - 465:465
-       - 587:587
+       - "25:25"
+       - "465:465"
+       - "587:587"
 
-          
 # entrypoint: tail -f /dev/null - CAN use postfix - that way log goes to stdout
 #
 #Install Nginx PHP and MySQL
@@ -69,5 +65,9 @@ services:
 
 
 
+ # Put it all in easy dir for backups - make links on host from original location 
+       #Create linux user postfix and set UID / GID as same for containers - set for opt
+       #- 
 
-
+      # - ./:/postfix-etc-containerized
+      

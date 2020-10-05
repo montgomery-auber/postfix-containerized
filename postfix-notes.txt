@@ -10,6 +10,7 @@ install script to create dirs on server under /opt/postfix
 things to remember - timezone in every container as well as asking in cloudformation 
 put sql db on volume 
 create certs container
+make compose work without root
 install compose on server
 in createpostfixfiles.sh put the password instance ID - be sure that these files dont exist 
 create dovecot container - start with dovecot on a different server
@@ -574,6 +575,17 @@ Active: (y/n)
 
 The admin steve@charming.co.il has been added!
 
+adding user in web ui
+
+Warning: A non-numeric value encountered in /var/www/html/model/MailboxHandler.php on line 225
+
+Warning: Cannot modify header information - headers already sent by (output started at /var/www/html/model/MailboxHandler.php:225) in /var/www/html/public/edit.php on line 179
+
+
+For this error check
+https://github.com/postfixadmin/postfixadmin/issues/65
+
+
 ---------------------------------------------------------------
 root@DESKTOP-6VK9MUK:/home/steve/postfix-containerized#
 
@@ -912,5 +924,145 @@ home:~# history
 home:~#
 
 
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+Oct 05 21:17:53 home postfix/postfix-script[67]: warning: not owned by postfix: /var/spool/postfix/active
+Oct 05 21:17:53 home postfix/postfix-script[68]: warning: not owned by postfix: /var/spool/postfix/bounce
+Oct 05 21:17:53 home postfix/postfix-script[69]: warning: not owned by postfix: /var/spool/postfix/corrupt
+Oct 05 21:17:53 home postfix/postfix-script[70]: warning: not owned by postfix: /var/spool/postfix/defer
+Oct 05 21:17:53 home postfix/postfix-script[71]: warning: not owned by postfix: /var/spool/postfix/deferred
+Oct 05 21:17:53 home postfix/postfix-script[72]: warning: not owned by postfix: /var/spool/postfix/flush
+Oct 05 21:17:53 home postfix/postfix-script[73]: warning: not owned by postfix: /var/spool/postfix/hold
+Oct 05 21:17:53 home postfix/postfix-script[74]: warning: not owned by postfix: /var/spool/postfix/incoming
+Oct 05 21:17:53 home postfix/postfix-script[75]: warning: not owned by postfix: /var/spool/postfix/private
+Oct 05 21:17:53 home postfix/postfix-script[76]: warning: not owned by postfix: /var/spool/postfix/public
+Oct 05 21:17:53 home postfix/postfix-script[77]: warning: not owned by postfix: /var/spool/postfix/saved
+Oct 05 21:17:53 home postfix/postfix-script[78]: warning: not owned by postfix: /var/spool/postfix/trace
+Oct 05 21:17:53 home postfix/postfix-script[80]: warning: not owned by postfix: /var/spool/postfix/maildrop
+Oct 05 21:17:53 home postfix/postfix-script[82]: warning: not owned by group postdrop: /var/spool/postfix/public
+Oct 05 21:17:53 home postfix/postfix-script[83]: warning: not owned by group postdrop: /var/spool/postfix/maildrop
+Oct 05 21:17:53 home postfix/postfix-script[86]: starting the Postfix mail system
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+Oct 05 21:17:57 home postfix/postfix-script[67]: warning: not owned by postfix: /var/spool/postfix/active
+Oct 05 21:17:57 home postfix/postfix-script[68]: warning: not owned by postfix: /var/spool/postfix/bounce
+Oct 05 21:17:57 home postfix/postfix-script[69]: warning: not owned by postfix: /var/spool/postfix/corrupt
+Oct 05 21:17:57 home postfix/postfix-script[70]: warning: not owned by postfix: /var/spool/postfix/defer
+Oct 05 21:17:57 home postfix/postfix-script[71]: warning: not owned by postfix: /var/spool/postfix/deferred
+Oct 05 21:17:57 home postfix/postfix-script[72]: warning: not owned by postfix: /var/spool/postfix/flush
+Oct 05 21:17:57 home postfix/postfix-script[73]: warning: not owned by postfix: /var/spool/postfix/hold
+Oct 05 21:17:57 home postfix/postfix-script[74]: warning: not owned by postfix: /var/spool/postfix/incoming
+Oct 05 21:17:57 home postfix/postfix-script[75]: warning: not owned by postfix: /var/spool/postfix/private
+Oct 05 21:17:57 home postfix/postfix-script[76]: warning: not owned by postfix: /var/spool/postfix/public
+Oct 05 21:17:57 home postfix/postfix-script[77]: warning: not owned by postfix: /var/spool/postfix/saved
+Oct 05 21:17:57 home postfix/postfix-script[78]: warning: not owned by postfix: /var/spool/postfix/trace
+Oct 05 21:17:57 home postfix/postfix-script[80]: warning: not owned by postfix: /var/spool/postfix/maildrop
+Oct 05 21:17:57 home postfix/postfix-script[82]: warning: not owned by group postdrop: /var/spool/postfix/public
+Oct 05 21:17:57 home postfix/postfix-script[83]: warning: not owned by group postdrop: /var/spool/postfix/maildrop
+Oct 05 21:17:57 home postfix/postfix-script[86]: starting the Postfix mail system
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+Oct 05 21:17:59 home postfix/postfix-script[67]: warning: not owned by postfix: /var/spool/postfix/active
+Oct 05 21:17:59 home postfix/postfix-script[68]: warning: not owned by postfix: /var/spool/postfix/bounce
+Oct 05 21:17:59 home postfix/postfix-script[69]: warning: not owned by postfix: /var/spool/postfix/corrupt
+Oct 05 21:17:59 home postfix/postfix-script[70]: warning: not owned by postfix: /var/spool/postfix/defer
+Oct 05 21:17:59 home postfix/postfix-script[71]: warning: not owned by postfix: /var/spool/postfix/deferred
+Oct 05 21:17:59 home postfix/postfix-script[72]: warning: not owned by postfix: /var/spool/postfix/flush
+Oct 05 21:17:59 home postfix/postfix-script[73]: warning: not owned by postfix: /var/spool/postfix/hold
+Oct 05 21:17:59 home postfix/postfix-script[74]: warning: not owned by postfix: /var/spool/postfix/incoming
+Oct 05 21:17:59 home postfix/postfix-script[75]: warning: not owned by postfix: /var/spool/postfix/private
+Oct 05 21:17:59 home postfix/postfix-script[76]: warning: not owned by postfix: /var/spool/postfix/public
+Oct 05 21:17:59 home postfix/postfix-script[77]: warning: not owned by postfix: /var/spool/postfix/saved
+Oct 05 21:17:59 home postfix/postfix-script[78]: warning: not owned by postfix: /var/spool/postfix/trace
+Oct 05 21:17:59 home postfix/postfix-script[80]: warning: not owned by postfix: /var/spool/postfix/maildrop
+Oct 05 21:17:59 home postfix/postfix-script[82]: warning: not owned by group postdrop: /var/spool/postfix/public
+Oct 05 21:17:59 home postfix/postfix-script[83]: warning: not owned by group postdrop: /var/spool/postfix/maildrop
+Oct 05 21:17:59 home postfix/postfix-script[86]: starting the Postfix mail system
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+Oct 05 21:18:05 home postfix/postfix-script[68]: warning: not owned by postfix: /var/spool/postfix/active
+Oct 05 21:18:05 home postfix/postfix-script[69]: warning: not owned by postfix: /var/spool/postfix/bounce
+Oct 05 21:18:05 home postfix/postfix-script[70]: warning: not owned by postfix: /var/spool/postfix/corrupt
+Oct 05 21:18:05 home postfix/postfix-script[71]: warning: not owned by postfix: /var/spool/postfix/defer
+Oct 05 21:18:05 home postfix/postfix-script[72]: warning: not owned by postfix: /var/spool/postfix/deferred
+Oct 05 21:18:05 home postfix/postfix-script[73]: warning: not owned by postfix: /var/spool/postfix/flush
+Oct 05 21:18:05 home postfix/postfix-script[74]: warning: not owned by postfix: /var/spool/postfix/hold
+Oct 05 21:18:05 home postfix/postfix-script[75]: warning: not owned by postfix: /var/spool/postfix/incoming
+Oct 05 21:18:05 home postfix/postfix-script[76]: warning: not owned by postfix: /var/spool/postfix/private
+Oct 05 21:18:05 home postfix/postfix-script[77]: warning: not owned by postfix: /var/spool/postfix/public
+Oct 05 21:18:05 home postfix/postfix-script[78]: warning: not owned by postfix: /var/spool/postfix/saved
+Oct 05 21:18:05 home postfix/postfix-script[79]: warning: not owned by postfix: /var/spool/postfix/trace
+Oct 05 21:18:05 home postfix/postfix-script[81]: warning: not owned by postfix: /var/spool/postfix/maildrop
+Oct 05 21:18:05 home postfix/postfix-script[83]: warning: not owned by group postdrop: /var/spool/postfix/public
+Oct 05 21:18:05 home postfix/postfix-script[84]: warning: not owned by group postdrop: /var/spool/postfix/maildrop
+Oct 05 21:18:05 home postfix/postfix-script[87]: starting the Postfix mail system
+root@DESKTOP-6VK9MUK:/home/steve/postfix-containerized# docker ps
+
+
+to add telnet to alpine apk add busybox-extras
+
+
 mkdir -p /opt/postfix/etc/postfix /opt/postfix/var/spool/postfix /opt/postfix/var/spool/mail /opt/postfix/var/log /opt/postfix/var/mail 
 
+https://xc2.wb1.xyz/post/how-to-run-a-postfix-mail-server-in-a-docker-container/
+
+do I need to build the main.cf file ?
+
+see postfix version postconf mail_version
+at the end of  Oct 5 2020
+two issues
+no postfix_server logs
+error in adding user 
