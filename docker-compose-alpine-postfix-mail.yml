@@ -1,0 +1,27 @@
+version: '3.7'
+services:    
+   postfix:
+    container_name: postfix_server
+    build:  
+      context: .
+      dockerfile: Dockerfile-postfix-alpine
+    restart: unless-stopped
+    #environment: 
+        # VARS HERE
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro 
+      #- /opt/postfix/etc/postfix:/etc/postfix
+      - /opt/postfix/var/spool/postfix:/var/spool/postfix
+      - /opt/postfix/var/spool/mail:/var/spool/mail
+      - /opt/postfix/var/log:/var/log
+      - /opt/postfix/var/mail:/var/mail
+    ports:
+      - 25:25
+      - 465:465
+      - 587:587
+
+      
+      ## Put it all in easy dir for backups - make links on host from original location 
+      ##Create linux user postfix and set UID / GID as same for containers - set for opt
+      #- ./:/postfix-etc-containerized

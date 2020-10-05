@@ -1,0 +1,18 @@
+FROM alpine:3.10
+
+# Install dependencies
+RUN apk add --no-cache --update postfix cyrus-sasl cyrus-sasl-plain ca-certificates bash && \
+    apk add --no-cache --upgrade musl musl-utils && \
+    # Clean up
+    (rm "/tmp/"* 2>/dev/null || true) && (rm -rf /var/cache/apk/* 2>/dev/null || true)
+
+# Expose mail submission agent port
+EXPOSE 587
+EXPOSE 25
+EXPOSE 465
+
+# Start postfix in foreground mode
+CMD ["postfix", "start-fg"]
+
+# Inspired by https://github.com/bokysan/docker-postfix
+

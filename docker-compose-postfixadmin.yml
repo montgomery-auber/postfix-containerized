@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+   db:
+     image: mysql:5.7 ### - USE POSTGRES instead but also mysql - offer MAnanged db
+     restart: unless-stopped
+     environment:
+       MYSQL_ROOT_PASSWORD: notSecureChangeMe
+       MYSQL_DATABASE: postfixadmin
+       MYSQL_USER: postfixadmin
+       MYSQL_PASSWORD: postfixadminPassword  #### PUT into encrypted secrets
+
+   postfixadmin:
+     depends_on:
+       - db
+     image: postfixadmin:latest
+     ports:
+       - "8000:80"
+     restart: unless-stopped
+     environment:
+       POSTFIXADMIN_DB_TYPE: mysqli
+       ## This canbe POSTFIXADMIN_DB_TYPE=... - sqlite, mysqli, pgsql
+       POSTFIXADMIN_DB_HOST: db
+       POSTFIXADMIN_DB_USER: postfixadmin
+       POSTFIXADMIN_DB_NAME: postfixadmin
+       POSTFIXADMIN_DB_PASSWORD: postfixadminPassword #### PUT into encrypted secrets
+       POSTFIXADMIN_SMTP_SERVER: postfix
+       POSTFIXADMIN_SMTP_PORT: 25

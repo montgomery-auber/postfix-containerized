@@ -1,0 +1,864 @@
+action items
+reverse dns - http://floatingcloud.io/how-to-get-reverse-dns-for-your-ec2-instance-as-well-as-to-raise-email-sending-limit-amazon-web-services/
+create docker for postfix that send 
+create that also receives 
+web interface for postfix 
+figure backup strategy for postfix 
+Put it all in easy dir for backups - make links on host from original location 
+Create linux user postfix and set UID / GID as same for containers - set for opt
+install script to create dirs on server under /opt/postfix
+things to remember - timezone in every container as well as asking in cloudformation 
+
+create certs container
+create dovecot container - start with dovecot on a different server
+figure backup strategy for
+ON AWS do it in /opt/postfix but still using ./ for docker-compose file
+figure where spam stuff goes, fail2ban ? or just spamhaus and spamassassin
+create different machine containers for webmail - maybe use a couple
+Encrypted ebs - https://aws.amazon.com/blogs/compute/must-know-best-practices-for-amazon-ebs-encryption/
+ 
+cloudformation to put it together 
+
+users inside postfix server are
+postfix:x:100:101:postfix:/var/spool/postfix:/sbin/nologin
+vmail:x:101:102:vmail:/var/mail/domains:/sbin/nologin
+
+permissions are
+mail:
+total 8
+drwxr-xr-x    2 root     root          4096 Oct  5 10:51 .
+drwxr-xr-x    1 root     root          4096 Oct  5 13:08 ..
+
+postfix:
+total 64
+drwxr-xr-x   16 root     root          4096 Oct  5 13:08 .
+drwxr-xr-x    1 root     root          4096 Oct  5 13:08 ..
+drwx------    2 postfix  root          4096 Oct  5 13:08 active
+drwx------    2 postfix  root          4096 Oct  5 13:08 bounce
+drwx------    2 postfix  root          4096 Oct  5 13:08 corrupt
+drwx------    2 postfix  root          4096 Oct  5 13:08 defer
+drwx------    2 postfix  root          4096 Oct  5 13:08 deferred
+drwx------    2 postfix  root          4096 Oct  5 13:08 flush
+drwx------    2 postfix  root          4096 Oct  5 13:08 hold
+drwx------    2 postfix  root          4096 Oct  5 13:08 incoming
+drwx-wx---    2 postfix  postdrop      4096 Oct  5 13:08 maildrop
+drwxr-xr-x    2 root     root          4096 Oct  5 13:08 pid
+drwx------    2 postfix  root          4096 Oct  5 13:08 private
+drwx--x---    2 postfix  postdrop      4096 Oct  5 13:08 public
+drwx------    2 postfix  root          4096 Oct  5 13:08 saved
+drwx------    2 postfix  root          4096 Oct  5 13:08 trace
+bash-5.0#
+
+dirs to create
+
+       - /opt/postfix/etc/postfix:/etc/postfix
+       - /opt/postfix/var/spool/postfix:/var/spool/postfix
+       - /opt/postfix/var/spool/mail:/var/spool/mail
+       - /opt/postfix/var/log:/var/log
+       - /opt/postfix/var/mail:/var/mail
+
+
+mkdir -p /opt/postfix/etc/postfix /opt/postfix/var/spool/postfix /opt/postfix/var/spool/mail /opt/postfix/var/log /opt/postfix/var/mail 
+
+
+BACK to alpine 
+https://xc2.wb1.xyz/post/how-to-run-a-postfix-mail-server-in-a-docker-container/
+https://hub.docker.com/_/postfixadmin
+
+https://linuxize.com/post/set-up-an-email-server-with-postfixadmin/
+https://github.com/postfixadmin/postfixadmin/blob/master/INSTALL.TXT
+https://wiki.alpinelinux.org/wiki/Hosting_Web/Email_services_on_Alpine
+https://wiki.alpinelinux.org/wiki/ISP_Mail_Server_3.x_HowTo - postfixadmin - These instructions might be the best
+
+http://www.postfix.org/MYSQL_README.html 
+
+IMPORTANT - in the following setup lighttpd with php combine the instructions, but change the /etc/lighttpd/lighttpd.conf: ONLY like this
+
+server.modules = (
+    #  other modules may be listed
+    "mod_simple_vhost", 
+    #  other modules may be listed
+ .
+ .
+ .
+    include "mod_fastcgi.conf"
+
+FOR THE rest of it dont create multi domain just use localhost dir from below, but not with gamin and its  cgi
+
+add sudo to alpine - https://docs.alpinelinux.org/user-handbook/0.1a/Working/post-install.html
+
+cat <<-EOF >/var/www/domains/home.gindi/www/index.html
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>home.gindi  Redirector</title>
+</head>
+<body>
+<ul>
+<li><a href="/postfixadmin">PostfixAdmin</a></li>
+<li><a href="/roundcube">Roundcube</a></li>
+</ul>
+</body>
+EOF
+
+create certificate
+https://wiki.alpinelinux.org/wiki/Generating_SSL_certs_with_ACF
+
+
+Add these lines to /etc/lighttpd/lighttpd.conf to point to the new document root, and set it up to listen on port 443 (replace host.example.com with the actual domain and ip_address_of_server with the actual IP address):
+
+
+https://wiki.alpinelinux.org/wiki/Production_Web_server:_Lighttpd
+
+Do this instead of doing with certificate 
+
+apk add lighttpd gamin
+
+mkdir -p /var/www/localhost/htdocs /var/log/lighttpd /var/lib/lighttpd
+
+sed -i -r 's#\#.*server.port.*=.*#server.port          = 80#g' /etc/lighttpd/lighttpd.conf
+
+sed -i -r 's#.*server.stat-cache-engine.*=.*# server.stat-cache-engine = "fam"#g' /etc/lighttpd/lighttpd.conf
+
+sed -i -r 's#\#.*server.event-handler = "linux-sysepoll".*#server.event-handler = "linux-sysepoll"#g' /etc/lighttpd/lighttpd.conf
+
+mkdir -p /var/lib/lighttpd
+
+chown -R lighttpd:lighttpd /var/www/localhost/
+
+chown -R lighttpd:lighttpd /var/lib/lighttpd
+
+chown -R lighttpd:lighttpd /var/log/lighttpd
+
+rc-update add lighttpd default
+
+rc-service lighttpd restart
+
+echo "it works" > /var/www/localhost/htdocs/index.html
+
+This will fix install error Error: Depends on: session - NOT FOUND
+apk add php7-session
+
+ apk add postgresql postgresql-client
+ /etc/init.d/postgresql setup
+ /etc/init.d/postgresql start
+ rc-update add postgresql
+
+
+psql -U postgres
+  create user postfix with password 'steve';
+  create database postfix owner postfix;
+  \q
+username is steve@charming.co.il 
+IT asked for new passowrd - anniv
+
+wget http://downloads.sourceforge.net/project/postfixadmin/postfixadmin/postfixadmin-2.93/postfixadmin-2.93.tar.gz
+tar zxvf postfixadmin-2.93.tar.gz
+#mkdir -p /var/www/domains/gindi.home/www/postfixadmin
+#mv  postfixadmin-2.3.3/* /var/www/domains/host.example.com/www/postfixadmin
+
+sudo mv postfixadmin-2.9.3/* /var/www/localhost/htdocs
+
+
+http://gindi.home/postfixadmin-2.93/setup.php
+
+
+Please edit config.inc.php - change $CONF['configured'] to true after setting your database settings
+
+
+I did NOT do this before running postfixadmin install - see if its busted
+
+NOTE: with this encrypt configuration, dovecot is required by postfixadmin to encrypt the SuperAdmin password
+
+apk add dovecot
+
+Edit the /etc/postfix/main.cf file. Here's an example (don't forget to replace the uid/gid):
+
+# New install - don't need to be backward compatible 
+compatibility_level = 2 
+
+myhostname=home.gindi.cloud
+mydomain=home.gindi.cloud 
+
+mydestination = localhost.$mydomain, localhost
+mynetworks_style = subnet
+mynetworks = 127.0.0.0/8
+
+virtual_mailbox_domains = proxy:pgsql:/etc/postfix/sql/pgsql_virtual_domains_maps.cf
+virtual_alias_maps = proxy:pgsql:/etc/postfix/sql/pgsql_virtual_alias_maps.cf,
+       proxy:pgsql:/etc/postfix/sql/pgsql_virtual_alias_domain_maps.cf,
+       proxy:pgsql:/etc/postfix/sql/pgsql_virtual_alias_domain_catchall_maps.cf
+
+virtual_mailbox_maps = proxy:pgsql:/etc/postfix/sql/pgsql_virtual_mailbox_maps.cf,
+       proxy:pgsql:/etc/postfix/sql/pgsql_virtual_alias_domain_mailbox_maps.cf
+
+virtual_mailbox_base = /var/mail/domains/
+virtual_gid_maps = static:106
+virtual_uid_maps = static:104
+virtual_minimum_uid = 100
+virtual_transport = virtual
+
+
+# This next command means you must create a virtual
+# domain for the host itself - ALL mail goes through
+# The virtual transport
+
+mailbox_transport = virtual
+local_transport = virtual
+local_transport_maps = $virtual_mailbox_maps
+
+smtpd_helo_required = yes
+disable_vrfy_command = yes
+
+# 100MB size limit
+message_size_limit = 104857600
+virtual_mailbox_limit = 104857600
+queue_minfree = 51200000
+
+smtpd_sender_restrictions =
+       permit_mynetworks,
+       reject_non_fqdn_sender,
+       reject_unknown_sender_domain
+
+smtpd_recipient_restrictions =
+       reject_non_fqdn_recipient,
+       reject_unknown_recipient_domain,
+       permit_mynetworks,
+       permit_sasl_authenticated,
+       reject_unauth_destination,
+       reject_rbl_client dnsbl.sorbs.net,
+       reject_rbl_client zen.spamhaus.org,
+       reject_rbl_client bl.spamcop.net
+
+smtpd_data_restrictions = reject_unauth_pipelining
+
+# we will use this later - This prevents cleartext authentication
+# for relaying
+smtpd_tls_auth_only = yes
+
+# Silence the EAI warning on alpine linux
+smtputf8_enable = no
+----- END OF main.cf
+
+
+Now we need to create a *bunch* of files so that postfix can get the delivery information out of sql. Here's a shell script to create the scripts. Change PGPW to the password for the postfix user of the postfix SQL database:
+
+cd /etc/postfix
+mkdir sql
+PGPW="byg2812"
+
+cat - <<EOF >sql/pgsql_virtual_alias_domain_catchall_maps.cf
+user=postfix
+password = $PGPW
+hosts = localhost
+dbname = postfix
+query = Select goto From alias,alias_domain where alias_domain.alias_domain = '%d' and alias.address = '@' ||  alias_domain.target_domain and alias.active = true and alias_domain.active= true 
+EOF
+
+cat - <<EOF >sql/pgsql_virtual_alias_domain_mailbox_maps.cf
+user=postfix
+password = $PGPW
+hosts = localhost
+dbname = postfix
+query = Select maildir from mailbox,alias_domain where alias_domain.alias_domain = '%d' and mailbox.username = '%u' || '@' || alias_domain.target_domain and mailbox.active = true and alias_domain.active
+EOF
+
+cat - <<EOF >sql/pgsql_virtual_alias_domain_maps.cf
+user=postfix
+password = $PGPW
+hosts = localhost
+dbname = postfix
+query = select goto from alias,alias_domain where alias_domain.alias_domain='%d' and alias.address = '%u' || '@' || alias_domain.target_domain and alias.active= true and alias_domain.active= true
+EOF
+
+cat - <<EOF >sql/pgsql_virtual_alias_maps.cf
+user=postfix
+password = $PGPW
+hosts = localhost
+dbname = postfix
+query = Select goto From alias Where address='%s' and active ='1'
+EOF
+
+cat - <<EOF >sql/pgsql_virtual_domains_maps.cf
+user=postfix
+password = $PGPW
+hosts = localhost
+dbname = postfix
+query = Select domain from domain where domain='%s' and active='1'
+EOF
+
+cat - <<EOF >sql/pgsql_virtual_mailbox_maps.cf
+user=postfix
+password = $PGPW
+hosts = localhost
+dbname = postfix
+query = Select maildir from mailbox where username='%s' and active=true
+EOF
+
+chown -R postfix:postfix sql
+chmod 640 sql/*
+
+
+
+
+https://wiki.alpinelinux.org/wiki/Setting_up_postfix_with_virtual_domains - basic
+https://wiki.alpinelinux.org/wiki/Protecting_your_email_server_with_Alpine
+https://pkgs.alpinelinux.org/package/edge/main/x86/postfix
+
+things to remember - timezone in every container as well as asking in cloudformation 
+
+https://upcloud.com/community/tutorials/secure-postfix-using-lets-encrypt/
+ ftp://ftp.porcupine.org/mirrors/postfix-release/official/postfix-3.5.6.tar.gz 
+
+http://www.linuxfromscratch.org/blfs/view/svn/server/postfix.html 
+
+https://github.com/docker/machine/tree/v0.16.2
+
+Be sure to do docker network - maybe with swarm
+I saved mailcow docker compose with this file - very useful
+
+remember only alpine runs newwestish version of 3.4
+
+https://serverfault.com/questions/940199/how-do-i-teach-spam-and-ham-to-spamassassin-running-in-a-docker-container
+
+https://hub.docker.com/_/postfixadmin
+https://github.com/mailu 
+
+https://mailu.io/1.7/
+
+https://github.com/container-images/dovecot
+
+https://github.com/container-images/postfix - looks useful https://github.com/container-images/postfix/blob/master/Dockerfile.template - uses inportant plugins
+
+https://vexxhost.com/resources/tutorials/how-to-install-and-setup-postfix-on-ubuntu/
+
+https://www.digitalocean.com/community/questions/install-nginx-ssl-let-s-encrypt-php-mysql-postfix-on-ubuntu-19-10-x64-eoan-ermine
+
+http://archive.ubuntu.com/ubuntu/pool/main/p/postfix/postfix_3.4.10-1_amd64.deb
+
+http://archive.ubuntu.com/ubuntu/pool/main/p/postfix/postfix-doc_3.4.10-1_all.deb
+
+http://www.postfix.org/features.html
+
+http://www.postfix.org/packages.html
+
+https://xc2.wb1.xyz/post/how-to-run-a-postfix-mail-server-in-a-docker-container/ - uses only VOLUME [ "/var/spool/postfix", "/etc/postfix" ]
+
+https://github.com/container-images/postfix
+
+https://github.com/nl2go/docker-postfix 
+
+some more
+
+https://github.com/Tecnativa/docker-postfix-relay/blob/master/Dockerfile
+
+https://github.com/noteed/docker-postfix/blob/master/Dockerfile
+
+with sasl
+https://github.com/cloudposse/postfix/blob/master/Dockerfile
+https://github.com/MarvAmBass/docker-versatile-postfix - dkim - his startup script too instead of compose
+
+
+apt update && apt install wget -y 
+
+wget --no-check-certificate http://archive.ubuntu.com/ubuntu/pool/main/p/postfix/postfix_3.4.10-1_amd64.deb
+wget --no-check-certificate http://archive.ubuntu.com/ubuntu/pool/main/p/postfix/postfix-doc_3.4.10-1_all.deb
+apt-get install -y ./postfix_3.4.10-1_amd64.deb ./postfix-doc_3.4.10-1_all.deb
+
+# Inspired by https://github.com/bokysan/docker-postfix
+change to ubuntu or centos 
+# Alpine 3.10 ships with Postfix 3.4.7
+FROM alpine:3.10
+
+# Install dependencies
+RUN apk add --no-cache --update postfix cyrus-sasl cyrus-sasl-plain ca-certificates bash && \
+    apk add --no-cache --upgrade musl musl-utils && \
+    # Clean up
+    (rm "/tmp/"* 2>/dev/null || true) && (rm -rf /var/cache/apk/* 2>/dev/null || true)
+
+# Mark used folderspost
+VOLUME [ "/var/spool/postfix", "/etc/postfix" ]
+
+# Expose mail submission agent port
+EXPOSE 587
+
+# Configure Postfix on startup
+COPY docker-entrypoint.sh /usr/local/bin/
+ENTRYPOINT ["docker-entrypoint.sh"]
+
+# Start postfix in foreground mode
+CMD ["postfix", "start-fg"]
+
+---
+https://github.com/container-images/postfix/blob/master/Dockerfile.template
+
+VOLUME ["/var/spool/postfix"]
+VOLUME ["/var/spool/mail"]
+VOLUME ["/var/log"]
+VOLUME ["/var/mail"]
+
+
+----
+Mailcow - docker-compose.yml 
+ volumes:
+        - mysql-vol-1:/var/lib/mysql/
+        - mysql-socket-vol-1:/var/run/mysqld/
+        - ./data/conf/mysql/:/etc/mysql/conf.d/:ro
+
+
+    volumes:
+        - ./data/hooks/rspamd:/hooks
+        - ./data/conf/rspamd/custom/:/etc/rspamd/custom
+        - ./data/conf/rspamd/override.d/:/etc/rspamd/override.d
+        - ./data/conf/rspamd/local.d/:/etc/rspamd/local.d
+        - ./data/conf/rspamd/plugins.d/:/etc/rspamd/plugins.d
+        - ./data/conf/rspamd/lua/:/etc/rspamd/lua/:ro
+        - ./data/conf/rspamd/rspamd.conf.local:/etc/rspamd/rspamd.conf.local
+        - ./data/conf/rspamd/rspamd.conf.override:/etc/rspamd/rspamd.conf.override
+        - rspamd-vol-1:/var/lib/rspamd
+
+php-fpm
+ volumes:
+        - ./data/hooks/phpfpm:/hooks
+        - ./data/web:/web:rw
+        - ./data/conf/rspamd/dynmaps:/dynmaps:ro
+        - ./data/conf/rspamd/custom/:/rspamd_custom_maps
+        - rspamd-vol-1:/var/lib/rspamd
+        - mysql-socket-vol-1:/var/run/mysqld/
+        - ./data/conf/sogo/:/etc/sogo/
+        - ./data/conf/rspamd/meta_exporter:/meta_exporter:ro
+        - ./data/conf/phpfpm/sogo-sso/:/etc/sogo-sso/
+        - ./data/conf/phpfpm/php-fpm.d/pools.conf:/usr/local/etc/php-fpm.d/z-pools.conf
+        - ./data/conf/phpfpm/php-conf.d/opcache-recommended.ini:/usr/local/etc/php/conf.d/opcache-recommended.ini
+        - ./data/conf/phpfpm/php-conf.d/upload.ini:/usr/local/etc/php/conf.d/upload.ini
+        - ./data/conf/phpfpm/php-conf.d/other.ini:/usr/local/etc/php/conf.d/zzz-other.ini
+
+sogo
+      volumes:
+        - ./data/conf/sogo/:/etc/sogo/
+        - ./data/web/inc/init_db.inc.php:/init_db.inc.php
+        - ./data/conf/sogo/custom-sogo.js:/usr/lib/GNUstep/SOGo/WebServerResources/js/custom-sogo.js
+        - mysql-socket-vol-1:/var/run/mysqld/
+        - sogo-web-vol-1:/sogo_web
+
+dovecot
+      volumes:
+        - ./data/hooks/dovecot:/hooks
+        - ./data/conf/dovecot:/etc/dovecot
+        - ./data/assets/ssl:/etc/ssl/mail/:ro
+        - ./data/conf/sogo/:/etc/sogo/
+        - ./data/conf/phpfpm/sogo-sso/:/etc/phpfpm/
+        - vmail-vol-1:/var/vmail
+        - vmail-attachments-vol-1:/var/attachments
+        - crypt-vol-1:/mail_crypt/
+        - ./data/conf/rspamd/custom/:/etc/rspamd/custom
+        - ./data/assets/templates:/templates
+        - rspamd-vol-1:/var/lib/rspamd
+        - mysql-socket-vol-1:/var/run/mysqld/
+
+whole section of postfix from mailcow
+
+    postfix-mailcow:
+      image: mailcow/postfix:1.44
+      depends_on:
+        - mysql-mailcow
+      volumes:
+        - ./data/conf/postfix:/opt/postfix/conf
+        - ./data/assets/ssl:/etc/ssl/mail/:ro
+        - postfix-vol-1:/var/spool/postfix
+        - crypt-vol-1:/var/lib/zeyple
+        - rspamd-vol-1:/var/lib/rspamd
+        - mysql-socket-vol-1:/var/run/mysqld/
+      environment:
+        - LOG_LINES=${LOG_LINES:-9999}
+        - TZ=${TZ}
+        - DBNAME=${DBNAME}
+        - DBUSER=${DBUSER}
+        - DBPASS=${DBPASS}
+      cap_add:
+        - NET_BIND_SERVICE
+      ports:
+        - "${SMTP_PORT:-25}:25"
+        - "${SMTPS_PORT:-465}:465"
+        - "${SUBMISSION_PORT:-587}:587"
+      restart: always
+      dns:
+        - ${IPV4_NETWORK:-172.22.1}.254
+      hostname: ${MAILCOW_HOSTNAME}
+      networks:
+        mailcow-network:
+          aliases:
+            - postfix
+
+
+
+
+
+
+http://www.linux-commands.eu/postfix-installation/
+You will have to provide a number of paths (if you want them different from defaults. These are the main defaults:
+
+/etc/postfix                  # config dir
+
+/usr/sbin/                   #administrative binaries
+
+/usr/libexec/postfix   #postfix daemon
+
+/var/lib/postfix           #cache and other random data
+
+/usr/bin/mailq            #Sendmail compatible mail queue listing command
+
+/usr/bin/newaliases   #Postfix newaliases command
+
+/var/spool/postfix      #Postfix queue directory
+
+/usr/sbin/sendmail    #Sendmail compatible mail posting interface
+
+
+Aug 12 2020
+after running compose can't login 
+
+https://github.com/postfixadmin/docker/issues/6
+
+This did the trick
+docker exec -it postfix-etc-containerized_postfixadmin_1 /var/www/html/scripts/postfixadmin-cli admin add
+
+user steve@charming.co.il
+password EthanDavid12
+
+
+steve@DESKTOP-6VK9MUK:/mnt/c/Users/rabis/OneDrive/samples/Charming/scripts/postfix-server/postfix-etc-containerized$ docker exec -it postfix-etc-containerized_postfixadmin_1 /var/www/html/scripts/postfixadmin-cli --help
+
+Welcome to Postfixadmin-CLI v0.2
+---------------------------------------------------------------
+Usage:
+    postfixadmin-cli <module> <task> [--option value --option2 value]
+
+Available modules:
+    admin
+    domain
+    mailbox
+    alias
+    aliasdomain
+    fetchmail
+
+Most modules support the following tasks:
+    view      View an item
+    add       Add an item
+    update    Update an item
+    delete    Delete an item
+    scheme    Print database scheme (useful for developers only)
+    help      Print help output
+
+
+For module-specific help, see:
+
+    postfixadmin-cli <module> help
+        print a detailed list of available commands
+
+    postfixadmin-cli <module> <task> help
+        print a list of available options.
+
+steve@DESKTOP-6VK9MUK:/mnt/c/Users/rabis/OneDrive/samples/Charming/scripts/postfix-server/postfix-etc-containerized$
+
+
+The history for good installation of alpine postfix - not in containers
+
+home:~$ history
+   0 su -l root
+   1 sudo -i
+   2 top
+   3 screen
+   4 sudo -i
+   5 screen -x
+   6 ip a
+   7 wget http://downloads.sourceforge.net/project/postfixadmin/postfixadmin/postfixadmin-2.93/postfixadmin-2.93.tar.gz
+   8 tar zxvf postfixadmin-2.93.tar.gz
+   9 mkdir -p /var/www/domains/host.example.com/www/postfixadmin
+  10 mv  postfixadmin-2.3.3/* /var/www/domains/host.example.com/www/postfixadmin
+  11 sudo mv postfixadmin-2.3.3/* /var/www/localhost/htdocs
+  12 ls
+  13 screen
+  14 exit
+  15 screen -x
+  16 screen
+  17 screen -x
+  18 screen -x 2
+  19 exit
+  20 screen -x
+  21 exit
+  22 screen -x
+  23 exit
+  24 ip a
+  25 cd /etc/network/
+  26 ls
+  27 cp interfaces interfaces.orig
+  28 sudo -i
+  29 ip a
+  30 ssh 172.21.0.18
+  31 curl 172.21.0.18
+  32 screen -i
+  33 sudo -i
+  34 exit
+  35 exit
+  36 history
+  37 shutdown -h now
+  38 exit
+  39 ip a
+  40 ping 8.8.8.8
+  41 sudo poweroff
+  42 ping 8.8.8.8
+  43 history
+  44 cd /etc/network/
+  45 ls
+  46 cat interfaces
+  47 ping 172.21.0.1
+  48 ip a
+  49 sudo vi interfaces
+  50 sudo su
+  51 sudo shutoff
+  52 sudo poweroff
+  53 history
+home:~$ sudo history
+[sudo] password for steve:
+sudo: history: command not found
+home:~$ sudo -i
+home:~# history
+   0 ip s
+   1 ip a
+   2 useradd steve
+   3 adduser steve
+   4 apk add sudo
+   5 echo '%wheel ALL=(ALL) ALL' > /etc/sudoers.d/wheel
+   6 adduser steve wheel
+   7  apk add lighttpd php php-cgi php-pgsql php-imap php-mbstring
+   8 vi /etc/apk/repositories
+   9 apk update
+  10 apk add lighttpd php php-cgi php-pgsql php-imap php-mbstring
+  11 apk add lighttpd php5 php-cgi php-pgsql php-imap php-mbstring
+  12 apk add lighttpd php php-cgi php-pgsql php-imap php-mbstring
+  13 mkdir -p /var/www/domains/host.example.com/www
+  14 mkdir -p /var/www/domains/home.gindi/www
+  15 apk install screen
+  16 apk add  screen
+  17 exit
+  18 cd /var/www/domains/
+  19 rm -rf host.example.com/
+  20 add sudo to alpine - https://docs.alpinelinux.org/user-handbook/0.1a/Working/post-install.html
+  21 cat <<-EOF >/var/www/domains/home.gindi/www/index.html
+  22 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+  23 <html lang="en">
+  24 <head>
+  25 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+  26 <title>home.gindi  Redirector</title>
+  27 </head>
+  28 <body>
+  29 <ul>
+  30 <li><a href="/postfixadmin">PostfixAdmin</a></li>
+  31 <li><a href="/roundcube">Roundcube</a></li>
+  32 </ul>
+  33 </body>
+  34 EOF
+  35 openssl pkcs12 -nokeys -cacerts -in certificate.pfx  -out /etc/lighttpd/ca-crt.pem
+  36  openssl pkcs12 -nodes -in certificate.pfx -out /etc/lighttpd/server-bundle.pem
+  37  chown root:root /etc/lighttpd/server-bundle.pem
+  38  chmod 400 /etc/lighttpd/server-bundle.pem
+  39  chown root:root /etc/lighttpd/server-bundle.pem
+  40 openssl pkcs12 -nokeys -cacerts -in certificate.pfx  -out /etc/lighttpd/ca-crt.pem
+  41 cd /etc/lighttpd/
+  42 ls
+  43 /sbin/setup-acf
+  44 apk add acf-openssl
+  45 netstat -nap | grep 80
+  46 curl  151.101.114.133:80
+  47 apk add curl
+  48  curl  151.101.114.133:80
+  49 ip a
+  50  curl  http://151.101.114.133:80
+  51 curl  http://151.101.114.133:80
+  52 vi /etc/lighttpd/lighttpd.conf
+  53 rc-update add lighttpd
+  54 rc
+  55 addgroup lighttpd
+  56 rc
+  57 vi /etc/lighttpd/lighttpd.conf
+  58 apk add lighttpd gamin
+  59 mkdir -p /var/www/localhost/htdocs /var/log/lighttpd /var/lib/lighttpd
+  60 vi /etc/lighttpd/lighttpd.conf
+  61 sed -i -r 's#\#.*server.event-handler = "linux-sysepoll".*#server.event-handler = "linux-sysepoll"#g' /etc/lighttpd/lighttpd.conf
+  62 vi /etc/lighttpd/lighttpd.conf
+  63 mkdir -p /var/lib/lighttpd
+  64 chown -R lighttpd:lighttpd /var/www/localhost/
+  65 chown -R lighttpd:lighttpd /var/lib/lighttpd
+  66 chown -R lighttpd:lighttpd /var/log/lighttpd
+  67 rc-update add lighttpd default
+  68 rc-service lighttpd restart
+  69 echo "it works" > /var/www/localhost/htdocs/index.html
+  70 rc
+  71 vi /etc/lighttpd/lighttpd.conf
+  72 rc
+  73 vi /etc/lighttpd/lighttpd.conf
+  74 rc
+  75 vi /etc/lighttpd/lighttpd.conf
+  76 rc
+  77 vi /etc/lighttpd/lighttpd.conf
+  78 rc
+  79 curl localhost
+  80 apk add postgresql postgresql-client
+  81 apk add lighttpd gamin
+  82 mkdir -p /var/www/localhost/htdocs /var/log/lighttpd /var/lib/lighttpd
+  83 sed -i -r 's#\#.*server.port.*=.*#server.port          = 80#g' /etc/lighttpd/lighttpd.conf
+  84 sed -i -r 's#.*server.stat-cache-engine.*=.*# server.stat-cache-engine = "fam"#g' /etc/lighttpd/lighttpd.conf
+  85 sed -i -r 's#\#.*server.event-handler = "linux-sysepoll".*#server.event-handler = "linux-sysepoll"#g' /etc/lighttpd/lighttpd.conf
+  86 mkdir -p /var/lib/lighttpd
+  87 chown -R lighttpd:lighttpd /var/www/localhost/
+  88 chown -R lighttpd:lighttpd /var/lib/lighttpd
+  89 chown -R lighttpd:lighttpd /var/log/lighttpd
+  90 rc-update add lighttpd default
+  91 rc-service lighttpd restart
+  92 echo "it works" > /var/www/localhost/htdocs/index.html
+  93 rc
+  94 vi /etc/lighttpd/lighttpd.conf
+  95 /etc/init.d/postgresql setup
+  96  /etc/init.d/postgresql start
+  97 rc
+  98 vi /etc/lighttpd/lighttpd.conf
+  99 rc
+ 100 vi /etc/lighttpd/lighttpd.conf
+ 101 rc
+ 102 psql -U postgres
+ 103 ping 8.8.8.8
+ 104 ip a
+ 105 cd ~steve/
+ 106 sudo mv postfixadmin-2.9.3/* /var/www/localhost/htdocs
+ 107 ls
+ 108 sudo mv postfixadmin-2.93/* /var/www/localhost/htdocs
+ 109 cd /etc/lighttpd/
+ 110 ls
+ 111 cp lighttpd.conf lighttpd.conf.works
+ 112 vi lighttpd.conf
+ 113 cd /var/www/localhost/htdocs/
+ 114 pwd
+ 115 cd /var/www/localhost/htdocs/
+ 116 ls -al
+ 117 cd ~steve/
+ 118 ls
+ 119 mv postfixadmin-2.93 /var/www/localhost/htdocs
+ 120 ls
+ 121 cd /var/www/localhost/htdocs/
+ 122 cd postfixadmin-2.93/
+ 123 ls
+ 124 ls -al
+ 125 cd ..
+ 126 rm postfixadmin-2.93/
+ 127 rm -rf postfixadmin-2.93/
+ 128 cd ~steve/
+ 129 tar zxvf postfixadmin-2.93.tar.gz
+ 130 ls -al postfixadmin-2.93
+ 131 cp -r postfixadmin-2.93 /var/www/localhost/htdocs/
+ 132 ls /var/www/localhost/htdocs/postfixadmin-2.93/
+ 133 cd /var/www/localhost/htdocs/postfixadmin-2.93/
+ 134 ls
+ 135 vi config.inc.php
+ 136 ls -al
+ 137 cd ..
+ 138 ls -al
+ 139 cat index.html
+ 140 chmod -R  777 postfixadmin-2.93/
+ 141 su - steve
+ 142 exit
+ 143 reboot
+ 144 cd /etc/network/
+ 145 cp interfaces interfaces.orig
+ 146 vi interfaces
+ 147 /etc/init.d/networking restart
+ 148 ip a
+ 149 reboot
+ 150 ip a
+ 151 ssh localhost
+ 152 ssh steve@localhost
+ 153 cd /var/log/
+ 154 ls
+ 155 cd lighttpd/
+ 156 ls -al
+ 157 cat error.log
+ 158 date
+ 159 cat access.log
+ 160 cd /var/www/localhost/htdocs/
+ 161 ls
+ 162 cat /etc/passwd
+ 163 chown -R lighttpd:lighttpd ./*
+ 164 cd /var/log/
+ 165 cd lighttpd/
+ 166 cat error.log
+ 167 tail -f  error.log
+ 168 tail -f  access.log
+ 169 service lighttpd stop;  ps -e | grep "lighttpd"
+ 170 service lighttpd start;  ps -e | grep "lighttpd"
+ 171 cd /etc/lighttpd/
+ 172 vi lighttpd.conf
+ 173 service lighttpd restart;  ps -e | grep "lighttpd"
+ 174 apk add lighttpd php php-cgi php-pgsql php-imap php-mbstring
+ 175 service lighttpd restart;  ps -e | grep "lighttpd"
+ 176 apk add gamin
+ 177 apk search gamin
+ 178 vi /etc/apk/repositories
+ 179 apk update
+ 180 apk search gamin
+ 181 apk add gamin
+ 182 apk add lighttpd php php-cgi php-pgsql php-imap php-mbstring
+ 183 vi /etc/apk/repositories
+ 184 apk update
+ 185 vi lighttpd.conf
+ 186 service lighttpd restart;  ps -e | grep "lighttpd"
+ 187 vi lighttpd.conf
+ 188 service lighttpd restart;  ps -e | grep "lighttpd"
+ 189 cd /var/www/localhost/htdocs
+ 190 cd postfixadmin-2.93/
+ 191 vi config.inc.php
+ 192 psql -U root
+ 193 psql -Uroot
+ 194 psql -U postgres
+ 195 apk add lighttpd php php-cgi php-pgsql php-imap php-mbstring
+ 196 /etc/init.d/postgresql start
+ 197 apk search session
+ 198 apk add php7-session
+ 199 service lighttpd restart;  ps -e | grep "lighttpd"
+ 200 vi config.inc.php
+ 201 apk add dovecot
+ 202 apk add postfix postfix-pgsql postfix-pcre
+ 203 grep vmail /etc/passwd
+ 204 mkdir -p /var/mail/domains
+ 205 chown -R vmail:postdrop /var/mail/domains
+ 206 vi /etc/postfix/main.cf
+ 207 cd /etc/postfix/
+ 208 cp main.cf main.cf.orig
+ 209 rm main.cf
+ 210 vi main.cf
+ 211 grep vmail /etc/passwd
+ 212 cat /etc/group
+ 213 vi main.cf
+ 214 cd ~steve/
+ 215 vi fix-postfix-for-mysql.sh
+ 216 sh ./fix-postfix-for-mysql.sh
+ 217 newaliases
+ 218 /etc/init.d/postfix start
+ 219 rc-update add postgresql
+ 220 cd /var/mail/domains/home.gindi.cloud/stevie2/
+ 221 ls
+ 222 cat new/
+ 223 cat new/1597177222.V803I6405caM789354.home
+ 224 exit
+ 225 cat /etc/passwd
+ 226 history
+ 227 ip a
+ 228 ssh localhost
+ 229 ssh steve@localhost
+ 230 poweroff
+ 231 ls
+ 232 cp interfaces interfaces.setip
+ 233 vi interfaces
+
+home:~#
+

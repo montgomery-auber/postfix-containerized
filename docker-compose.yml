@@ -1,0 +1,69 @@
+##Write script that creates dirs and users
+# https://hub.docker.com/_/postfixadmin
+version: '3.7'
+services:
+   db:
+     image: mysql:5.7 ### - USE POSTGRES instead but also mysql - offer MAnanged db
+     restart: unless-stopped
+     environment:
+       MYSQL_ROOT_PASSWORD: notSecureChangeMe
+       MYSQL_DATABASE: postfixadmin
+       MYSQL_USER: postfixadmin
+       MYSQL_PASSWORD: postfixadminPassword  #### PUT into encrypted secrets
+
+   postfixadmin:
+     depends_on:
+       - db
+     image: postfixadmin:latest
+     ports:
+       - "8000:80"
+     restart: unless-stopped
+     environment:
+       POSTFIXADMIN_DB_TYPE: mysqli
+       POSTFIXADMIN_DB_HOST: db
+       POSTFIXADMIN_DB_USER: postfixadmin
+       POSTFIXADMIN_DB_NAME: postfixadmin
+       POSTFIXADMIN_DB_PASSWORD: postfixadminPassword #### PUT into encrypted secrets
+       POSTFIXADMIN_SMTP_SERVER: postfix
+       POSTFIXADMIN_SMTP_PORT: 25
+
+   postfix:
+     container_name: postfix_server
+     build:  
+       context: .
+       dockerfile: Dockerfile-postfix-alpine
+     restart: unless-stopped
+     #environment: 
+         # VARS HERE
+     volumes:
+       - /etc/localtime:/etc/localtime:ro
+       - /etc/timezone:/etc/timezone:ro 
+       - ./:/postfix-etc-containerized
+       # Put it all in easy dir for backups - make links on host from original location 
+       #Create linux user postfix and set UID / GID as same for containers - set for opt
+       - ./etc/postfix:/etc/postfix
+       - ./var/spool/postfix:/var/spool/postfix
+       - ./var/spool/mail:/var/spool/mail
+       - ./var/log:/var/log
+       - ./var/mail:/var/mail
+     ports:
+       - 25:25
+       - 465:465
+       - 587:587
+
+          
+# entrypoint: tail -f /dev/null - CAN use postfix - that way log goes to stdout
+#
+#Install Nginx PHP and MySQL
+#Configure Postfix Admin - already have working docker-compose
+#LETSENCRYPT
+#Mostly follow instructions from:
+#https://wiki.alpinelinux.org/wiki/Hosting_Web/Email_services_on_Alpine
+# https://wiki.alpinelinux.org/wiki/ISP_Mail_Server_3.x_HowTo - postfixadmin
+#
+#Dockerrize this page - https://linuxize.com/post/set-up-an-email-server-with-postfixadmin/
+
+
+
+
+
