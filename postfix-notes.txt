@@ -1,12 +1,13 @@
 action items
-reverse dns - http://floatingcloud.io/how-to-get-reverse-dns-for-your-ec2-instance-as-well-as-to-raise-email-sending-limit-amazon-web-services/
 create docker for postfix that send 
 create that also receives 
 web interface for postfix 
+run postfixadmin-cli to add the admin from the cloudformation form
+
 figure backup strategy for postfix 
 Put it all in /opt/postfix-containerized easy dir for backups - make links on host from original location 
 Create linux user postfix and set UID / GID as same for containers - set for opt
-install script to create dirs on server under /opt/postfix
+install script to create dirs on server under 
 things to remember - timezone in every container as well as asking in cloudformation 
 put sql db on volume 
 create certs container
@@ -17,10 +18,13 @@ create dovecot container - start with dovecot on a different server
 figure backup strategy for
 ON AWS do it in /opt/postfix but still using ./ for docker-compose file
 figure where spam stuff goes, fail2ban ? or just spamhaus and spamassassin
+
 create different machine containers for webmail - maybe use a couple
+
 set default  password as instance ID 
 Encrypted ebs - https://aws.amazon.com/blogs/compute/must-know-best-practices-for-amazon-ebs-encryption/
- 
+
+reverse dns - http://floatingcloud.io/how-to-get-reverse-dns-for-your-ec2-instance-as-well-as-to-raise-email-sending-limit-amazon-web-services/ 
 cloudformation to put it together 
 
 users inside postfix server are
@@ -161,12 +165,6 @@ http://gindi.home/postfixadmin-2.93/setup.php
 
 Please edit config.inc.php - change $CONF['configured'] to true after setting your database settings
 
-
-
-
-
-
-
 I did NOT do this before running postfixadmin install - see if its busted
 
 following is from https://wiki.alpinelinux.org/wiki/ISP_Mail_Server_3.x_HowTo
@@ -181,9 +179,6 @@ vmail:x:101:102:vmail:/var/mail/domains:/sbin/nologin
 mkdir -p /var/mail/domains
 # do volume for domains 
 chown -R vmail:postdrop /var/mail/domains
-
-
-
 
 NOTE: with this encrypt configuration, dovecot is required by postfixadmin to encrypt the SuperAdmin password
 
