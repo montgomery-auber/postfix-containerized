@@ -18,12 +18,16 @@ if [ "$UID" != "0" ]; then
 fi
 
 # put install docker and compose here
+#add user postfix 
+
+./prepare-postifx.sh: line 30: cd: /etc/postfix: No such file or directory
+mkdir: cannot create directory ‘sql’: File exists
+chown: invalid user: ‘postfix:postfix’
+
 
 mkdir -p ./etc/postfix ./var/spool/postfix ./var/spool/mail ./var/log ./var/mail ./var/mail/domains
 
 chown -R 100:101 ./var/spool/
-
-mkdir -p 
 
 chown -R 101:102 ./var/mail/domains
 
