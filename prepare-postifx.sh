@@ -20,11 +20,6 @@ fi
 # put install docker and compose here
 #add user postfix 
 
-./prepare-postifx.sh: line 30: cd: /etc/postfix: No such file or directory
-mkdir: cannot create directory ‘sql’: File exists
-chown: invalid user: ‘postfix:postfix’
-
-
 mkdir -p ./etc/postfix ./var/spool/postfix ./var/spool/mail ./var/log ./var/mail ./var/mail/domains
 
 chown -R 100:101 ./var/spool/
@@ -32,7 +27,7 @@ chown -R 100:101 ./var/spool/
 chown -R 101:102 ./var/mail/domains
 
 #The following needs to be owned by root
-cd /etc/postfix
+cd ./etc/postfix
 mkdir sql
 #PGPW="byg2812"
 
@@ -84,7 +79,8 @@ dbname = postfix
 query = Select maildir from mailbox where username='%s' and active=true
 EOF
 
-chown -R postfix:postfix sql
+#chown -R postfix:postfix sql
+chown -R 100:101 sql
 chmod 640 sql/*
 
 
