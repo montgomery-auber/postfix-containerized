@@ -28,7 +28,7 @@ chown -R 101:102 ./var/mail/domains
 
 #The following needs to be owned by root
 cd ./etc/postfix
-mkdir sql
+#mkdir sql
 #PGPW="byg2812"
 
 cat - <<EOF >sql/pgsql_virtual_alias_domain_catchall_maps.cf
