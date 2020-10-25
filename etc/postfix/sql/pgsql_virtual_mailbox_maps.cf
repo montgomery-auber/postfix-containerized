@@ -1,5 +1,0 @@
-user=postfixadmin
-password = postfixadminPassword
-hosts = localhost
-dbname = postfixadmin
-query = Select maildir from mailbox where username='%s' and active=true

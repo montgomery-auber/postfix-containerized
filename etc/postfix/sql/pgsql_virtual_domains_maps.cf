@@ -1,5 +1,0 @@
-user=postfixadmin
-password = postfixadminPassword
-hosts = localhost
-dbname = postfixadmin
-query = Select domain from domain where domain='%s' and active='1'
