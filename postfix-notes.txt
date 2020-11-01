@@ -1065,32 +1065,71 @@ error in adding user
 November 1 2020 - ran prepare-postfix.sh script for the firt time. checking email the log got lots of errors
 
 
-postfixadmin    | 172.21.0.15 - - [01/Nov/2020:19:36:23 +0000] "-" 408 0 "-" "-"
-postfix_server  | Nov 01 21:37:25 home postfix/smtpd[175]: warning: /etc/postfix/dynamicmaps.cf: file is owned or writable by non-root users -- skipping this file
-postfix_server  | Nov 01 21:37:25 home postfix/postlogd[176]: warning: /etc/postfix/dynamicmaps.cf: file is owned or writable by non-root users -- skipping this file
-postfix_server  | Nov 01 21:37:25 home postfix/proxymap[177]: warning: /etc/postfix/dynamicmaps.cf: file is owned or writable by non-root users -- skipping this file
-postfix_server  | Nov 01 21:37:25 home postfix/smtpd[175]: error: open database /etc/postfix/aliases.db: No such file or directory
-postfix_server  | Nov 01 21:37:25 home postfix/proxymap[177]: error: unsupported dictionary type: pgsql
-postfix_server  | Nov 01 21:37:25 home postfix/proxymap[177]: error: unsupported dictionary type: pgsql
-postfix_server  | Nov 01 21:37:25 home postfix/proxymap[177]: error: unsupported dictionary type: pgsql
-postfix_server  | Nov 01 21:37:25 home postfix/proxymap[177]: error: unsupported dictionary type: pgsql
-postfix_server  | Nov 01 21:37:25 home postfix/proxymap[177]: error: unsupported dictionary type: pgsql
-postfix_server  | Nov 01 21:37:25 home postfix/smtpd[175]: warning: queue_minfree(51200000) should be at least 1.5*message_size_limit(104857600)
-postfix_server  | Nov 01 21:37:25 home postfix/smtpd[175]: connect from a48-109.smtp-out.amazonses.com[54.240.48.109]
-postfix_server  | Nov 01 21:37:25 home postfix/smtpd[175]: lost connection after EHLO from a48-109.smtp-out.amazonses.com[54.240.48.109]
-postfix_server  | Nov 01 21:37:25 home postfix/smtpd[175]: disconnect from a48-109.smtp-out.amazonses.com[54.240.48.109] ehlo=1 commands=1
-postfix_server  | Nov 01 21:37:26 home postfix/smtpd[175]: connect from a48-109.smtp-out.amazonses.com[54.240.48.109]
-postfix_server  | Nov 01 21:37:26 home postfix/trivial-rewrite[178]: warning: /etc/postfix/dynamicmaps.cf: file is owned or writable by non-root users -- skipping this file
-postfix_server  | Nov 01 21:37:26 home postfix/proxymap[177]: error: unsupported dictionary type: pgsql
-postfix_server  | Nov 01 21:37:26 home postfix/proxymap[177]: warning: pgsql:/etc/postfix/sql/pgsql_virtual_alias_maps.cf is unavailable. unsupported dictionary type: pgsql
-postfix_server  | Nov 01 21:37:26 home postfix/trivial-rewrite[178]: warning: virtual_alias_domains: proxy:pgsql:/etc/postfix/sql/pgsql_virtual_alias_maps.cf: table lookup problem
-postfix_server  | Nov 01 21:37:26 home postfix/trivial-rewrite[178]: warning: virtual_alias_domains lookup failure
-postfix_server  | Nov 01 21:37:26 home postfix/proxymap[177]: warning: pgsql:/etc/postfix/sql/pgsql_virtual_alias_maps.cf is unavailable. unsupported dictionary type: pgsql
-postfix_server  | Nov 01 21:37:26 home postfix/trivial-rewrite[178]: warning: virtual_alias_domains: proxy:pgsql:/etc/postfix/sql/pgsql_virtual_alias_maps.cf: table lookup problem
-postfix_server  | Nov 01 21:37:26 home postfix/trivial-rewrite[178]: warning: virtual_alias_domains lookup failure
-postfix_server  | Nov 01 21:37:26 home postfix/proxymap[177]: warning: pgsql:/etc/postfix/sql/pgsql_virtual_alias_maps.cf is unavailable. unsupported dictionary type: pgsql
-postfix_server  | Nov 01 21:37:26 home postfix/trivial-rewrite[178]: warning: virtual_alias_domains: proxy:pgsql:/etc/postfix/sql/pgsql_virtual_alias_maps.cf: table lookup problem
-postfix_server  | Nov 01 21:37:26 home postfix/trivial-rewrite[178]: warning: virtual_alias_domains lookup failure
 postfix_server  | Nov 01 21:37:26 home postfix/smtpd[175]: NOQUEUE: reject: RCPT from a48-109.smtp-out.amazonses.com[54.240.48.109]: 451 4.3.0 <0100017585507902-fbc71984-da43-4ef2-8ca0-b65e4c015776-000000@amazonses.com>: Temporary lookup failure; from=<0100017585507902-fbc71984-da43-4ef2-8ca0-b65e4c015776-000000@amazonses.com> to=<steve@home.gindi.cloud> proto=ESMTP helo=<a48-109.smtp-out.amazonses.com>
 
+
+
+
+postfixadmin    | 172.21.0.15 - - [01/Nov/2020:19:52:38 +0000] "-" 408 0 "-" "-"
+postfix_server  | Nov 01 21:55:06 home postfix/anvil[173]: statistics: max connection rate 1/60s for (smtp:10.10.5.4) at Nov  1 21:51:46
+postfix_server  | Nov 01 21:55:06 home postfix/anvil[173]: statistics: max connection count 1 for (smtp:10.10.5.4) at Nov  1 21:51:46
+postfix_server  | Nov 01 21:55:06 home postfix/anvil[173]: statistics: max cache size 1 at Nov  1 21:51:46
+postfix_server  | Nov 01 21:55:06 home postfix/postlogd[175]: warning: /etc/postfix/dynamicmaps.cf: file is owned or writable by non-root users -- skipping this file
+postfix_server  | Nov 01 21:55:12 home postfix/smtpd[176]: warning: /etc/postfix/dynamicmaps.cf: file is owned or writable by non-root users -- skipping this file
+postfix_server  | Nov 01 21:55:12 home postfix/proxymap[177]: warning: /etc/postfix/dynamicmaps.cf: file is owned or writable by non-root users -- skipping this file
+postfix_server  | Nov 01 21:55:12 home postfix/smtpd[176]: error: open database /etc/postfix/aliases.db: No such file or directory
+postfix_server  | Nov 01 21:55:12 home postfix/proxymap[177]: error: unsupported dictionary type: pgsql
+postfix_server  | Nov 01 21:55:12 home postfix/proxymap[177]: error: unsupported dictionary type: pgsql
+postfix_server  | Nov 01 21:55:12 home postfix/proxymap[177]: error: unsupported dictionary type: pgsql
+postfix_server  | Nov 01 21:55:12 home postfix/proxymap[177]: error: unsupported dictionary type: pgsql
+postfix_server  | Nov 01 21:55:12 home postfix/proxymap[177]: error: unsupported dictionary type: pgsql
+postfix_server  | Nov 01 21:55:12 home postfix/smtpd[176]: warning: queue_minfree(51200000) should be at least 1.5*message_size_limit(104857600)
+postfix_server  | Nov 01 21:55:12 home postfix/smtpd[176]: connect from a8-30.smtp-out.amazonses.com[54.240.8.30]
+postfix_server  | Nov 01 21:55:12 home postfix/anvil[178]: warning: /etc/postfix/dynamicmaps.cf: file is owned or writable by non-root users -- skipping this file
+postfix_server  | Nov 01 21:55:13 home postfix/smtpd[176]: lost connection after EHLO from a8-30.smtp-out.amazonses.com[54.240.8.30]
+postfix_server  | Nov 01 21:55:13 home postfix/smtpd[176]: disconnect from a8-30.smtp-out.amazonses.com[54.240.8.30] ehlo=1 commands=1
+postfix_server  | Nov 01 21:55:13 home postfix/smtpd[176]: connect from a8-30.smtp-out.amazonses.com[54.240.8.30]
+postfix_server  | Nov 01 21:55:13 home postfix/trivial-rewrite[179]: warning: /etc/postfix/dynamicmaps.cf: file is owned or writable by non-root users -- skipping this file
+postfix_server  | Nov 01 21:55:13 home postfix/proxymap[177]: error: unsupported dictionary type: pgsql
+postfix_server  | Nov 01 21:55:13 home postfix/proxymap[177]: warning: pgsql:/etc/postfix/sql/pgsql_virtual_alias_maps.cf is unavailable. unsupported dictionary type: pgsql
+postfix_server  | Nov 01 21:55:13 home postfix/trivial-rewrite[179]: warning: virtual_alias_domains: proxy:pgsql:/etc/postfix/sql/pgsql_virtual_alias_maps.cf: table lookup problem
+postfix_server  | Nov 01 21:55:13 home postfix/trivial-rewrite[179]: warning: virtual_alias_domains lookup failure
+postfix_server  | Nov 01 21:55:13 home postfix/proxymap[177]: warning: pgsql:/etc/postfix/sql/pgsql_virtual_alias_maps.cf is unavailable. unsupported dictionary type: pgsql
+postfix_server  | Nov 01 21:55:13 home postfix/trivial-rewrite[179]: warning: virtual_alias_domains: proxy:pgsql:/etc/postfix/sql/pgsql_virtual_alias_maps.cf: table lookup problem
+postfix_server  | Nov 01 21:55:13 home postfix/trivial-rewrite[179]: warning: virtual_alias_domains lookup failure
+postfix_server  | Nov 01 21:55:13 home postfix/proxymap[177]: warning: pgsql:/etc/postfix/sql/pgsql_virtual_alias_maps.cf is unavailable. unsupported dictionary type: pgsql
+postfix_server  | Nov 01 21:55:13 home postfix/trivial-rewrite[179]: warning: virtual_alias_domains: proxy:pgsql:/etc/postfix/sql/pgsql_virtual_alias_maps.cf: table lookup problem
+postfix_server  | Nov 01 21:55:13 home postfix/trivial-rewrite[179]: warning: virtual_alias_domains lookup failure
+postfix_server  | Nov 01 21:55:13 home postfix/smtpd[176]: NOQUEUE: reject: RCPT from a8-30.smtp-out.amazonses.com[54.240.8.30]: 451 4.3.0 <010001758560c194-c3951e59-f019-4f38-a6d4-b02bd370136b-000000@amazonses.com>: Temporary lookup failure; from=<010001758560c194-c3951e59-f019-4f38-a6d4-b02bd370136b-000000@amazonses.com> to=<steve@home.gindi.cloud> proto=ESMTP helo=<a8-30.smtp-out.amazonses.com>
+postfix_server  | Nov 01 21:55:35 home postfix/smtpd[176]: disconnect from a8-30.smtp-out.amazonses.com[54.240.8.30] ehlo=1 mail=1 rcpt=0/1 rset=1 quit=1 commands=4/5
+
+o) Chrome/86.0.4240.111 Safari/537.36"
+p
+
+-- last try November 1
+
+
+postfix_server  | Nov 01 22:07:31 home postfix/smtpd[117]: error: open database /etc/postfix/aliases.db: No such file or directory
+postfix_server  | Nov 01 22:07:31 home postfix/proxymap[118]: error: unsupported dictionary type: pgsql
+postfix_server  | Nov 01 22:07:31 home postfix/proxymap[118]: error: unsupported dictionary type: pgsql
+postfix_server  | Nov 01 22:07:31 home postfix/proxymap[118]: error: unsupported dictionary type: pgsql
+postfix_server  | Nov 01 22:07:31 home postfix/proxymap[118]: error: unsupported dictionary type: pgsql
+postfix_server  | Nov 01 22:07:31 home postfix/proxymap[118]: error: unsupported dictionary type: pgsql
+postfix_server  | Nov 01 22:07:31 home postfix/smtpd[117]: warning: queue_minfree(51200000) should be at least 1.5*message_size_limit(104857600)
+postfix_server  | Nov 01 22:07:31 home postfix/smtpd[117]: connect from a48-100.smtp-out.amazonses.com[54.240.48.100]
+postfix_server  | Nov 01 22:07:32 home postfix/smtpd[117]: lost connection after EHLO from a48-100.smtp-out.amazonses.com[54.240.48.100]
+postfix_server  | Nov 01 22:07:32 home postfix/smtpd[117]: disconnect from a48-100.smtp-out.amazonses.com[54.240.48.100] ehlo=1 commands=1
+postfix_server  | Nov 01 22:07:32 home postfix/smtpd[117]: connect from a48-100.smtp-out.amazonses.com[54.240.48.100]
+postfix_server  | Nov 01 22:07:32 home postfix/proxymap[118]: error: unsupported dictionary type: pgsql
+postfix_server  | Nov 01 22:07:32 home postfix/proxymap[118]: warning: pgsql:/etc/postfix/sql/pgsql_virtual_alias_maps.cf is unavailable. unsupported dictionary type: pgsql
+postfix_server  | Nov 01 22:07:32 home postfix/trivial-rewrite[120]: warning: virtual_alias_domains: proxy:pgsql:/etc/postfix/sql/pgsql_virtual_alias_maps.cf: table lookup problem
+postfix_server  | Nov 01 22:07:32 home postfix/trivial-rewrite[120]: warning: virtual_alias_domains lookup failure
+postfix_server  | Nov 01 22:07:32 home postfix/proxymap[118]: warning: pgsql:/etc/postfix/sql/pgsql_virtual_alias_maps.cf is unavailable. unsupported dictionary type: pgsql
+postfix_server  | Nov 01 22:07:32 home postfix/trivial-rewrite[120]: warning: virtual_alias_domains: proxy:pgsql:/etc/postfix/sql/pgsql_virtual_alias_maps.cf: table lookup problem
+postfix_server  | Nov 01 22:07:32 home postfix/trivial-rewrite[120]: warning: virtual_alias_domains lookup failure
+postfix_server  | Nov 01 22:07:32 home postfix/proxymap[118]: warning: pgsql:/etc/postfix/sql/pgsql_virtual_alias_maps.cf is unavailable. unsupported dictionary type: pgsql
+postfix_server  | Nov 01 22:07:32 home postfix/trivial-rewrite[120]: warning: virtual_alias_domains: proxy:pgsql:/etc/postfix/sql/pgsql_virtual_alias_maps.cf: table lookup problem
+postfix_server  | Nov 01 22:07:32 home postfix/trivial-rewrite[120]: warning: virtual_alias_domains lookup failure
+postfix_server  | Nov 01 22:07:32 home postfix/smtpd[117]: NOQUEUE: reject: RCPT from a48-100.smtp-out.amazonses.com[54.240.48.100]: 451 4.3.0 <01000175856c0815-92dfb936-b44a-4d78-897a-a640f0b43750-000000@amazonses.com>: Temporary lookup failure; from=<01000175856c0815-92dfb936-b44a-4d78-897a-a640f0b43750-000000@amazonses.com> to=<steve@home.gindi.cloud> proto=ESMTP helo=<a48-100.smtp-out.amazonses.com>
+postfix_server  | Nov 01 22:07:57 home postfix/smtpd[117]: disconnect from a48-100.smtp-out.amazonses.com[54.240.48.100] ehlo=1 mail=1 rcpt=0/1 rset=1 quit=1 commands=4/5
 
