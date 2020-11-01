@@ -20,7 +20,7 @@ services:
        - mysql 
      image: postfixadmin:latest
      ports:
-       - "8000:80"
+       - "80:80"
      restart: unless-stopped
      environment:
        POSTFIXADMIN_DB_TYPE: mysqli
@@ -59,7 +59,7 @@ services:
 #LETSENCRYPT
 #Mostly follow instructions from:
 #https://wiki.alpinelinux.org/wiki/Hosting_Web/Email_services_on_Alpine
-# https://wiki.alpinelinux.org/wiki/ISP_Mail_Server_3.x_HowTo - postfixadmin
+#https://wiki.alpinelinux.org/wiki/ISP_Mail_Server_3.x_HowTo - postfixadmin
 #
 #Dockerrize this page - https://linuxize.com/post/set-up-an-email-server-with-postfixadmin/
 
