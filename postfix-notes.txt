@@ -541,16 +541,17 @@ https://github.com/postfixadmin/docker/issues/6
 
 This did the trick
 docker exec -it postfix-etc-containerized_postfixadmin_1 /var/www/html/scripts/postfixadmin-cli admin add
+
 docker exec -it postfixadmin /var/www/html/scripts/postfixadmin-cli admin add
 
-user steve@charming.co.il
-password goodpasswordd12
+user support@floatingcloud.io 
+password goodpassword12
 
 
 
 
 Admin:
-> steve@charming.co.il
+support@floatingcloud
 
 Password:
 > E 
@@ -1214,3 +1215,61 @@ postfix_server  | Nov 02 09:52:27 home postfix/postfix-script[152]: warning: gro
 postfix_server  | Nov 02 09:52:27 home postfix/postfix-script[153]: warning: group or other writable: /etc/postfix/./virtual
 postfix_server  | Nov 02 09:52:27 home postfix/postfix-script[164]: starting the Postfix mail system
 postfix_server  | Nov 02 09:52:27 home postfix/master[1]: daemon started -- version 3.4.7, configuration /etc/postfix
+
+
+
+hmail.float.i.ng	A	Simple	-	No	
+3.230.31.10 has mx 
+
+
+postfix:x:105:105:postfix:/var/spool/postfix:/sbin/nologin
+vmail:x:100:106:vmail:/var/mail/domains:/sbin/nologin
+
+:
+postfix:x:105:postfix
+postdrop:x:106:vmail
+
+
+
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+Nov 05 22:35:56 home postfix/postfix-script[52]: warning: not owned by root: /var/spool/postfix/.
+Nov 05 22:35:56 home postfix/postfix-script[53]: warning: not owned by root: /var/spool/postfix/pid
+Nov 05 22:35:56 home postfix/postfix-script[60]: warning: not owned by root: /etc/postfix/./sql
+Nov 05 22:35:56 home postfix/postfix-script[61]: warning: not owned by root: /etc/postfix/./sql/.gitignore
+Nov 05 22:35:56 home postfix/postfix-script[73]: starting the Postfix mail system
+Nov 05 22:35:56 home postfix/master[1]: daemon started -- version 3.4.7, configuration /etc/postfix
+
+
+
+
+Nov 05 22:36:44 home postfix/smtpd[77]: error: open database /etc/postfix/aliases.db: No such file or directory
+Nov 05 22:36:44 home postfix/proxymap[78]: error: unsupported dictionary type: pgsql
+Nov 05 22:36:44 home postfix/proxymap[78]: error: unsupported dictionary type: pgsql
+Nov 05 22:36:44 home postfix/proxymap[78]: error: unsupported dictionary type: pgsql
+Nov 05 22:36:44 home postfix/proxymap[78]: error: unsupported dictionary type: pgsql
+Nov 05 22:36:44 home postfix/proxymap[78]: error: unsupported dictionary type: pgsql
+Nov 05 22:36:44 home postfix/smtpd[77]: warning: queue_minfree(51200000) should be at least 1.5*message_size_limit(104857600)
+Nov 05 22:36:44 home postfix/smtpd[77]: connect from mail-oln040092069016.outbound.protection.outlook.com[40.92.69.16]
+Nov 05 22:36:44 home postfix/proxymap[78]: error: unsupported dictionary type: pgsql
+Nov 05 22:36:44 home postfix/proxymap[78]: warning: pgsql:/etc/postfix/sql/pgsql_virtual_alias_maps.cf is unavailable. unsupported dictionary type: pgsql
+Nov 05 22:36:44 home postfix/trivial-rewrite[80]: warning: virtual_alias_domains: proxy:pgsql:/etc/postfix/sql/pgsql_virtual_alias_maps.cf: table lookup problem
+Nov 05 22:36:44 home postfix/trivial-rewrite[80]: warning: virtual_alias_domains lookup failure
+Nov 05 22:36:44 home postfix/proxymap[78]: warning: pgsql:/etc/postfix/sql/pgsql_virtual_alias_maps.cf is unavailable. unsupported dictionary type: pgsql
+Nov 05 22:36:44 home postfix/trivial-rewrite[80]: warning: virtual_alias_domains: proxy:pgsql:/etc/postfix/sql/pgsql_virtual_alias_maps.cf: table lookup problem
+Nov 05 22:36:44 home postfix/trivial-rewrite[80]: warning: virtual_alias_domains lookup failure
+Nov 05 22:36:44 home postfix/proxymap[78]: warning: pgsql:/etc/postfix/sql/pgsql_virtual_alias_maps.cf is unavailable. unsupported dictionary type: pgsql
+Nov 05 22:36:44 home postfix/trivial-rewrite[80]: warning: virtual_alias_domains: proxy:pgsql:/etc/postfix/sql/pgsql_virtual_alias_maps.cf: table lookup problem
+Nov 05 22:36:44 home postfix/trivial-rewrite[80]: warning: virtual_alias_domains lookup failure
+Nov 05 22:36:44 home postfix/smtpd[77]: NOQUEUE: reject: RCPT from mail-oln040092069016.outbound.protection.outlook.com[40.92.69.16]: 451 4.3.0 <rabisteve@hotmail.com>: Temporary lookup failure; from=<rabisteve@hotmail.com> to=<steve@hmail.float.i.ng> proto=ESMTP helo=<EUR02-VE1-obe.outbound.protection.outlook.com>
+Nov 05 22:36:45 home postfix/smtpd[77]: disconnect from mail-oln040092069016.outbound.protection.outlook.com[40.92.69.16] ehlo=1 mail=1 rcpt=0/1 quit=1 commands=3/4
+Nov 05 22:38:19 home postfix/smtpd[77]: connect from mail-vi1eur06olkn2082.outbound.protection.outlook.com[40.92.17.82]
+Nov 05 22:38:19 home postfix/smtpd[77]: NOQUEUE: reject: RCPT from mail-vi1eur06olkn2082.outbound.protection.outlook.com[40.92.17.82]: 451 4.3.0 <rabisteve@hotmail.com>: Temporary lookup failure; from=<rabisteve@hotmail.com> to=<steve@hmail.float.i.ng> proto=ESMTP helo=<EUR06-VI1-obe.outbound.protection.outlook.com>
+Nov 05 22:38:19 home postfix/smtpd[77]: disconnect from mail-vi1eur06olkn2082.outbound.protection.outlook.com[40.92.17.82] ehlo=1 mail=1 rcpt=0/1 quit=1 commands=3/4
+
+
+seems to be not using postgres is the issue!
+instrutions from ISP, etc say to install postfix-psql but it wasnt replaced with mysql 
+apk add postfix postfix-pgsql postfix-pcre
