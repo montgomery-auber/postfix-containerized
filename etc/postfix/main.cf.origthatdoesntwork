@@ -1,0 +1,67 @@
+
+# New install - don't need to be backward compatible 
+compatibility_level = 3 
+
+myhostname=home.gindi.cloud
+mydomain=home.gindi.cloud 
+
+mydestination = localhost.$mydomain, localhost
+mynetworks_style = subnet
+mynetworks = 127.0.0.0/8
+
+virtual_mailbox_domains = proxy:pgsql:/etc/postfix/sql/pgsql_virtual_domains_maps.cf
+virtual_alias_maps = proxy:pgsql:/etc/postfix/sql/pgsql_virtual_alias_maps.cf,
+       proxy:pgsql:/etc/postfix/sql/pgsql_virtual_alias_domain_maps.cf,
+       proxy:pgsql:/etc/postfix/sql/pgsql_virtual_alias_domain_catchall_maps.cf
+
+virtual_mailbox_maps = proxy:pgsql:/etc/postfix/sql/pgsql_virtual_mailbox_maps.cf,
+       proxy:pgsql:/etc/postfix/sql/pgsql_virtual_alias_domain_mailbox_maps.cf
+
+virtual_mailbox_base = /var/mail/domains/
+virtual_gid_maps = static:101
+virtual_uid_maps = static:102
+virtual_minimum_uid = 100
+virtual_transport = virtual
+
+
+# This next command means you must create a virtual
+# domain for the host itself - ALL mail goes through
+# The virtual transport
+
+mailbox_transport = virtual
+local_transport = virtual
+local_transport_maps = $virtual_mailbox_maps
+
+smtpd_helo_required = yes
+disable_vrfy_command = yes
+
+# 100MB size limit
+message_size_limit = 104857600
+virtual_mailbox_limit = 104857600
+queue_minfree = 51200000
+
+smtpd_sender_restrictions =
+       permit_mynetworks,
+       reject_non_fqdn_sender,
+       reject_unknown_sender_domain
+
+smtpd_recipient_restrictions =
+       reject_non_fqdn_recipient,
+       reject_unknown_recipient_domain,
+       permit_mynetworks,
+       permit_sasl_authenticated,
+       reject_unauth_destination,
+       reject_rbl_client dnsbl.sorbs.net,
+       reject_rbl_client zen.spamhaus.org,
+       reject_rbl_client bl.spamcop.net
+
+smtpd_data_restrictions = reject_unauth_pipelining
+
+# we will use this later - This prevents cleartext authentication
+# for relaying
+smtpd_tls_auth_only = yes
+
+# Silence the EAI warning on alpine linux
+smtputf8_enable = no
+
+maillog_file = /dev/stdout
