@@ -2,9 +2,10 @@
 # https://hub.docker.com/_/postfixadmin
 version: '3.7'
 services:
-   mysql:
-     container_name: mysql
-     image: mysql:5.7 ### - You can use Postgres instead but also mysql in addition to RDS  Mananged db. DB does not store mail only config. 
+   pgsql:
+     #change to https://hub.docker.com/_/postgres - be sure to deal with passwords correctly
+     container_name: pgsql
+     image: mysql:5.7 ### - USE Postgres instead but also mysql in addition to RDS  Mananged db. DB does not store mail only config. 
      restart: unless-stopped
      environment:
        MYSQL_ROOT_PASSWORD: notSecureChangeMe
@@ -12,19 +13,20 @@ services:
        MYSQL_USER: postfixadmin
        MYSQL_PASSWORD: postfixadminPassword  #### PUT into encrypted secrets
      ports:
-       - "3306:3306"
+       - "3306:3306" #????
 
    postfixadmin:
+     # https://hub.docker.com/_/postfixadmin
      container_name: postfixadmin
      depends_on:
-       - mysql 
+       - psql 
      image: postfixadmin:latest
      ports:
        - "80:80"
      restart: unless-stopped
      environment:
-       POSTFIXADMIN_DB_TYPE: mysqli
-       POSTFIXADMIN_DB_HOST: mysql 
+       POSTFIXADMIN_DB_TYPE: pgsql
+       POSTFIXADMIN_DB_HOST: pgsql 
        POSTFIXADMIN_DB_USER: postfixadmin
        POSTFIXADMIN_DB_NAME: postfixadmin
        POSTFIXADMIN_DB_PASSWORD: postfixadminPassword #### PUT into encrypted secrets
