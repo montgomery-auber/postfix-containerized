@@ -3,17 +3,23 @@
 version: '3.7'
 services:
    pgsql:
-     #change to https://hub.docker.com/_/postgres - be sure to deal with passwords correctly
+     #change to https://hub.docker.com/_/postgres - https://github.com/docker-library/postgres/blob/04bf35f0c4a3f7ac41591f9b28e2de1fecb7fef4/13/alpine/Dockerfile - be sure to deal with passwords correctly
+     # first does this 
+   #  RUN set -eux; \
+	#addgroup -g 70 -S postgres; \
+	#adduser -u 70 -S -D -G postgres -H -h /var/lib/postgresql -s /bin/sh postgres; \
+	#mkdir -p /var/lib/postgresql; \
+	#chown -R postgres:postgres /var/lib/postgresql
      container_name: pgsql
-     image: mysql:5.7 ### - USE Postgres instead but also mysql in addition to RDS  Mananged db. DB does not store mail only config. 
+     image:  postgres:13.0-alpine 
      restart: unless-stopped
      environment:
-       MYSQL_ROOT_PASSWORD: notSecureChangeMe
-       MYSQL_DATABASE: postfixadmin
-       MYSQL_USER: postfixadmin
-       MYSQL_PASSWORD: postfixadminPassword  #### PUT into encrypted secrets
+       POSTGRES_PASSWORD: notSecureChangeMe
+       POSTGRES_DB: postfixadmin
+       POSTGRES_USER: postfixadmin
+       # postgres_password sets it for the user not root - MYSQL_PASSWORD: postfixadminPassword  #### PUT into encrypted secrets
      ports:
-       - "3306:3306" #????
+       - "5432:5432"
 
    postfixadmin:
      # https://hub.docker.com/_/postfixadmin
