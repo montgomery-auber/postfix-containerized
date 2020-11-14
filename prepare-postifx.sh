@@ -1,7 +1,7 @@
 #!/bin/bash
 # RUN this as root 
 
-PGPW="postfixadminPassword"
+PGPW="notSecureChangeMe"
 
 #Detects if script are not running as root... from https://unix.stackexchange.com/questions/443751/run-entire-bash-script-as-root-or-use-sudo-on-the-commands-that-need-it
 if [ "$UID" != "0" ]; then
