@@ -1273,3 +1273,73 @@ Nov 05 22:38:19 home postfix/smtpd[77]: disconnect from mail-vi1eur06olkn2082.ou
 seems to be not using postgres is the issue!
 instrutions from ISP, etc say to install postfix-psql but it wasnt replaced with mysql 
 apk add postfix postfix-pgsql postfix-pcre
+
+
+
+# entrypoint: tail -f /dev/null - CAN use postfix - that way log goes to stdout
+#
+#Install Nginx PHP and MySQL
+#Configure Postfix Admin - already have working docker-compose
+#LETSENCRYPT
+#Mostly follow instructions from:
+#https://wiki.alpinelinux.org/wiki/Hosting_Web/Email_services_on_Alpine
+#https://wiki.alpinelinux.org/wiki/ISP_Mail_Server_3.x_HowTo - postfixadmin
+#
+#Dockerrize this page - https://linuxize.com/post/set-up-an-email-server-with-postfixadmin/
+
+
+
+ # Put it all in easy dir for backups - make links on host from original location 
+       #Create linux user postfix and set UID / GID as same for containers - set for opt
+       #- 
+
+      # - ./:/postfix-etc-containerized
+      
+
+  #   #change to https://hub.docker.com/_/postgres - https://github.com/docker-library/postgres/blob/04bf35f0c4a3f7ac41591f9b28e2de1fecb7fef4/13/alpine/Dockerfile - be sure to deal with passwords correctly
+  #   # first does this 
+  # #  RUN set -eux; \ 
+
+  	##addgroup -g 70 -S postgres; \
+	##adduser -u 70 -S -D -G postgres -H -h /var/lib/postgresql -s /bin/sh postgres; \
+	##mkdir -p /var/lib/postgresql; \
+  ##chown -R postgres:postgres /var/lib/postgresql
+  #
+
+
+Digest: sha256:030443a751399c72092eea72513a7180ff1a287c2d9816fc9bcb4dd0e8bc396f
+Status: Downloaded newer image for postfixadmin:latest
+Building postfix
+Traceback (most recent call last):
+  File "bin/docker-compose", line 3, in <module>
+  File "compose/cli/main.py", line 67, in main
+  File "compose/cli/main.py", line 126, in perform_command
+  File "compose/cli/main.py", line 1070, in up
+  File "compose/cli/main.py", line 1066, in up
+  File "compose/project.py", line 615, in up
+  File "compose/service.py", line 362, in ensure_image_exists
+  File "compose/service.py", line 1125, in build
+  File "docker/api/build.py", line 160, in build
+  File "docker/utils/build.py", line 30, in tar
+  File "docker/utils/build.py", line 49, in exclude_paths
+  File "docker/utils/build.py", line 214, in rec_walk
+  File "docker/utils/build.py", line 214, in rec_walk
+  File "docker/utils/build.py", line 214, in rec_walk
+  [Previous line repeated 1 more time]
+  File "docker/utils/build.py", line 184, in rec_walk
+PermissionError: [Errno 13] Permission denied: '/home/steve/postfix-containerized/var/spool/postfix/bounce'
+[1346] Failed to execute script docker-compose
+steve@DESKTOP-6VK9MUK:~/postfix-containerized$
+
+
+
+
+
+see 
+https://stackoverflow.com/questions/29580798/docker-compose-environment-variables 
+https://github.com/sameersbn/docker-postgresql/issues/112
+https://github.com/docker-library/postgres/issues/679
+  
+pgsql           | 2020-11-13 12:33:55.370 UTC [52] LOG:  incomplete startup packet
+pgsql           | 2020-11-13 12:33:55.524 UTC [53] FATAL:  password authentication failed for user "postfixadmin"
+pgsql           | 2020-11-13 12:33:55.524 UTC [53] DETAIL:  Password does not match for user "postfixadmin".

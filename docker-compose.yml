@@ -1,15 +1,9 @@
 ##Write script that creates dirs and users
-# https://hub.docker.com/_/postfixadmin
+# https://hub.docker.com/_/postgres
+### VERy important put Db in volume
 version: '3.7'
 services:
    pgsql:
-     #change to https://hub.docker.com/_/postgres - https://github.com/docker-library/postgres/blob/04bf35f0c4a3f7ac41591f9b28e2de1fecb7fef4/13/alpine/Dockerfile - be sure to deal with passwords correctly
-     # first does this 
-   #  RUN set -eux; \
-	#addgroup -g 70 -S postgres; \
-	#adduser -u 70 -S -D -G postgres -H -h /var/lib/postgresql -s /bin/sh postgres; \
-	#mkdir -p /var/lib/postgresql; \
-	#chown -R postgres:postgres /var/lib/postgresql
      container_name: pgsql
      image:  postgres:13.0-alpine 
      restart: unless-stopped
@@ -25,7 +19,7 @@ services:
      # https://hub.docker.com/_/postfixadmin
      container_name: postfixadmin
      depends_on:
-       - psql 
+       - pgsql 
      image: postfixadmin:latest
      ports:
        - "80:80"
@@ -59,23 +53,3 @@ services:
        - "25:25"
        - "465:465"
        - "587:587"
-
-# entrypoint: tail -f /dev/null - CAN use postfix - that way log goes to stdout
-#
-#Install Nginx PHP and MySQL
-#Configure Postfix Admin - already have working docker-compose
-#LETSENCRYPT
-#Mostly follow instructions from:
-#https://wiki.alpinelinux.org/wiki/Hosting_Web/Email_services_on_Alpine
-#https://wiki.alpinelinux.org/wiki/ISP_Mail_Server_3.x_HowTo - postfixadmin
-#
-#Dockerrize this page - https://linuxize.com/post/set-up-an-email-server-with-postfixadmin/
-
-
-
- # Put it all in easy dir for backups - make links on host from original location 
-       #Create linux user postfix and set UID / GID as same for containers - set for opt
-       #- 
-
-      # - ./:/postfix-etc-containerized
-      
