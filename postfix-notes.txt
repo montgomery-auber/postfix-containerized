@@ -1403,3 +1403,85 @@ DETAIL:  Key (domain)=(home.gindi.cloud) is not present in table "domain". <p>Ch
 
     /setup.php The script no longer works as expected 
 docker exec -it postfixadmin /var/www/html/scripts/postfixadmin-cli admin add
+
+
+same error as when postfix thought of using mysql 
+
+
+postfix_server  | Nov 15 00:39:08 home postfix/smtpd[129]: NOQUEUE: reject: RCPT from mail-oln040092070090.outbound.protection.outlook.com[40.92.70.90]: 451 4.3.0 <rabisteve@hotmail.com>: Temporary lookup failure; from=<rabisteve@hotmail.com> to=<stevie@home.gindi.cloud> proto=ESMTP helo=<EUR03-AM5-obe.outbound.protection.outlook.com>
+postfix_server  | Nov 15 00:39:08 home postfix/smtpd[129]: disconnect from mail-oln040092070090.outbound.protection.outlook.com[40.92.70.90] ehlo=1 mail=1 rcpt=0/1 quit=1 commands=3/4
+
+ | /usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+postfix_server  | /usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+postfix_server  | /usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+postfix_server  | /usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+postfix_server  | /usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+postfix_server  | /usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+postfix_server  | /usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+postfix_server  | /usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+postfix_server  | /usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+postfix_server  | /usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+postfix_server  | /usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+postfix_server  | Nov 15 00:26:44 home postfix/postfix-script[52]: warning: not owned by root: /var/spool/postfix/.
+postfix_server  | Nov 15 00:26:44 home postfix/postfix-script[53]: warning: not owned by root: /var/spool/postfix/pid
+postfix_server  | Nov 15 00:26:44 home postfix/postfix-script[55]: warning: group or other writable: /var/spool/postfix/.
+postfix_server  | Nov 15 00:26:44 home postfix/postfix-script[56]: warning: group or other writable: /var/spool/postfix/pid
+postfix_server  | Nov 15 00:26:44 home postfix/postfix-script[62]: warning: not owned by root: /etc/postfix/.
+postfix_server  | Nov 15 00:26:44 home postfix/postfix-script[63]: warning: not owned by root: /etc/postfix/./access
+postfix_server  | Nov 15 00:26:44 home postfix/postfix-script[64]: warning: not owned by root: /etc/postfix/./aliases
+postfix_server  | Nov 15 00:26:44 home postfix/postfix-script[65]: warning: not owned by root: /etc/postfix/./canonical
+postfix_server  | Nov 15 00:26:44 home postfix/postfix-script[66]: warning: not owned by root: /etc/postfix/./generic
+postfix_server  | Nov 15 00:26:44 home postfix/postfix-script[67]: warning: not owned by root: /etc/postfix/./header_checks
+postfix_server  | Nov 15 00:26:44 home postfix/postfix-script[68]: warning: not owned by root: /etc/postfix/./main.cf.from-workingalpine-server
+postfix_server  | Nov 15 00:26:44 home postfix/postfix-script[69]: warning: not owned by root: /etc/postfix/./main.cf.orig
+postfix_server  | Nov 15 00:26:44 home postfix/postfix-script[70]: warning: not owned by root: /etc/postfix/./main.cf.origthatdoesntwork
+postfix_server  | Nov 15 00:26:44 home postfix/postfix-script[71]: warning: not owned by root: /etc/postfix/./main.cf.proto
+postfix_server  | Nov 15 00:26:44 home postfix/postfix-script[72]: warning: not owned by root: /etc/postfix/./master.cf
+postfix_server  | Nov 15 00:26:44 home postfix/postfix-script[73]: warning: not owned by root: /etc/postfix/./master.cf.proto
+postfix_server  | Nov 15 00:26:44 home postfix/postfix-script[74]: warning: not owned by root: /etc/postfix/./postfix-files
+postfix_server  | Nov 15 00:26:44 home postfix/postfix-script[75]: warning: not owned by root: /etc/postfix/./relocated
+postfix_server  | Nov 15 00:26:44 home postfix/postfix-script[76]: warning: not owned by root: /etc/postfix/./sql
+postfix_server  | Nov 15 00:26:44 home postfix/postfix-script[77]: warning: not owned by root: /etc/postfix/./sql/.gitignore
+postfix_server  | Nov 15 00:26:44 home postfix/postfix-script[78]: warning: not owned by root: /etc/postfix/./sql/pgsql_virtual_alias_domain_catchall_maps.cf
+postfix_server  | Nov 15 00:26:44 home postfix/postfix-script[79]: warning: not owned by root: /etc/postfix/./sql/pgsql_virtual_alias_domain_mailbox_maps.cf
+postfix_server  | Nov 15 00:26:44 home postfix/postfix-script[80]: warning: not owned by root: /etc/postfix/./sql/pgsql_virtual_alias_domain_maps.cf
+postfix_server  | Nov 15 00:26:44 home postfix/postfix-script[81]: warning: not owned by root: /etc/postfix/./sql/pgsql_virtual_alias_maps.cf
+postfix_server  | Nov 15 00:26:44 home postfix/postfix-script[82]: warning: not owned by root: /etc/postfix/./sql/pgsql_virtual_domains_maps.cf
+postfix_server  | Nov 15 00:26:44 home postfix/postfix-script[83]: warning: not owned by root: /etc/postfix/./sql/pgsql_virtual_mailbox_maps.cf
+postfix_server  | Nov 15 00:26:44 home postfix/postfix-script[84]: warning: not owned by root: /etc/postfix/./transport
+postfix_server  | Nov 15 00:26:44 home postfix/postfix-script[85]: warning: not owned by root: /etc/postfix/./virtual
+postfix_server  | Nov 15 00:26:44 home postfix/postfix-script[86]: warning: not owned by root: /etc/postfix/./main.cf.anotherorig
+postfix_server  | Nov 15 00:26:44 home postfix/postfix-script[87]: warning: not owned by root: /etc/postfix/./main.cf
+postfix_server  | Nov 15 00:26:44 home postfix/postfix-script[89]: warning: group or other writable: /etc/postfix/.
+postfix_server  | Nov 15 00:26:44 home postfix/postfix-script[90]: warning: group or other writable: /etc/postfix/./access
+postfix_server  | Nov 15 00:26:44 home postfix/postfix-script[91]: warning: group or other writable: /etc/postfix/./aliases
+postfix_server  | Nov 15 00:26:44 home postfix/postfix-script[92]: warning: group or other writable: /etc/postfix/./canonical
+postfix_server  | Nov 15 00:26:44 home postfix/postfix-script[93]: warning: group or other writable: /etc/postfix/./generic
+postfix_server  | Nov 15 00:26:44 home postfix/postfix-script[94]: warning: group or other writable: /etc/postfix/./header_checks
+postfix_server  | Nov 15 00:26:44 home postfix/postfix-script[95]: warning: group or other writable: /etc/postfix/./main.cf.from-workingalpine-server
+postfix_server  | Nov 15 00:26:44 home postfix/postfix-script[96]: warning: group or other writable: /etc/postfix/./main.cf.orig
+postfix_server  | Nov 15 00:26:44 home postfix/postfix-script[97]: warning: group or other writable: /etc/postfix/./main.cf.origthatdoesntwork
+postfix_server  | Nov 15 00:26:44 home postfix/postfix-script[98]: warning: group or other writable: /etc/postfix/./main.cf.proto
+postfix_server  | Nov 15 00:26:44 home postfix/postfix-script[99]: warning: group or other writable: /etc/postfix/./master.cf
+postfix_server  | Nov 15 00:26:44 home postfix/postfix-script[100]: warning: group or other writable: /etc/postfix/./master.cf.proto
+postfix_server  | Nov 15 00:26:44 home postfix/postfix-script[101]: warning: group or other writable: /etc/postfix/./postfix-files
+postfix_server  | Nov 15 00:26:44 home postfix/postfix-script[102]: warning: group or other writable: /etc/postfix/./relocated
+postfix_server  | Nov 15 00:26:44 home postfix/postfix-script[103]: warning: group or other writable: /etc/postfix/./sql
+postfix_server  | Nov 15 00:26:44 home postfix/postfix-script[104]: warning: group or other writable: /etc/postfix/./sql/.gitignore
+postfix_server  | Nov 15 00:26:44 home postfix/postfix-script[105]: warning: group or other writable: /etc/postfix/./transport
+postfix_server  | Nov 15 00:26:44 home postfix/postfix-script[106]: warning: group or other writable: /etc/postfix/./virtual
+postfix_server  | Nov 15 00:26:44 home postfix/postfix-script[107]: warning: group or other writable: /etc/postfix/./main.cf.anotherorig
+postfix_server  | Nov 15 00:26:44 home postfix/postfix-script[108]: warning: group or other writable: /etc/postfix/./main.cf
+postfix_server  | Nov 15 00:26:44 home postfix/postfix-script[119]: starting the Postfix mail system
+postfix_server  | Nov 15 00:26:44 home postfix/master[1]: daemon started -- version 3.4.7, configuration /etc/postfix
+
+
+
+postfix_server  | Nov 15 00:30:57 home postfix/smtpd[123]: error: open database /etc/postfix/aliases.db: No such file or directory
+
+
+
+postfix_server  | Nov 15 00:30:57 home postfix/proxymap[124]: error: unsupported dictionary type: pgsql
+postfix_server  | Nov 15 00:30:57 home postfix/proxymap[124]: error: unsupported dictionary type: pgsql
+postfix_server  | Nov 15 00:30:57 home postfix/proxymap[124]: error: unsupported dictionary type: pgsql
+postfix_server  | Nov 15 00:30:57 home postfix/proxymap[124]: error: unsupported dictionary type: pgsql
