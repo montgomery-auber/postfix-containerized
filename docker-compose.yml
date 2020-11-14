@@ -29,7 +29,7 @@ services:
        POSTFIXADMIN_DB_HOST: pgsql 
        POSTFIXADMIN_DB_USER: postfixadmin
        POSTFIXADMIN_DB_NAME: postfixadmin
-       POSTFIXADMIN_DB_PASSWORD: postfixadminPassword #### PUT into encrypted secrets
+       POSTFIXADMIN_DB_PASSWORD: notSecureChangeMe
        POSTFIXADMIN_SMTP_SERVER: postfix
        POSTFIXADMIN_SMTP_PORT: 25
 
