@@ -27,7 +27,8 @@ chown -R 100:101 ./var/spool/
 chown -R 101:102 ./var/mail/domains
 
 chown root:root ./etc/postfix/dynamicmaps.cf
-chmod 600 ./etc/postfix/dynamicmaps.cf
+chmod 644 ./etc/postfix/dynamicmaps.cf
+
 
 #The following needs to be owned by root
 cd ./etc/postfix
@@ -83,6 +84,6 @@ query = Select maildir from mailbox where username='%s' and active=true
 EOF
 
 #chown -R postfix:postfix sql
-chown -R 100:101 sql
-chmod 640 sql/*
+chown -R 105:106 sql
+chmod 644 sql/*
 #mkdir -p /opt/postfix/etc/postfix /opt/postfix/var/spool/postfix /opt/postfix/var/spool/mail /opt/postfix/var/log /opt/postfix/var/mail /opt/postfix/var/mail/domains
