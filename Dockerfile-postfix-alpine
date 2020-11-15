@@ -12,7 +12,7 @@ RUN adduser -S -u 105 -H -h /var/spool/postfix -G postfix -g postfix postfix 2>/
 RUN addgroup postfix mail 2>/dev/null
 
 ###vmail:x:101:102:vmail:/var/mail/domains:/sbin/nologin
-RUN adduser -S -H -h /var/mail/domains -s /sbin/nologin -G postdrop -g vmail vmail 2>/dev/null
+RUN adduser -S -u 106 -H -h /var/mail/domains -s /sbin/nologin -G postdrop -g vmail vmail 2>/dev/null
 
 # Install dependencies
 RUN apk add --no-cache --update postfix cyrus-sasl cyrus-sasl-plain ca-certificates bash postfix-pgsql postfix-pcre && \
@@ -30,3 +30,4 @@ CMD ["postfix", "start-fg"]
 
 # Inspired by https://github.com/bokysan/docker-postfix
 
+http://www.postfix.org/PGSQL_README.html

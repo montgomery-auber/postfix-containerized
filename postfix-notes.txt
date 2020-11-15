@@ -313,7 +313,6 @@ chmod 644 sql/*
 
 
 
-
 postfixadmin_1  | bash: connect: Connection refused
 postfixadmin_1  | bash: /dev/tcp/db/3306: Connection refused
 postfixadmin_1  | bash: connect: Connection refused
@@ -1485,9 +1484,8 @@ postfix_server  | Nov 15 00:30:57 home postfix/proxymap[124]: error: unsupported
 postfix_server  | Nov 15 00:30:57 home postfix/proxymap[124]: error: unsupported dictionary type: pgsql
 postfix_server  | Nov 15 00:30:57 home postfix/proxymap[124]: error: unsupported dictionary type: pgsql
 postfix_server  | Nov 15 00:30:57 home postfix/proxymap[124]: error: unsupported dictionary type: pgsql
-<<<<<<< HEAD
 
 
 postfix_server  | /usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
-=======
->>>>>>> 860066feff2c9d7377ff9f89aab36718069c4f7e
+
+http://www.postfix.org/postconf.5.html
