@@ -29,5 +29,3 @@ EXPOSE 465
 CMD ["postfix", "start-fg"]
 
 # Inspired by https://github.com/bokysan/docker-postfix
-
-http://www.postfix.org/PGSQL_README.html

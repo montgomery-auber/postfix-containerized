@@ -86,4 +86,5 @@ EOF
 #chown -R postfix:postfix sql
 chown -R 106:106 sql
 chmod 644 sql/*
+mkdir -p ./dev/log
 #mkdir -p /opt/postfix/etc/postfix /opt/postfix/var/spool/postfix /opt/postfix/var/spool/mail /opt/postfix/var/log /opt/postfix/var/mail /opt/postfix/var/mail/domains

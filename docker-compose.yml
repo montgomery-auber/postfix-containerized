@@ -49,6 +49,7 @@ services:
        - ./var/spool/mail:/var/spool/mail
        - ./var/log:/var/log
        - ./var/mail:/var/mail
+       - ./dev/log:/dev/log
      ports:
        - "25:25"
        - "465:465"

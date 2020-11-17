@@ -63,3 +63,5 @@ smtpd_tls_auth_only = yes
 
 # Silence the EAI warning on alpine linux
 smtputf8_enable = no
+
+ maillog_file = /dev/stdout
