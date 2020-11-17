@@ -1,0 +1,5 @@
+user=postfix
+password = byg2812
+hosts = localhost
+dbname = postfix
+query = Select goto From alias,alias_domain where alias_domain.alias_domain = '%d' and alias.address = '@' ||  alias_domain.target_domain and alias.active = true and alias_domain.active= true 

@@ -1,0 +1,5 @@
+user=postfix
+password = byg2812
+hosts = localhost
+dbname = postfix
+query = Select domain from domain where domain='%s' and active='1'
