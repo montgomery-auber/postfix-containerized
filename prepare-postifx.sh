@@ -22,9 +22,9 @@ fi
 
 mkdir -p ./etc/postfix ./var/spool/postfix ./var/spool/mail ./var/log ./var/mail ./var/mail/domains
 
-chown -R 106:106 ./var/spool/
+#chown -R 106:106 ./var/spool/
 
-chown -R 105:105 ./var/mail/domains
+chown -R 106:106 ./var/mail/domains #vmail:postdrop
 
 chown root:root ./etc/postfix/dynamicmaps.cf
 chmod 644 ./etc/postfix/dynamicmaps.cf
@@ -84,7 +84,7 @@ query = Select maildir from mailbox where username='%s' and active=true
 EOF
 
 #chown -R postfix:postfix sql
-chown -R 106:106 sql
+chown -R 105:105 sql
 chmod 644 sql/*
-mkdir -p ./dev/log
+#mkdir -p ./dev/log
 #mkdir -p /opt/postfix/etc/postfix /opt/postfix/var/spool/postfix /opt/postfix/var/spool/mail /opt/postfix/var/log /opt/postfix/var/mail /opt/postfix/var/mail/domains

@@ -27,5 +27,3 @@ EXPOSE 465
 
 # Start postfix in foreground mode
 CMD ["postfix", "start-fg"]
-
-# Inspired by https://github.com/bokysan/docker-postfix

@@ -1068,6 +1068,7 @@ November 1 2020 - ran prepare-postfix.sh script for the firt time. checking emai
 postfix_server  | Nov 01 21:37:26 home postfix/smtpd[175]: NOQUEUE: reject: RCPT from a48-109.smtp-out.amazonses.com[54.240.48.109]: 451 4.3.0 <0100017585507902-fbc71984-da43-4ef2-8ca0-b65e4c015776-000000@amazonses.com>: Temporary lookup failure; from=<0100017585507902-fbc71984-da43-4ef2-8ca0-b65e4c015776-000000@amazonses.com> to=<steve@home.gindi.cloud> proto=ESMTP helo=<a48-109.smtp-out.amazonses.com>
 
 
+# Inspired by https://github.com/bokysan/docker-pos
 
 
 postfixadmin    | 172.21.0.15 - - [01/Nov/2020:19:52:38 +0000] "-" 408 0 "-" "-"
@@ -1527,3 +1528,12 @@ Append one or more "-v" options to selected daemon definitions in /etc/postfix/m
     smtp      inet  n       -       n       -       -       smtpd -v
 
 check out postfixadmin etc on debian https://www.rosehosting.com/blog/set-up-a-mail-server-with-postfixadmin-on-debian-9/
+
+install ssm on centos
+
+
+https://pkgs.alpinelinux.org/package/edge/main/x86/postfix-pgsql  <----- All directions are there
+
+
+https://github.com/postfixadmin/postfixadmin/blob/master/DOCUMENTS/Postfix-Dovecot-Postgresql-Example.md
+

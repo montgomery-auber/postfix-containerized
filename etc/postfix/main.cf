@@ -1,8 +1,9 @@
 # New install - don't need to be backward compatible 
 compatibility_level = 2 
 
-myhostname=host.example.com
-mydomain=example.com
+###set this as var host and domain
+myhostname=hmail.float.i.ng
+mydomain=hmail.float.i.ng 
 
 mydestination = localhost.$mydomain, localhost
 mynetworks_style = subnet
