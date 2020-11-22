@@ -11,6 +11,7 @@ install script to create dirs on server under
 things to remember - timezone in every container as well as asking in cloudformation 
 put sql db on volume 
 create certs container
+delete extra files from portfix.../etc/postfix they arent mounted anyway
 make compose work without root
 install compose on server
 in createpostfixfiles.sh put the password instance ID - be sure that these files dont exist 
