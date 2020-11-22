@@ -2552,3 +2552,57 @@ postfix_server  | Nov 17 21:10:21 hmail postfix/smtpd[138]: generic_checks: name
 postfix_server  | Nov 17 21:10:21 hmail postfix/smtpd[138]: permit_mynetworks: mail-oln040092075056.outbound.protection.outlook.com 40.92.75.56
 postfix_server  | Nov 17 21:10:21 hmail postfix/smtpd[138]: match_hostname: mynetworks: mail-oln040092075056.outbound.protection.outlook.com ~? 127.0.0.0/8
 p
+
+
+
+
+
+nov 22
+
+
+postfix_server  | /usr/sbin/postconf: warning: open "pgsql" configuration "/etc/postfix/sql/pgsql_virtual_mailbox_maps.cf": No such file or directory
+postfix_server  | /usr/sbin/postconf: warning: open "pgsql" configuration "/etc/postfix/sql/pgsql_virtual_alias_domain_mailbox_maps.cf": No such file or directory
+postfix_server  | /usr/sbin/postconf: warning: open "pgsql" configuration "/etc/postfix/sql/pgsql_virtual_alias_maps.cf": No such file or directory
+postfix_server  | /usr/sbin/postconf: warning: open "pgsql" configuration "/etc/postfix/sql/pgsql_virtual_alias_domain_maps.cf": No such file or directory
+postfix_server  | /usr/sbin/postconf: warning: open "pgsql" configuration "/etc/postfix/sql/pgsql_virtual_alias_domain_catchall_maps.cf": No such file or directory
+postfix_server  | /usr/sbin/postconf: warning: open "pgsql" configuration "/etc/postfix/sql/pgsql_virtual_domains_maps.cf": No such file or directory
+postfix_server  | /usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+postfix_server  | /usr/sbin/postconf: warning: open "pgsql" configuration "/etc/postfix/sql/pgsql_virtual_mailbox_maps.cf": No such file or directory
+postfix_server  | /usr/sbin/postconf: warning: open "pgsql" configuration "/etc/postfix/sql/pgsql_virtual_alias_domain_mailbox_maps.cf": No such file or directory
+postfix_server  | /usr/sbin/postconf: warning: open "pgsql" configuration "/etc/postfix/sql/pgsql_virtual_alias_maps.cf": No such file or directory
+postfix_server  | /usr/sbin/postconf: warning: open "pgsql" configuration "/etc/postfix/sql/pgsql_virtual_alias_domain_maps.cf": No such file or directory
+postfix_server  | /usr/sbin/postconf: warning: open "pgsql" configuration "/etc/postfix/sql/pgsql_virtual_alias_domain_catchall_maps.cf": No such file or directory
+postfix_server  | /usr/sbin/postconf: warning: open "pgsql" configuration "/etc/postfix/sql/pgsql_virtual_domains_maps.cf": No such file or directory
+postfix_server  | /usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+postfix_server  | /usr/sbin/postconf: warning: open "pgsql" configuration "/etc/postfix/sql/pgsql_virtual_mailbox_maps.cf": No such file or directory
+postfix_server  | /usr/sbin/postconf: warning: open "pgsql" configuration "/etc/postfix/sql/pgsql_virtual_alias_domain_mailbox_maps.cf": No such file or directory
+postfix_server  | /usr/sbin/postconf: warning: open "pgsql" configuration "/etc/postfix/sql/pgsql_virtual_alias_maps.cf": No such file or directory
+postfix_server  | /usr/sbin/postconf: warning: open "pgsql" configuration "/etc/postfix/sql/pgsql_virtual_alias_domain_maps.cf": No such file or directory
+postfix_server  | /usr/sbin/postconf: warning: open "pgsql" configuration "/etc/postfix/sql/pgsql_virtual_alias_domain_catchall_maps.cf": No such file or directory
+postfix_server  | /usr/sbin/postconf: warning: open "pgsql" configuration "/etc/postfix/sql/pgsql_virtual_domains_maps.cf": No such file or directory
+postfix_server  | /usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+postfix_server  | /usr/sbin/postconf: warning: open "pgsql" configuration "/etc/postfix/sql/pgsql_virtual_mailbox_maps.cf": No such file or directory
+postfix_server  | /usr/sbin/postconf: warning: open "pgsql" configuration "/etc/postfix/sql/pgsql_virtual_alias_domain_mailbox_maps.cf": No such file or directory
+postfix_server  | /usr/sbin/postconf: warning: open "pgsql" configuration "/etc/postfix/sql/pgsql_virtual_alias_maps.cf": No such file or directory
+postfix_server  | /usr/sbin/postconf: warning: open "pgsql" configuration "/etc/postfix/sql/pgsql_virtual_alias_domain_maps.cf": No such file or directory
+postfix_server  | /usr/sbin/postconf: warning: open "pgsql" configuration "/etc/postfix/sql/pgsql_virtual_alias_domain_catchall_maps.cf": No such file or directory
+postfix_server  | /usr/sbin/postconf: warning: open "pgsql" configuration "/etc/postfix/sql/pgsql_virtual_domains_maps.cf": No such file or directory
+postfix_server  | /usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+postfix_server  | /usr/sbin/postconf: warning: open "pgsql" configuration "/etc/postfix/sql/pgsql_virtual_mailbox_maps.cf": No such file or directory
+postfix_server  | /usr/sbin/postconf: warning: open "pgsql" configuration "/etc/postfix/sql/pgsql_virtual_alias_domain_mailbox_maps.cf": No such file or directory
+postfix_server  | /usr/sbin/postconf: warning: open "pgsql" configuration "/etc/postfix/sql/pgsql_virtual_alias_maps.cf": No such file or directory
+postfix_server  | /usr/sbin/postconf: warning: open "pgsql" configuration "/etc/postfix/sql/pgsql_virtual_alias_domain_maps.cf": No such file or directory
+postfix_server  | /usr/sbin/postconf: warning: open "pgsql" configuration "/etc/postfix/sql/pgsql_virtual_alias_domain_catchall_maps.cf": No such file or directory
+postfix_server  | /usr/sbin/postconf: warning: open "pgsql" configuration "/etc/postfix/sql/pgsql_virtual_domains_maps.cf": No such file or directory
+postfix_server  | /usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+postfix_server  | Nov 22 10:16:28 hmail postfix/postfix-script[105]: warning: not owned by root: /var/spool/postfix/.
+postfix_server  | Nov 22 10:16:28 hmail postfix/postfix-script[106]: warning: not owned by root: /var/spool/postfix/pid
+postfix_server  | Nov 22 10:16:28 hmail postfix/postfix-script[108]: warning: group or other writable: /var/spool/postfix/.
+postfix_server  | Nov 22 10:16:28 hmail postfix/postfix-script[109]: warning: group or other writable: /var/spool/postfix/pid
+postfix_server  | Nov 22 10:16:28 hmail postfix/postfix-script[115]: warning: not owned by root: /etc/postfix/./main.cf
+postfix_server  | Nov 22 10:16:28 hmail postfix/postfix-script[116]: warning: not owned by root: /etc/postfix/./master.cf
+postfix_server  | Nov 22 10:16:28 hmail postfix/postfix-script[118]: warning: group or other writable: /etc/postfix/./main.cf
+postfix_server  | Nov 22 10:16:28 hmail postfix/postfix-script[119]: warning: group or other writable: /etc/postfix/./master.cf
+postfix_server  | Nov 22 10:16:28 hmail postfix/postfix-script[130]: starting the Postfix mail system
+postfix_server  | Nov 22 10:16:28 hmail postfix/master[1]: daemon started -- version 3.4.7, configuration /etc/postfix
+[steve@home postfix-containerized]$ docker-compose logs | grep "error: open database"
