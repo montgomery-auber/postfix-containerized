@@ -26,8 +26,8 @@ mkdir -p ./etc/postfix ./var/spool/postfix ./var/spool/mail ./var/log ./var/mail
 
 chown -R 106:106 ./var/mail/domains #vmail:postdrop
 
-chown root:root ./etc/postfix/dynamicmaps.cf
-chmod 644 ./etc/postfix/dynamicmaps.cf
+#chown root:root ./etc/postfix/dynamicmaps.cf
+#chmod 644 ./etc/postfix/dynamicmaps.cf
 
 
 #The following needs to be owned by root

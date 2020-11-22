@@ -2606,3 +2606,1049 @@ postfix_server  | Nov 22 10:16:28 hmail postfix/postfix-script[119]: warning: gr
 postfix_server  | Nov 22 10:16:28 hmail postfix/postfix-script[130]: starting the Postfix mail system
 postfix_server  | Nov 22 10:16:28 hmail postfix/master[1]: daemon started -- version 3.4.7, configuration /etc/postfix
 [steve@home postfix-containerized]$ docker-compose logs | grep "error: open database"
+
+
+
+
+totally new errors!
+
+
+
+[steve@home postfix-containerized]$ docker-compose logs  | grep -i error
+pgsql           | 2020-11-22 08:28:53.596 UTC [53] ERROR:  column "transport" of relation "domain" already exists
+pgsql           | 2020-11-22 08:28:53.596 UTC [53] ERROR:  column "backupmx" of relation "domain" already exists
+pgsql           | 2020-11-22 08:28:57.489 UTC [53] ERROR:  extension "plpgsql" already exists
+[steve@home postfix-containerized]$
+
+
+
+
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: dict_open: proxy:pgsql:/etc/postfix/sql/pgsql_virtual_alias_domain_mailbox_maps.cf
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: match_string: parent_domain_matches_subdomains: smtpd_access_maps ~? debug_peer_list
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: match_string: parent_domain_matches_subdomains: smtpd_access_maps ~? fast_flush_domains
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: match_string: parent_domain_matches_subdomains: smtpd_access_maps ~? mynetworks
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: match_string: parent_domain_matches_subdomains: smtpd_access_maps ~? permit_mx_backup_networks
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: match_string: parent_domain_matches_subdomains: smtpd_access_maps ~? qmqpd_authorized_clients
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: match_string: parent_domain_matches_subdomains: smtpd_access_maps ~? relay_domains
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: match_string: parent_domain_matches_subdomains: smtpd_access_maps ~? smtpd_access_maps
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: unknown_helo_hostname_tempfail_action = defer_if_permit
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: unknown_address_tempfail_action = defer_if_permit
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: unverified_recipient_tempfail_action = defer_if_permit
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: unverified_sender_tempfail_action = defer_if_permit
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: match_string: parent_domain_matches_subdomains: fast_flush_domains ~? debug_peer_list
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: match_string: parent_domain_matches_subdomains: fast_flush_domains ~? fast_flush_domains
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: warning: queue_minfree(51200000) should be at least 1.5*message_size_limit(104857600)
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: auto_clnt_create: transport=local endpoint=private/anvil
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: connection established
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: master_notify: status 0
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: name_mask: resource
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: name_mask: software
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: connect from mail-oln040092064028.outbound.protection.outlook.com[40.92.64.28]
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: match_list_match: mail-oln040092064028.outbound.protection.outlook.com: no match
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: match_list_match: 40.92.64.28: no match
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: match_list_match: mail-oln040092064028.outbound.protection.outlook.com: no match
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: match_list_match: 40.92.64.28: no match
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: smtp_stream_setup: maxtime=300 enable_deadline=0
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: match_hostname: smtpd_client_event_limit_exceptions: mail-oln040092064028.outbound.protection.outlook.com ~? 127.0.0.0/8
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: match_hostaddr: smtpd_client_event_limit_exceptions: 40.92.64.28 ~? 127.0.0.0/8
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: match_list_match: mail-oln040092064028.outbound.protection.outlook.com: no match
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: match_list_match: 40.92.64.28: no match
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: auto_clnt_open: connected to private/anvil
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr request = connect
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr ident = smtp:40.92.64.28
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: private/anvil: wanted attribute: status
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: status
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: 0
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: private/anvil: wanted attribute: count
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: count
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: 1
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: private/anvil: wanted attribute: rate
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: rate
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: 1
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: private/anvil: wanted attribute: (list terminator)
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: (end)
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: > mail-oln040092064028.outbound.protection.outlook.com[40.92.64.28]: 220 hmail.float.i.ng ESMTP Postfix
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: < mail-oln040092064028.outbound.protection.outlook.com[40.92.64.28]: EHLO EUR01-DB5-obe.outbound.protection.outlook.com
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: match_list_match: mail-oln040092064028.outbound.protection.outlook.com: no match
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: match_list_match: 40.92.64.28: no match
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: > mail-oln040092064028.outbound.protection.outlook.com[40.92.64.28]: 250-hmail.float.i.ng
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: > mail-oln040092064028.outbound.protection.outlook.com[40.92.64.28]: 250-PIPELINING
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: > mail-oln040092064028.outbound.protection.outlook.com[40.92.64.28]: 250-SIZE 104857600
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: > mail-oln040092064028.outbound.protection.outlook.com[40.92.64.28]: 250-ETRN
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: > mail-oln040092064028.outbound.protection.outlook.com[40.92.64.28]: 250-ENHANCEDSTATUSCODES
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: > mail-oln040092064028.outbound.protection.outlook.com[40.92.64.28]: 250-8BITMIME
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: > mail-oln040092064028.outbound.protection.outlook.com[40.92.64.28]: 250-DSN
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: > mail-oln040092064028.outbound.protection.outlook.com[40.92.64.28]: 250 CHUNKING
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: < mail-oln040092064028.outbound.protection.outlook.com[40.92.64.28]: MAIL FROM:<rabisteve@hotmail.com> SIZE=11895
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: extract_addr: input: <rabisteve@hotmail.com>
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: smtpd_check_addr: addr=rabisteve@hotmail.com
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: connect to subsystem private/rewrite
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr request = rewrite
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr rule = local
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr address = ""
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: flags
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: flags
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: 0
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: address
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: address
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: ""
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: (list terminator)
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: (end)
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: rewrite_clnt: local: "" -> ""
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr request = rewrite
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr rule = local
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr address = rabisteve@hotmail.com
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: flags
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: flags
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: 0
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: address
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: address
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: rabisteve@hotmail.com
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: (list terminator)
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: (end)
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: rewrite_clnt: local: rabisteve@hotmail.com -> rabisteve@hotmail.com
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr request = resolve
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr sender =
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr address = rabisteve@hotmail.com
+postfix_server  | Nov 22 10:36:10 hmail postfix/proxymap[150]: warning: connect to pgsql server localhost: could not connect to server: Connection refused??Is the server running on host "localhost" (127.0.0.1) and accepting??TCP/IP connections on port 5432??could not connect to server: Address not available??Is the server running on host "localhost" (::1) and accepting??TCP/IP connections on port 5432??
+postfix_server  | Nov 22 10:36:10 hmail postfix/trivial-rewrite[151]: warning: virtual_alias_domains: proxy:pgsql:/etc/postfix/sql/pgsql_virtual_alias_maps.cf: table lookup problem
+postfix_server  | Nov 22 10:36:10 hmail postfix/trivial-rewrite[151]: warning: virtual_alias_domains lookup failure
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: flags
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: flags
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: 0
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: transport
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: transport
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: CHANNEL NOT UPDATED
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: nexthop
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: nexthop
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: NEXTHOP NOT UPDATED
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: recipient
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: recipient
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: rabisteve@hotmail.com
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: flags
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: flags
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: 8
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: (list terminator)
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: (end)
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: resolve_clnt: `' -> `rabisteve@hotmail.com' -> transp=`CHANNEL NOT UPDATED' host=`NEXTHOP NOT UPDATED' rcpt=`rabisteve@hotmail.com' flags=fail class=
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: ctable_locate: install entry key ?rabisteve@hotmail.com
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: extract_addr: in: <rabisteve@hotmail.com>, result: rabisteve@hotmail.com
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr request = rewrite
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr rule = local
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr address = double-bounce
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: flags
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: flags
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: 0
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: address
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: address
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: double-bounce@hmail.float.i.ng
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: (list terminator)
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: (end)
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: rewrite_clnt: local: double-bounce -> double-bounce@hmail.float.i.ng
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: smtpd_check_rewrite: trying: permit_inet_interfaces
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: permit_inet_interfaces: mail-oln040092064028.outbound.protection.outlook.com 40.92.64.28
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: fsspace: .: block size 4096, blocks free 10386765
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: smtpd_check_queue: blocks 4096 avail 10386765 min_free 51200000 msg_size_limit 104857600
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: > mail-oln040092064028.outbound.protection.outlook.com[40.92.64.28]: 250 2.1.0 Ok
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: < mail-oln040092064028.outbound.protection.outlook.com[40.92.64.28]: RCPT TO:<stevie@home.gindi.cloud>
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: extract_addr: input: <stevie@home.gindi.cloud>
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: smtpd_check_addr: addr=stevie@home.gindi.cloud
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr request = rewrite
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr rule = local
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr address = rabisteve@hotmail.com
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: flags
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: flags
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: 0
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: address
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: address
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: rabisteve@hotmail.com
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: (list terminator)
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: (end)
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: rewrite_clnt: local: rabisteve@hotmail.com -> rabisteve@hotmail.com
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr request = rewrite
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr rule = local
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr address = stevie@home.gindi.cloud
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: flags
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: flags
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: 0
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: address
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: address
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: stevie@home.gindi.cloud
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: (list terminator)
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: (end)
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: rewrite_clnt: local: stevie@home.gindi.cloud -> stevie@home.gindi.cloud
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr request = resolve
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr sender = rabisteve@hotmail.com
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr address = stevie@home.gindi.cloud
+postfix_server  | Nov 22 10:36:10 hmail postfix/trivial-rewrite[151]: warning: virtual_alias_domains: proxy:pgsql:/etc/postfix/sql/pgsql_virtual_alias_maps.cf: table lookup problem
+postfix_server  | Nov 22 10:36:10 hmail postfix/trivial-rewrite[151]: warning: virtual_alias_domains lookup failure
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: flags
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: flags
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: 0
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: transport
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: transport
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: CHANNEL NOT UPDATED
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: nexthop
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: nexthop
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: NEXTHOP NOT UPDATED
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: recipient
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: recipient
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: stevie@home.gindi.cloud
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: flags
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: flags
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: 8
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: (list terminator)
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: (end)
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: resolve_clnt: `rabisteve@hotmail.com' -> `stevie@home.gindi.cloud' -> transp=`CHANNEL NOT UPDATED' host=`NEXTHOP NOT UPDATED' rcpt=`stevie@home.gindi.cloud' flags=fail class=
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: ctable_locate: install entry key rabisteve@hotmail.com?stevie@home.gindi.cloud
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: extract_addr: in: <stevie@home.gindi.cloud>, result: stevie@home.gindi.cloud
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: >>> START Sender address RESTRICTIONS <<<
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: generic_checks: name=permit_mynetworks
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: permit_mynetworks: mail-oln040092064028.outbound.protection.outlook.com 40.92.64.28
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: match_hostname: mynetworks: mail-oln040092064028.outbound.protection.outlook.com ~? 127.0.0.0/8
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: match_hostaddr: mynetworks: 40.92.64.28 ~? 127.0.0.0/8
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: match_list_match: mail-oln040092064028.outbound.protection.outlook.com: no match
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: match_list_match: 40.92.64.28: no match
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: generic_checks: name=permit_mynetworks status=0
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: generic_checks: name=reject_non_fqdn_sender
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: reject_non_fqdn_address: rabisteve@hotmail.com
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: generic_checks: name=reject_non_fqdn_sender status=0
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: generic_checks: name=reject_unknown_sender_domain
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: reject_unknown_address: rabisteve@hotmail.com
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: rewrite_clnt: cached: local: stevie@home.gindi.cloud -> stevie@home.gindi.cloud
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr request = rewrite
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr rule = local
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr address = rabisteve@hotmail.com
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: flags
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: flags
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: 0
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: address
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: address
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: rabisteve@hotmail.com
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: (list terminator)
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: (end)
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: rewrite_clnt: local: rabisteve@hotmail.com -> rabisteve@hotmail.com
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr request = resolve
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr sender = stevie@home.gindi.cloud
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr address = rabisteve@hotmail.com
+postfix_server  | Nov 22 10:36:10 hmail postfix/trivial-rewrite[151]: warning: virtual_alias_domains: proxy:pgsql:/etc/postfix/sql/pgsql_virtual_alias_maps.cf: table lookup problem
+postfix_server  | Nov 22 10:36:10 hmail postfix/trivial-rewrite[151]: warning: virtual_alias_domains lookup failure
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: flags
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: flags
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: 0
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: transport
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: transport
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: CHANNEL NOT UPDATED
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: nexthop
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: nexthop
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: NEXTHOP NOT UPDATED
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: recipient
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: recipient
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: rabisteve@hotmail.com
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: flags
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: flags
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: 8
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: (list terminator)
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: (end)
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: resolve_clnt: `stevie@home.gindi.cloud' -> `rabisteve@hotmail.com' -> transp=`CHANNEL NOT UPDATED' host=`NEXTHOP NOT UPDATED' rcpt=`rabisteve@hotmail.com' flags=fail class=
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: ctable_locate: install entry key stevie@home.gindi.cloud?rabisteve@hotmail.com
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: NOQUEUE: reject: RCPT from mail-oln040092064028.outbound.protection.outlook.com[40.92.64.28]: 451 4.3.0 <rabisteve@hotmail.com>: Temporary lookup failure; from=<rabisteve@hotmail.com> to=<stevie@home.gindi.cloud> proto=ESMTP helo=<EUR01-DB5-obe.outbound.protection.outlook.com>
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: > mail-oln040092064028.outbound.protection.outlook.com[40.92.64.28]: 451 4.3.0 <rabisteve@hotmail.com>: Temporary lookup failure
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: < mail-oln040092064028.outbound.protection.outlook.com[40.92.64.28]: QUIT
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: > mail-oln040092064028.outbound.protection.outlook.com[40.92.64.28]: 221 2.0.0 Bye
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: match_hostname: smtpd_client_event_limit_exceptions: mail-oln040092064028.outbound.protection.outlook.com ~? 127.0.0.0/8
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: match_hostaddr: smtpd_client_event_limit_exceptions: 40.92.64.28 ~? 127.0.0.0/8
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: match_list_match: mail-oln040092064028.outbound.protection.outlook.com: no match
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: match_list_match: 40.92.64.28: no match
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr request = disconnect
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr ident = smtp:40.92.64.28
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: private/anvil: wanted attribute: status
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: status
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: 0
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: private/anvil: wanted attribute: (list terminator)
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: (end)
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: disconnect from mail-oln040092064028.outbound.protection.outlook.com[40.92.64.28] ehlo=1 mail=1 rcpt=0/1 quit=1 commands=3/4
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: master_notify: status 1
+postfix_server  | Nov 22 10:36:10 hmail postfix/smtpd[149]: connection closed
+postfix_server  | Nov 22 10:36:15 hmail postfix/smtpd[149]: proxymap stream disconnect
+postfix_server  | Nov 22 10:36:15 hmail postfix/smtpd[149]: rewrite stream disconnect
+postfix_server  | Nov 22 10:37:50 hmail postfix/smtpd[149]: idle timeout -- exiting
+
+
+Last login: Sun Nov 22 10:14:39 2020 from 172.21.0.35
+[steve@home ~]$ docker logs postfix_server
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+/usr/sbin/postconf: warning: /etc/postfix/main.cf: unused parameter: local_transport_maps=$virtual_mailbox_maps
+Nov 22 10:28:49 hmail postfix/postfix-script[105]: warning: not owned by root: /var/spool/postfix/.
+Nov 22 10:28:49 hmail postfix/postfix-script[106]: warning: not owned by root: /var/spool/postfix/pid
+Nov 22 10:28:49 hmail postfix/postfix-script[108]: warning: group or other writable: /var/spool/postfix/.
+Nov 22 10:28:49 hmail postfix/postfix-script[109]: warning: group or other writable: /var/spool/postfix/pid
+Nov 22 10:28:49 hmail postfix/postfix-script[115]: warning: not owned by root: /etc/postfix/./main.cf
+Nov 22 10:28:49 hmail postfix/postfix-script[116]: warning: not owned by root: /etc/postfix/./master.cf
+Nov 22 10:28:49 hmail postfix/postfix-script[117]: warning: not owned by root: /etc/postfix/./sql
+Nov 22 10:28:49 hmail postfix/postfix-script[118]: warning: not owned by root: /etc/postfix/./sql/.gitignore
+Nov 22 10:28:49 hmail postfix/postfix-script[119]: warning: not owned by root: /etc/postfix/./sql/pgsql_virtual_alias_domain_catchall_maps.cf
+Nov 22 10:28:49 hmail postfix/postfix-script[120]: warning: not owned by root: /etc/postfix/./sql/pgsql_virtual_alias_domain_mailbox_maps.cf
+Nov 22 10:28:49 hmail postfix/postfix-script[121]: warning: not owned by root: /etc/postfix/./sql/pgsql_virtual_alias_domain_maps.cf
+Nov 22 10:28:49 hmail postfix/postfix-script[122]: warning: not owned by root: /etc/postfix/./sql/pgsql_virtual_alias_maps.cf
+Nov 22 10:28:49 hmail postfix/postfix-script[123]: warning: not owned by root: /etc/postfix/./sql/pgsql_virtual_domains_maps.cf
+Nov 22 10:28:49 hmail postfix/postfix-script[124]: warning: not owned by root: /etc/postfix/./sql/pgsql_virtual_mailbox_maps.cf
+Nov 22 10:28:49 hmail postfix/postfix-script[126]: warning: group or other writable: /etc/postfix/./main.cf
+Nov 22 10:28:49 hmail postfix/postfix-script[127]: warning: group or other writable: /etc/postfix/./master.cf
+Nov 22 10:28:49 hmail postfix/postfix-script[128]: warning: group or other writable: /etc/postfix/./sql
+Nov 22 10:28:49 hmail postfix/postfix-script[129]: warning: group or other writable: /etc/postfix/./sql/.gitignore
+Nov 22 10:28:49 hmail postfix/postfix-script[140]: starting the Postfix mail system
+Nov 22 10:28:49 hmail postfix/master[1]: daemon started -- version 3.4.7, configuration /etc/postfix
+Nov 22 10:34:25 hmail postfix/smtpd[144]: name_mask: all
+Nov 22 10:34:25 hmail postfix/smtpd[144]: inet_addr_local: configured 2 IPv4 addresses
+Nov 22 10:34:25 hmail postfix/smtpd[144]: inet_addr_local: configured 0 IPv6 addresses
+Nov 22 10:34:25 hmail postfix/smtpd[144]: process generation: 4 (4)
+Nov 22 10:34:25 hmail postfix/smtpd[144]: match_string: parent_domain_matches_subdomains: smtpd_client_event_limit_exceptions ~? debug_peer_list
+Nov 22 10:34:25 hmail postfix/smtpd[144]: match_string: parent_domain_matches_subdomains: smtpd_client_event_limit_exceptions ~? fast_flush_domains
+Nov 22 10:34:25 hmail postfix/smtpd[144]: match_string: parent_domain_matches_subdomains: smtpd_client_event_limit_exceptions ~? mynetworks
+Nov 22 10:34:25 hmail postfix/smtpd[144]: match_string: parent_domain_matches_subdomains: smtpd_client_event_limit_exceptions ~? permit_mx_backup_networks
+Nov 22 10:34:25 hmail postfix/smtpd[144]: match_string: parent_domain_matches_subdomains: smtpd_client_event_limit_exceptions ~? qmqpd_authorized_clients
+Nov 22 10:34:25 hmail postfix/smtpd[144]: match_string: parent_domain_matches_subdomains: smtpd_client_event_limit_exceptions ~? relay_domains
+Nov 22 10:34:25 hmail postfix/smtpd[144]: match_string: parent_domain_matches_subdomains: smtpd_client_event_limit_exceptions ~? smtpd_access_maps
+Nov 22 10:34:25 hmail postfix/smtpd[144]: match_list_match: smtpd_client_event_limit_exceptions: no match
+Nov 22 10:34:25 hmail postfix/smtpd[144]: match_string: parent_domain_matches_subdomains: mynetworks ~? debug_peer_list
+Nov 22 10:34:25 hmail postfix/smtpd[144]: match_string: parent_domain_matches_subdomains: mynetworks ~? fast_flush_domains
+Nov 22 10:34:25 hmail postfix/smtpd[144]: match_string: parent_domain_matches_subdomains: mynetworks ~? mynetworks
+Nov 22 10:34:25 hmail postfix/smtpd[144]: name_mask: host
+Nov 22 10:34:25 hmail postfix/smtpd[144]: been_here: 127.0.0.1/32: 0
+Nov 22 10:34:25 hmail postfix/smtpd[144]: been_here: 10.10.3.2/32: 0
+Nov 22 10:34:25 hmail postfix/smtpd[144]: mynetworks_core: 127.0.0.1/32 10.10.3.2/32
+Nov 22 10:34:25 hmail postfix/smtpd[144]: match_string: parent_domain_matches_subdomains: mynetworks ~? debug_peer_list
+Nov 22 10:34:25 hmail postfix/smtpd[144]: match_string: parent_domain_matches_subdomains: mynetworks ~? fast_flush_domains
+Nov 22 10:34:25 hmail postfix/smtpd[144]: match_string: parent_domain_matches_subdomains: mynetworks ~? mynetworks
+Nov 22 10:34:25 hmail postfix/smtpd[144]: match_string: parent_domain_matches_subdomains: relay_domains ~? debug_peer_list
+Nov 22 10:34:25 hmail postfix/smtpd[144]: match_string: parent_domain_matches_subdomains: relay_domains ~? fast_flush_domains
+Nov 22 10:34:25 hmail postfix/smtpd[144]: match_string: parent_domain_matches_subdomains: relay_domains ~? mynetworks
+Nov 22 10:34:25 hmail postfix/smtpd[144]: match_string: parent_domain_matches_subdomains: relay_domains ~? permit_mx_backup_networks
+Nov 22 10:34:25 hmail postfix/smtpd[144]: match_string: parent_domain_matches_subdomains: relay_domains ~? qmqpd_authorized_clients
+Nov 22 10:34:25 hmail postfix/smtpd[144]: match_string: parent_domain_matches_subdomains: relay_domains ~? relay_domains
+Nov 22 10:34:25 hmail postfix/smtpd[144]: match_string: parent_domain_matches_subdomains: permit_mx_backup_networks ~? debug_peer_list
+Nov 22 10:34:25 hmail postfix/smtpd[144]: match_string: parent_domain_matches_subdomains: permit_mx_backup_networks ~? fast_flush_domains
+Nov 22 10:34:25 hmail postfix/smtpd[144]: match_string: parent_domain_matches_subdomains: permit_mx_backup_networks ~? mynetworks
+Nov 22 10:34:25 hmail postfix/smtpd[144]: match_string: parent_domain_matches_subdomains: permit_mx_backup_networks ~? permit_mx_backup_networks
+Nov 22 10:34:25 hmail postfix/smtpd[144]: connect to subsystem private/proxymap
+Nov 22 10:34:25 hmail postfix/smtpd[144]: send attr request = open
+Nov 22 10:34:25 hmail postfix/smtpd[144]: send attr table = unix:passwd.byname
+Nov 22 10:34:25 hmail postfix/smtpd[144]: send attr flags = 0
+Nov 22 10:34:25 hmail postfix/smtpd[144]: private/proxymap socket: wanted attribute: status
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute name: status
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute value: 0
+Nov 22 10:34:25 hmail postfix/smtpd[144]: private/proxymap socket: wanted attribute: flags
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute name: flags
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute value: 16
+Nov 22 10:34:25 hmail postfix/smtpd[144]: private/proxymap socket: wanted attribute: (list terminator)
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute name: (end)
+Nov 22 10:34:25 hmail postfix/smtpd[144]: dict_proxy_open: connect to map=unix:passwd.byname status=0 server_flags=fixed
+Nov 22 10:34:25 hmail postfix/smtpd[144]: dict_open: proxy:unix:passwd.byname
+Nov 22 10:34:25 hmail postfix/smtpd[144]: Compiled against Berkeley DB: 5.3.28?
+Nov 22 10:34:25 hmail postfix/smtpd[144]: Run-time linked against Berkeley DB: 5.3.28?
+Nov 22 10:34:25 hmail postfix/smtpd[144]: error: open database /etc/postfix/aliases.db: No such file or directory
+Nov 22 10:34:25 hmail postfix/smtpd[144]: dict_open: hash:/etc/postfix/aliases
+Nov 22 10:34:25 hmail postfix/smtpd[144]: send attr request = open
+Nov 22 10:34:25 hmail postfix/smtpd[144]: send attr table = pgsql:/etc/postfix/sql/pgsql_virtual_alias_maps.cf
+Nov 22 10:34:25 hmail postfix/smtpd[144]: send attr flags = 0
+Nov 22 10:34:25 hmail postfix/smtpd[144]: private/proxymap socket: wanted attribute: status
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute name: status
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute value: 0
+Nov 22 10:34:25 hmail postfix/smtpd[144]: private/proxymap socket: wanted attribute: flags
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute name: flags
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute value: 16
+Nov 22 10:34:25 hmail postfix/smtpd[144]: private/proxymap socket: wanted attribute: (list terminator)
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute name: (end)
+Nov 22 10:34:25 hmail postfix/smtpd[144]: dict_proxy_open: connect to map=pgsql:/etc/postfix/sql/pgsql_virtual_alias_maps.cf status=0 server_flags=fixed
+Nov 22 10:34:25 hmail postfix/smtpd[144]: dict_open: proxy:pgsql:/etc/postfix/sql/pgsql_virtual_alias_maps.cf
+Nov 22 10:34:25 hmail postfix/smtpd[144]: send attr request = open
+Nov 22 10:34:25 hmail postfix/smtpd[144]: send attr table = pgsql:/etc/postfix/sql/pgsql_virtual_alias_domain_maps.cf
+Nov 22 10:34:25 hmail postfix/smtpd[144]: send attr flags = 0
+Nov 22 10:34:25 hmail postfix/smtpd[144]: private/proxymap socket: wanted attribute: status
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute name: status
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute value: 0
+Nov 22 10:34:25 hmail postfix/smtpd[144]: private/proxymap socket: wanted attribute: flags
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute name: flags
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute value: 16
+Nov 22 10:34:25 hmail postfix/smtpd[144]: private/proxymap socket: wanted attribute: (list terminator)
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute name: (end)
+Nov 22 10:34:25 hmail postfix/smtpd[144]: dict_proxy_open: connect to map=pgsql:/etc/postfix/sql/pgsql_virtual_alias_domain_maps.cf status=0 server_flags=fixed
+Nov 22 10:34:25 hmail postfix/smtpd[144]: dict_open: proxy:pgsql:/etc/postfix/sql/pgsql_virtual_alias_domain_maps.cf
+Nov 22 10:34:25 hmail postfix/smtpd[144]: send attr request = open
+Nov 22 10:34:25 hmail postfix/smtpd[144]: send attr table = pgsql:/etc/postfix/sql/pgsql_virtual_alias_domain_catchall_maps.cf
+Nov 22 10:34:25 hmail postfix/smtpd[144]: send attr flags = 0
+Nov 22 10:34:25 hmail postfix/smtpd[144]: private/proxymap socket: wanted attribute: status
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute name: status
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute value: 0
+Nov 22 10:34:25 hmail postfix/smtpd[144]: private/proxymap socket: wanted attribute: flags
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute name: flags
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute value: 16
+Nov 22 10:34:25 hmail postfix/smtpd[144]: private/proxymap socket: wanted attribute: (list terminator)
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute name: (end)
+Nov 22 10:34:25 hmail postfix/smtpd[144]: dict_proxy_open: connect to map=pgsql:/etc/postfix/sql/pgsql_virtual_alias_domain_catchall_maps.cf status=0 server_flags=fixed
+Nov 22 10:34:25 hmail postfix/smtpd[144]: dict_open: proxy:pgsql:/etc/postfix/sql/pgsql_virtual_alias_domain_catchall_maps.cf
+Nov 22 10:34:25 hmail postfix/smtpd[144]: send attr request = open
+Nov 22 10:34:25 hmail postfix/smtpd[144]: send attr table = pgsql:/etc/postfix/sql/pgsql_virtual_mailbox_maps.cf
+Nov 22 10:34:25 hmail postfix/smtpd[144]: send attr flags = 0
+Nov 22 10:34:25 hmail postfix/smtpd[144]: private/proxymap socket: wanted attribute: status
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute name: status
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute value: 0
+Nov 22 10:34:25 hmail postfix/smtpd[144]: private/proxymap socket: wanted attribute: flags
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute name: flags
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute value: 16
+Nov 22 10:34:25 hmail postfix/smtpd[144]: private/proxymap socket: wanted attribute: (list terminator)
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute name: (end)
+Nov 22 10:34:25 hmail postfix/smtpd[144]: dict_proxy_open: connect to map=pgsql:/etc/postfix/sql/pgsql_virtual_mailbox_maps.cf status=0 server_flags=fixed
+Nov 22 10:34:25 hmail postfix/smtpd[144]: dict_open: proxy:pgsql:/etc/postfix/sql/pgsql_virtual_mailbox_maps.cf
+Nov 22 10:34:25 hmail postfix/smtpd[144]: send attr request = open
+Nov 22 10:34:25 hmail postfix/smtpd[144]: send attr table = pgsql:/etc/postfix/sql/pgsql_virtual_alias_domain_mailbox_maps.cf
+Nov 22 10:34:25 hmail postfix/smtpd[144]: send attr flags = 0
+Nov 22 10:34:25 hmail postfix/smtpd[144]: private/proxymap socket: wanted attribute: status
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute name: status
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute value: 0
+Nov 22 10:34:25 hmail postfix/smtpd[144]: private/proxymap socket: wanted attribute: flags
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute name: flags
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute value: 16
+Nov 22 10:34:25 hmail postfix/smtpd[144]: private/proxymap socket: wanted attribute: (list terminator)
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute name: (end)
+Nov 22 10:34:25 hmail postfix/smtpd[144]: dict_proxy_open: connect to map=pgsql:/etc/postfix/sql/pgsql_virtual_alias_domain_mailbox_maps.cf status=0 server_flags=fixed
+Nov 22 10:34:25 hmail postfix/smtpd[144]: dict_open: proxy:pgsql:/etc/postfix/sql/pgsql_virtual_alias_domain_mailbox_maps.cf
+Nov 22 10:34:25 hmail postfix/smtpd[144]: match_string: parent_domain_matches_subdomains: smtpd_access_maps ~? debug_peer_list
+Nov 22 10:34:25 hmail postfix/smtpd[144]: match_string: parent_domain_matches_subdomains: smtpd_access_maps ~? fast_flush_domains
+Nov 22 10:34:25 hmail postfix/smtpd[144]: match_string: parent_domain_matches_subdomains: smtpd_access_maps ~? mynetworks
+Nov 22 10:34:25 hmail postfix/smtpd[144]: match_string: parent_domain_matches_subdomains: smtpd_access_maps ~? permit_mx_backup_networks
+Nov 22 10:34:25 hmail postfix/smtpd[144]: match_string: parent_domain_matches_subdomains: smtpd_access_maps ~? qmqpd_authorized_clients
+Nov 22 10:34:25 hmail postfix/smtpd[144]: match_string: parent_domain_matches_subdomains: smtpd_access_maps ~? relay_domains
+Nov 22 10:34:25 hmail postfix/smtpd[144]: match_string: parent_domain_matches_subdomains: smtpd_access_maps ~? smtpd_access_maps
+Nov 22 10:34:25 hmail postfix/smtpd[144]: unknown_helo_hostname_tempfail_action = defer_if_permit
+Nov 22 10:34:25 hmail postfix/smtpd[144]: unknown_address_tempfail_action = defer_if_permit
+Nov 22 10:34:25 hmail postfix/smtpd[144]: unverified_recipient_tempfail_action = defer_if_permit
+Nov 22 10:34:25 hmail postfix/smtpd[144]: unverified_sender_tempfail_action = defer_if_permit
+Nov 22 10:34:25 hmail postfix/smtpd[144]: match_string: parent_domain_matches_subdomains: fast_flush_domains ~? debug_peer_list
+Nov 22 10:34:25 hmail postfix/smtpd[144]: match_string: parent_domain_matches_subdomains: fast_flush_domains ~? fast_flush_domains
+Nov 22 10:34:25 hmail postfix/smtpd[144]: warning: queue_minfree(51200000) should be at least 1.5*message_size_limit(104857600)
+Nov 22 10:34:25 hmail postfix/smtpd[144]: auto_clnt_create: transport=local endpoint=private/anvil
+Nov 22 10:34:25 hmail postfix/smtpd[144]: connection established
+Nov 22 10:34:25 hmail postfix/smtpd[144]: master_notify: status 0
+Nov 22 10:34:25 hmail postfix/smtpd[144]: name_mask: resource
+Nov 22 10:34:25 hmail postfix/smtpd[144]: name_mask: software
+Nov 22 10:34:25 hmail postfix/smtpd[144]: connect from postfixadmin.postfix-containerized_default[10.10.3.4]
+Nov 22 10:34:25 hmail postfix/smtpd[144]: match_list_match: postfixadmin.postfix-containerized_default: no match
+Nov 22 10:34:25 hmail postfix/smtpd[144]: match_list_match: 10.10.3.4: no match
+Nov 22 10:34:25 hmail postfix/smtpd[144]: match_list_match: postfixadmin.postfix-containerized_default: no match
+Nov 22 10:34:25 hmail postfix/smtpd[144]: match_list_match: 10.10.3.4: no match
+Nov 22 10:34:25 hmail postfix/smtpd[144]: smtp_stream_setup: maxtime=300 enable_deadline=0
+Nov 22 10:34:25 hmail postfix/smtpd[144]: match_hostname: smtpd_client_event_limit_exceptions: postfixadmin.postfix-containerized_default ~? 127.0.0.0/8
+Nov 22 10:34:25 hmail postfix/smtpd[144]: match_hostaddr: smtpd_client_event_limit_exceptions: 10.10.3.4 ~? 127.0.0.0/8
+Nov 22 10:34:25 hmail postfix/smtpd[144]: match_list_match: postfixadmin.postfix-containerized_default: no match
+Nov 22 10:34:25 hmail postfix/smtpd[144]: match_list_match: 10.10.3.4: no match
+Nov 22 10:34:25 hmail postfix/smtpd[144]: auto_clnt_open: connected to private/anvil
+Nov 22 10:34:25 hmail postfix/smtpd[144]: send attr request = connect
+Nov 22 10:34:25 hmail postfix/smtpd[144]: send attr ident = smtp:10.10.3.4
+Nov 22 10:34:25 hmail postfix/smtpd[144]: private/anvil: wanted attribute: status
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute name: status
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute value: 0
+Nov 22 10:34:25 hmail postfix/smtpd[144]: private/anvil: wanted attribute: count
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute name: count
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute value: 1
+Nov 22 10:34:25 hmail postfix/smtpd[144]: private/anvil: wanted attribute: rate
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute name: rate
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute value: 1
+Nov 22 10:34:25 hmail postfix/smtpd[144]: private/anvil: wanted attribute: (list terminator)
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute name: (end)
+Nov 22 10:34:25 hmail postfix/smtpd[144]: > postfixadmin.postfix-containerized_default[10.10.3.4]: 220 hmail.float.i.ng ESMTP Postfix
+Nov 22 10:34:25 hmail postfix/smtpd[144]: < postfixadmin.postfix-containerized_default[10.10.3.4]: EHLO 01d291908abb
+Nov 22 10:34:25 hmail postfix/smtpd[144]: match_list_match: postfixadmin.postfix-containerized_default: no match
+Nov 22 10:34:25 hmail postfix/smtpd[144]: match_list_match: 10.10.3.4: no match
+Nov 22 10:34:25 hmail postfix/smtpd[144]: > postfixadmin.postfix-containerized_default[10.10.3.4]: 250-hmail.float.i.ng
+Nov 22 10:34:25 hmail postfix/smtpd[144]: > postfixadmin.postfix-containerized_default[10.10.3.4]: 250-PIPELINING
+Nov 22 10:34:25 hmail postfix/smtpd[144]: > postfixadmin.postfix-containerized_default[10.10.3.4]: 250-SIZE 104857600
+Nov 22 10:34:25 hmail postfix/smtpd[144]: > postfixadmin.postfix-containerized_default[10.10.3.4]: 250-ETRN
+Nov 22 10:34:25 hmail postfix/smtpd[144]: > postfixadmin.postfix-containerized_default[10.10.3.4]: 250-ENHANCEDSTATUSCODES
+Nov 22 10:34:25 hmail postfix/smtpd[144]: > postfixadmin.postfix-containerized_default[10.10.3.4]: 250-8BITMIME
+Nov 22 10:34:25 hmail postfix/smtpd[144]: > postfixadmin.postfix-containerized_default[10.10.3.4]: 250-DSN
+Nov 22 10:34:25 hmail postfix/smtpd[144]: > postfixadmin.postfix-containerized_default[10.10.3.4]: 250 CHUNKING
+Nov 22 10:34:25 hmail postfix/smtpd[144]: < postfixadmin.postfix-containerized_default[10.10.3.4]: MAIL FROM:<support@floatingcloud.io>
+Nov 22 10:34:25 hmail postfix/smtpd[144]: extract_addr: input: <support@floatingcloud.io>
+Nov 22 10:34:25 hmail postfix/smtpd[144]: smtpd_check_addr: addr=support@floatingcloud.io
+Nov 22 10:34:25 hmail postfix/smtpd[144]: connect to subsystem private/rewrite
+Nov 22 10:34:25 hmail postfix/smtpd[144]: send attr request = rewrite
+Nov 22 10:34:25 hmail postfix/smtpd[144]: send attr rule = local
+Nov 22 10:34:25 hmail postfix/smtpd[144]: send attr address = ""
+Nov 22 10:34:25 hmail postfix/smtpd[144]: private/rewrite socket: wanted attribute: flags
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute name: flags
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute value: 0
+Nov 22 10:34:25 hmail postfix/smtpd[144]: private/rewrite socket: wanted attribute: address
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute name: address
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute value: ""
+Nov 22 10:34:25 hmail postfix/smtpd[144]: private/rewrite socket: wanted attribute: (list terminator)
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute name: (end)
+Nov 22 10:34:25 hmail postfix/smtpd[144]: rewrite_clnt: local: "" -> ""
+Nov 22 10:34:25 hmail postfix/smtpd[144]: send attr request = rewrite
+Nov 22 10:34:25 hmail postfix/smtpd[144]: send attr rule = local
+Nov 22 10:34:25 hmail postfix/smtpd[144]: send attr address = support@floatingcloud.io
+Nov 22 10:34:25 hmail postfix/smtpd[144]: private/rewrite socket: wanted attribute: flags
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute name: flags
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute value: 0
+Nov 22 10:34:25 hmail postfix/smtpd[144]: private/rewrite socket: wanted attribute: address
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute name: address
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute value: support@floatingcloud.io
+Nov 22 10:34:25 hmail postfix/smtpd[144]: private/rewrite socket: wanted attribute: (list terminator)
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute name: (end)
+Nov 22 10:34:25 hmail postfix/smtpd[144]: rewrite_clnt: local: support@floatingcloud.io -> support@floatingcloud.io
+Nov 22 10:34:25 hmail postfix/smtpd[144]: send attr request = resolve
+Nov 22 10:34:25 hmail postfix/smtpd[144]: send attr sender =
+Nov 22 10:34:25 hmail postfix/smtpd[144]: send attr address = support@floatingcloud.io
+Nov 22 10:34:25 hmail postfix/proxymap[146]: warning: connect to pgsql server localhost: could not connect to server: Connection refused??Is the server running on host "localhost" (127.0.0.1) and accepting??TCP/IP connections on port 5432??could not connect to server: Address not available??Is the server running on host "localhost" (::1) and accepting??TCP/IP connections on port 5432??
+Nov 22 10:34:25 hmail postfix/trivial-rewrite[148]: warning: virtual_alias_domains: proxy:pgsql:/etc/postfix/sql/pgsql_virtual_alias_maps.cf: table lookup problem
+Nov 22 10:34:25 hmail postfix/trivial-rewrite[148]: warning: virtual_alias_domains lookup failure
+Nov 22 10:34:25 hmail postfix/smtpd[144]: private/rewrite socket: wanted attribute: flags
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute name: flags
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute value: 0
+Nov 22 10:34:25 hmail postfix/smtpd[144]: private/rewrite socket: wanted attribute: transport
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute name: transport
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute value: CHANNEL NOT UPDATED
+Nov 22 10:34:25 hmail postfix/smtpd[144]: private/rewrite socket: wanted attribute: nexthop
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute name: nexthop
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute value: NEXTHOP NOT UPDATED
+Nov 22 10:34:25 hmail postfix/smtpd[144]: private/rewrite socket: wanted attribute: recipient
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute name: recipient
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute value: support@floatingcloud.io
+Nov 22 10:34:25 hmail postfix/smtpd[144]: private/rewrite socket: wanted attribute: flags
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute name: flags
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute value: 8
+Nov 22 10:34:25 hmail postfix/smtpd[144]: private/rewrite socket: wanted attribute: (list terminator)
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute name: (end)
+Nov 22 10:34:25 hmail postfix/smtpd[144]: resolve_clnt: `' -> `support@floatingcloud.io' -> transp=`CHANNEL NOT UPDATED' host=`NEXTHOP NOT UPDATED' rcpt=`support@floatingcloud.io' flags=fail class=
+Nov 22 10:34:25 hmail postfix/smtpd[144]: ctable_locate: install entry key ?support@floatingcloud.io
+Nov 22 10:34:25 hmail postfix/smtpd[144]: extract_addr: in: <support@floatingcloud.io>, result: support@floatingcloud.io
+Nov 22 10:34:25 hmail postfix/smtpd[144]: send attr request = rewrite
+Nov 22 10:34:25 hmail postfix/smtpd[144]: send attr rule = local
+Nov 22 10:34:25 hmail postfix/smtpd[144]: send attr address = double-bounce
+Nov 22 10:34:25 hmail postfix/smtpd[144]: private/rewrite socket: wanted attribute: flags
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute name: flags
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute value: 0
+Nov 22 10:34:25 hmail postfix/smtpd[144]: private/rewrite socket: wanted attribute: address
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute name: address
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute value: double-bounce@hmail.float.i.ng
+Nov 22 10:34:25 hmail postfix/smtpd[144]: private/rewrite socket: wanted attribute: (list terminator)
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute name: (end)
+Nov 22 10:34:25 hmail postfix/smtpd[144]: rewrite_clnt: local: double-bounce -> double-bounce@hmail.float.i.ng
+Nov 22 10:34:25 hmail postfix/smtpd[144]: smtpd_check_rewrite: trying: permit_inet_interfaces
+Nov 22 10:34:25 hmail postfix/smtpd[144]: permit_inet_interfaces: postfixadmin.postfix-containerized_default 10.10.3.4
+Nov 22 10:34:25 hmail postfix/smtpd[144]: fsspace: .: block size 4096, blocks free 10392811
+Nov 22 10:34:25 hmail postfix/smtpd[144]: smtpd_check_queue: blocks 4096 avail 10392811 min_free 51200000 msg_size_limit 104857600
+Nov 22 10:34:25 hmail postfix/smtpd[144]: > postfixadmin.postfix-containerized_default[10.10.3.4]: 250 2.1.0 Ok
+Nov 22 10:34:25 hmail postfix/smtpd[144]: < postfixadmin.postfix-containerized_default[10.10.3.4]: RCPT TO:<stevie@home.gindi.cloud>
+Nov 22 10:34:25 hmail postfix/smtpd[144]: extract_addr: input: <stevie@home.gindi.cloud>
+Nov 22 10:34:25 hmail postfix/smtpd[144]: smtpd_check_addr: addr=stevie@home.gindi.cloud
+Nov 22 10:34:25 hmail postfix/smtpd[144]: send attr request = rewrite
+Nov 22 10:34:25 hmail postfix/smtpd[144]: send attr rule = local
+Nov 22 10:34:25 hmail postfix/smtpd[144]: send attr address = support@floatingcloud.io
+Nov 22 10:34:25 hmail postfix/smtpd[144]: private/rewrite socket: wanted attribute: flags
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute name: flags
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute value: 0
+Nov 22 10:34:25 hmail postfix/smtpd[144]: private/rewrite socket: wanted attribute: address
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute name: address
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute value: support@floatingcloud.io
+Nov 22 10:34:25 hmail postfix/smtpd[144]: private/rewrite socket: wanted attribute: (list terminator)
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute name: (end)
+Nov 22 10:34:25 hmail postfix/smtpd[144]: rewrite_clnt: local: support@floatingcloud.io -> support@floatingcloud.io
+Nov 22 10:34:25 hmail postfix/smtpd[144]: send attr request = rewrite
+Nov 22 10:34:25 hmail postfix/smtpd[144]: send attr rule = local
+Nov 22 10:34:25 hmail postfix/smtpd[144]: send attr address = stevie@home.gindi.cloud
+Nov 22 10:34:25 hmail postfix/smtpd[144]: private/rewrite socket: wanted attribute: flags
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute name: flags
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute value: 0
+Nov 22 10:34:25 hmail postfix/smtpd[144]: private/rewrite socket: wanted attribute: address
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute name: address
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute value: stevie@home.gindi.cloud
+Nov 22 10:34:25 hmail postfix/smtpd[144]: private/rewrite socket: wanted attribute: (list terminator)
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute name: (end)
+Nov 22 10:34:25 hmail postfix/smtpd[144]: rewrite_clnt: local: stevie@home.gindi.cloud -> stevie@home.gindi.cloud
+Nov 22 10:34:25 hmail postfix/smtpd[144]: send attr request = resolve
+Nov 22 10:34:25 hmail postfix/smtpd[144]: send attr sender = support@floatingcloud.io
+Nov 22 10:34:25 hmail postfix/smtpd[144]: send attr address = stevie@home.gindi.cloud
+Nov 22 10:34:25 hmail postfix/trivial-rewrite[148]: warning: virtual_alias_domains: proxy:pgsql:/etc/postfix/sql/pgsql_virtual_alias_maps.cf: table lookup problem
+Nov 22 10:34:25 hmail postfix/trivial-rewrite[148]: warning: virtual_alias_domains lookup failure
+Nov 22 10:34:25 hmail postfix/smtpd[144]: private/rewrite socket: wanted attribute: flags
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute name: flags
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute value: 0
+Nov 22 10:34:25 hmail postfix/smtpd[144]: private/rewrite socket: wanted attribute: transport
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute name: transport
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute value: CHANNEL NOT UPDATED
+Nov 22 10:34:25 hmail postfix/smtpd[144]: private/rewrite socket: wanted attribute: nexthop
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute name: nexthop
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute value: NEXTHOP NOT UPDATED
+Nov 22 10:34:25 hmail postfix/smtpd[144]: private/rewrite socket: wanted attribute: recipient
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute name: recipient
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute value: stevie@home.gindi.cloud
+Nov 22 10:34:25 hmail postfix/smtpd[144]: private/rewrite socket: wanted attribute: flags
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute name: flags
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute value: 8
+Nov 22 10:34:25 hmail postfix/smtpd[144]: private/rewrite socket: wanted attribute: (list terminator)
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute name: (end)
+Nov 22 10:34:25 hmail postfix/smtpd[144]: resolve_clnt: `support@floatingcloud.io' -> `stevie@home.gindi.cloud' -> transp=`CHANNEL NOT UPDATED' host=`NEXTHOP NOT UPDATED' rcpt=`stevie@home.gindi.cloud' flags=fail class=
+Nov 22 10:34:25 hmail postfix/smtpd[144]: ctable_locate: install entry key support@floatingcloud.io?stevie@home.gindi.cloud
+Nov 22 10:34:25 hmail postfix/smtpd[144]: extract_addr: in: <stevie@home.gindi.cloud>, result: stevie@home.gindi.cloud
+Nov 22 10:34:25 hmail postfix/smtpd[144]: >>> START Sender address RESTRICTIONS <<<
+Nov 22 10:34:25 hmail postfix/smtpd[144]: generic_checks: name=permit_mynetworks
+Nov 22 10:34:25 hmail postfix/smtpd[144]: permit_mynetworks: postfixadmin.postfix-containerized_default 10.10.3.4
+Nov 22 10:34:25 hmail postfix/smtpd[144]: match_hostname: mynetworks: postfixadmin.postfix-containerized_default ~? 127.0.0.0/8
+Nov 22 10:34:25 hmail postfix/smtpd[144]: match_hostaddr: mynetworks: 10.10.3.4 ~? 127.0.0.0/8
+Nov 22 10:34:25 hmail postfix/smtpd[144]: match_list_match: postfixadmin.postfix-containerized_default: no match
+Nov 22 10:34:25 hmail postfix/smtpd[144]: match_list_match: 10.10.3.4: no match
+Nov 22 10:34:25 hmail postfix/smtpd[144]: generic_checks: name=permit_mynetworks status=0
+Nov 22 10:34:25 hmail postfix/smtpd[144]: generic_checks: name=reject_non_fqdn_sender
+Nov 22 10:34:25 hmail postfix/smtpd[144]: reject_non_fqdn_address: support@floatingcloud.io
+Nov 22 10:34:25 hmail postfix/smtpd[144]: generic_checks: name=reject_non_fqdn_sender status=0
+Nov 22 10:34:25 hmail postfix/smtpd[144]: generic_checks: name=reject_unknown_sender_domain
+Nov 22 10:34:25 hmail postfix/smtpd[144]: reject_unknown_address: support@floatingcloud.io
+Nov 22 10:34:25 hmail postfix/smtpd[144]: rewrite_clnt: cached: local: stevie@home.gindi.cloud -> stevie@home.gindi.cloud
+Nov 22 10:34:25 hmail postfix/smtpd[144]: send attr request = rewrite
+Nov 22 10:34:25 hmail postfix/smtpd[144]: send attr rule = local
+Nov 22 10:34:25 hmail postfix/smtpd[144]: send attr address = support@floatingcloud.io
+Nov 22 10:34:25 hmail postfix/smtpd[144]: private/rewrite socket: wanted attribute: flags
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute name: flags
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute value: 0
+Nov 22 10:34:25 hmail postfix/smtpd[144]: private/rewrite socket: wanted attribute: address
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute name: address
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute value: support@floatingcloud.io
+Nov 22 10:34:25 hmail postfix/smtpd[144]: private/rewrite socket: wanted attribute: (list terminator)
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute name: (end)
+Nov 22 10:34:25 hmail postfix/smtpd[144]: rewrite_clnt: local: support@floatingcloud.io -> support@floatingcloud.io
+Nov 22 10:34:25 hmail postfix/smtpd[144]: send attr request = resolve
+Nov 22 10:34:25 hmail postfix/smtpd[144]: send attr sender = stevie@home.gindi.cloud
+Nov 22 10:34:25 hmail postfix/smtpd[144]: send attr address = support@floatingcloud.io
+Nov 22 10:34:25 hmail postfix/trivial-rewrite[148]: warning: virtual_alias_domains: proxy:pgsql:/etc/postfix/sql/pgsql_virtual_alias_maps.cf: table lookup problem
+Nov 22 10:34:25 hmail postfix/trivial-rewrite[148]: warning: virtual_alias_domains lookup failure
+Nov 22 10:34:25 hmail postfix/smtpd[144]: private/rewrite socket: wanted attribute: flags
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute name: flags
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute value: 0
+Nov 22 10:34:25 hmail postfix/smtpd[144]: private/rewrite socket: wanted attribute: transport
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute name: transport
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute value: CHANNEL NOT UPDATED
+Nov 22 10:34:25 hmail postfix/smtpd[144]: private/rewrite socket: wanted attribute: nexthop
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute name: nexthop
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute value: NEXTHOP NOT UPDATED
+Nov 22 10:34:25 hmail postfix/smtpd[144]: private/rewrite socket: wanted attribute: recipient
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute name: recipient
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute value: support@floatingcloud.io
+Nov 22 10:34:25 hmail postfix/smtpd[144]: private/rewrite socket: wanted attribute: flags
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute name: flags
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute value: 8
+Nov 22 10:34:25 hmail postfix/smtpd[144]: private/rewrite socket: wanted attribute: (list terminator)
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute name: (end)
+Nov 22 10:34:25 hmail postfix/smtpd[144]: resolve_clnt: `stevie@home.gindi.cloud' -> `support@floatingcloud.io' -> transp=`CHANNEL NOT UPDATED' host=`NEXTHOP NOT UPDATED' rcpt=`support@floatingcloud.io' flags=fail class=
+Nov 22 10:34:25 hmail postfix/smtpd[144]: ctable_locate: install entry key stevie@home.gindi.cloud?support@floatingcloud.io
+Nov 22 10:34:25 hmail postfix/smtpd[144]: NOQUEUE: reject: RCPT from postfixadmin.postfix-containerized_default[10.10.3.4]: 451 4.3.0 <support@floatingcloud.io>: Temporary lookup failure; from=<support@floatingcloud.io> to=<stevie@home.gindi.cloud> proto=ESMTP helo=<01d291908abb>
+Nov 22 10:34:25 hmail postfix/smtpd[144]: > postfixadmin.postfix-containerized_default[10.10.3.4]: 451 4.3.0 <support@floatingcloud.io>: Temporary lookup failure
+Nov 22 10:34:25 hmail postfix/smtpd[144]: < postfixadmin.postfix-containerized_default[10.10.3.4]: DATA
+Nov 22 10:34:25 hmail postfix/smtpd[144]: > postfixadmin.postfix-containerized_default[10.10.3.4]: 554 5.5.1 Error: no valid recipients
+Nov 22 10:34:25 hmail postfix/smtpd[144]: < postfixadmin.postfix-containerized_default[10.10.3.4]: To: stevie@home.gindi.cloud
+Nov 22 10:34:25 hmail postfix/smtpd[144]: warning: non-SMTP command from postfixadmin.postfix-containerized_default[10.10.3.4]: To: stevie@home.gindi.cloud
+Nov 22 10:34:25 hmail postfix/smtpd[144]: > postfixadmin.postfix-containerized_default[10.10.3.4]: 221 2.7.0 Error: I can break rules, too. Goodbye.
+Nov 22 10:34:25 hmail postfix/smtpd[144]: match_hostname: smtpd_client_event_limit_exceptions: postfixadmin.postfix-containerized_default ~? 127.0.0.0/8
+Nov 22 10:34:25 hmail postfix/smtpd[144]: match_hostaddr: smtpd_client_event_limit_exceptions: 10.10.3.4 ~? 127.0.0.0/8
+Nov 22 10:34:25 hmail postfix/smtpd[144]: match_list_match: postfixadmin.postfix-containerized_default: no match
+Nov 22 10:34:25 hmail postfix/smtpd[144]: match_list_match: 10.10.3.4: no match
+Nov 22 10:34:25 hmail postfix/smtpd[144]: send attr request = disconnect
+Nov 22 10:34:25 hmail postfix/smtpd[144]: send attr ident = smtp:10.10.3.4
+Nov 22 10:34:25 hmail postfix/smtpd[144]: private/anvil: wanted attribute: status
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute name: status
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute value: 0
+Nov 22 10:34:25 hmail postfix/smtpd[144]: private/anvil: wanted attribute: (list terminator)
+Nov 22 10:34:25 hmail postfix/smtpd[144]: input attribute name: (end)
+Nov 22 10:34:25 hmail postfix/smtpd[144]: disconnect from postfixadmin.postfix-containerized_default[10.10.3.4] ehlo=1 mail=1 rcpt=0/1 data=0/1 unknown=0/1 commands=2/5
+Nov 22 10:34:25 hmail postfix/smtpd[144]: master_notify: status 1
+Nov 22 10:34:25 hmail postfix/smtpd[144]: connection closed
+Nov 22 10:34:30 hmail postfix/smtpd[144]: proxymap stream disconnect
+Nov 22 10:34:30 hmail postfix/smtpd[144]: rewrite stream disconnect
+Nov 22 10:36:05 hmail postfix/smtpd[144]: idle timeout -- exiting
+Nov 22 10:36:10 hmail postfix/smtpd[149]: name_mask: all
+Nov 22 10:36:10 hmail postfix/smtpd[149]: inet_addr_local: configured 2 IPv4 addresses
+Nov 22 10:36:10 hmail postfix/smtpd[149]: inet_addr_local: configured 0 IPv6 addresses
+Nov 22 10:36:10 hmail postfix/smtpd[149]: process generation: 11 (11)
+Nov 22 10:36:10 hmail postfix/smtpd[149]: match_string: parent_domain_matches_subdomains: smtpd_client_event_limit_exceptions ~? debug_peer_list
+Nov 22 10:36:10 hmail postfix/smtpd[149]: match_string: parent_domain_matches_subdomains: smtpd_client_event_limit_exceptions ~? fast_flush_domains
+Nov 22 10:36:10 hmail postfix/smtpd[149]: match_string: parent_domain_matches_subdomains: smtpd_client_event_limit_exceptions ~? mynetworks
+Nov 22 10:36:10 hmail postfix/smtpd[149]: match_string: parent_domain_matches_subdomains: smtpd_client_event_limit_exceptions ~? permit_mx_backup_networks
+Nov 22 10:36:10 hmail postfix/smtpd[149]: match_string: parent_domain_matches_subdomains: smtpd_client_event_limit_exceptions ~? qmqpd_authorized_clients
+Nov 22 10:36:10 hmail postfix/smtpd[149]: match_string: parent_domain_matches_subdomains: smtpd_client_event_limit_exceptions ~? relay_domains
+Nov 22 10:36:10 hmail postfix/smtpd[149]: match_string: parent_domain_matches_subdomains: smtpd_client_event_limit_exceptions ~? smtpd_access_maps
+Nov 22 10:36:10 hmail postfix/smtpd[149]: match_list_match: smtpd_client_event_limit_exceptions: no match
+Nov 22 10:36:10 hmail postfix/smtpd[149]: match_string: parent_domain_matches_subdomains: mynetworks ~? debug_peer_list
+Nov 22 10:36:10 hmail postfix/smtpd[149]: match_string: parent_domain_matches_subdomains: mynetworks ~? fast_flush_domains
+Nov 22 10:36:10 hmail postfix/smtpd[149]: match_string: parent_domain_matches_subdomains: mynetworks ~? mynetworks
+Nov 22 10:36:10 hmail postfix/smtpd[149]: name_mask: host
+Nov 22 10:36:10 hmail postfix/smtpd[149]: been_here: 127.0.0.1/32: 0
+Nov 22 10:36:10 hmail postfix/smtpd[149]: been_here: 10.10.3.2/32: 0
+Nov 22 10:36:10 hmail postfix/smtpd[149]: mynetworks_core: 127.0.0.1/32 10.10.3.2/32
+Nov 22 10:36:10 hmail postfix/smtpd[149]: match_string: parent_domain_matches_subdomains: mynetworks ~? debug_peer_list
+Nov 22 10:36:10 hmail postfix/smtpd[149]: match_string: parent_domain_matches_subdomains: mynetworks ~? fast_flush_domains
+Nov 22 10:36:10 hmail postfix/smtpd[149]: match_string: parent_domain_matches_subdomains: mynetworks ~? mynetworks
+Nov 22 10:36:10 hmail postfix/smtpd[149]: match_string: parent_domain_matches_subdomains: relay_domains ~? debug_peer_list
+Nov 22 10:36:10 hmail postfix/smtpd[149]: match_string: parent_domain_matches_subdomains: relay_domains ~? fast_flush_domains
+Nov 22 10:36:10 hmail postfix/smtpd[149]: match_string: parent_domain_matches_subdomains: relay_domains ~? mynetworks
+Nov 22 10:36:10 hmail postfix/smtpd[149]: match_string: parent_domain_matches_subdomains: relay_domains ~? permit_mx_backup_networks
+Nov 22 10:36:10 hmail postfix/smtpd[149]: match_string: parent_domain_matches_subdomains: relay_domains ~? qmqpd_authorized_clients
+Nov 22 10:36:10 hmail postfix/smtpd[149]: match_string: parent_domain_matches_subdomains: relay_domains ~? relay_domains
+Nov 22 10:36:10 hmail postfix/smtpd[149]: match_string: parent_domain_matches_subdomains: permit_mx_backup_networks ~? debug_peer_list
+Nov 22 10:36:10 hmail postfix/smtpd[149]: match_string: parent_domain_matches_subdomains: permit_mx_backup_networks ~? fast_flush_domains
+Nov 22 10:36:10 hmail postfix/smtpd[149]: match_string: parent_domain_matches_subdomains: permit_mx_backup_networks ~? mynetworks
+Nov 22 10:36:10 hmail postfix/smtpd[149]: match_string: parent_domain_matches_subdomains: permit_mx_backup_networks ~? permit_mx_backup_networks
+Nov 22 10:36:10 hmail postfix/smtpd[149]: connect to subsystem private/proxymap
+Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr request = open
+Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr table = unix:passwd.byname
+Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr flags = 0
+Nov 22 10:36:10 hmail postfix/smtpd[149]: private/proxymap socket: wanted attribute: status
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: status
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: 0
+Nov 22 10:36:10 hmail postfix/smtpd[149]: private/proxymap socket: wanted attribute: flags
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: flags
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: 16
+Nov 22 10:36:10 hmail postfix/smtpd[149]: private/proxymap socket: wanted attribute: (list terminator)
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: (end)
+Nov 22 10:36:10 hmail postfix/smtpd[149]: dict_proxy_open: connect to map=unix:passwd.byname status=0 server_flags=fixed
+Nov 22 10:36:10 hmail postfix/smtpd[149]: dict_open: proxy:unix:passwd.byname
+Nov 22 10:36:10 hmail postfix/smtpd[149]: Compiled against Berkeley DB: 5.3.28?
+Nov 22 10:36:10 hmail postfix/smtpd[149]: Run-time linked against Berkeley DB: 5.3.28?
+Nov 22 10:36:10 hmail postfix/smtpd[149]: error: open database /etc/postfix/aliases.db: No such file or directory
+Nov 22 10:36:10 hmail postfix/smtpd[149]: dict_open: hash:/etc/postfix/aliases
+Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr request = open
+Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr table = pgsql:/etc/postfix/sql/pgsql_virtual_alias_maps.cf
+Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr flags = 0
+Nov 22 10:36:10 hmail postfix/smtpd[149]: private/proxymap socket: wanted attribute: status
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: status
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: 0
+Nov 22 10:36:10 hmail postfix/smtpd[149]: private/proxymap socket: wanted attribute: flags
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: flags
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: 16
+Nov 22 10:36:10 hmail postfix/smtpd[149]: private/proxymap socket: wanted attribute: (list terminator)
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: (end)
+Nov 22 10:36:10 hmail postfix/smtpd[149]: dict_proxy_open: connect to map=pgsql:/etc/postfix/sql/pgsql_virtual_alias_maps.cf status=0 server_flags=fixed
+Nov 22 10:36:10 hmail postfix/smtpd[149]: dict_open: proxy:pgsql:/etc/postfix/sql/pgsql_virtual_alias_maps.cf
+Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr request = open
+Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr table = pgsql:/etc/postfix/sql/pgsql_virtual_alias_domain_maps.cf
+Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr flags = 0
+Nov 22 10:36:10 hmail postfix/smtpd[149]: private/proxymap socket: wanted attribute: status
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: status
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: 0
+Nov 22 10:36:10 hmail postfix/smtpd[149]: private/proxymap socket: wanted attribute: flags
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: flags
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: 16
+Nov 22 10:36:10 hmail postfix/smtpd[149]: private/proxymap socket: wanted attribute: (list terminator)
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: (end)
+Nov 22 10:36:10 hmail postfix/smtpd[149]: dict_proxy_open: connect to map=pgsql:/etc/postfix/sql/pgsql_virtual_alias_domain_maps.cf status=0 server_flags=fixed
+Nov 22 10:36:10 hmail postfix/smtpd[149]: dict_open: proxy:pgsql:/etc/postfix/sql/pgsql_virtual_alias_domain_maps.cf
+Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr request = open
+Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr table = pgsql:/etc/postfix/sql/pgsql_virtual_alias_domain_catchall_maps.cf
+Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr flags = 0
+Nov 22 10:36:10 hmail postfix/smtpd[149]: private/proxymap socket: wanted attribute: status
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: status
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: 0
+Nov 22 10:36:10 hmail postfix/smtpd[149]: private/proxymap socket: wanted attribute: flags
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: flags
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: 16
+Nov 22 10:36:10 hmail postfix/smtpd[149]: private/proxymap socket: wanted attribute: (list terminator)
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: (end)
+Nov 22 10:36:10 hmail postfix/smtpd[149]: dict_proxy_open: connect to map=pgsql:/etc/postfix/sql/pgsql_virtual_alias_domain_catchall_maps.cf status=0 server_flags=fixed
+Nov 22 10:36:10 hmail postfix/smtpd[149]: dict_open: proxy:pgsql:/etc/postfix/sql/pgsql_virtual_alias_domain_catchall_maps.cf
+Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr request = open
+Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr table = pgsql:/etc/postfix/sql/pgsql_virtual_mailbox_maps.cf
+Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr flags = 0
+Nov 22 10:36:10 hmail postfix/smtpd[149]: private/proxymap socket: wanted attribute: status
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: status
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: 0
+Nov 22 10:36:10 hmail postfix/smtpd[149]: private/proxymap socket: wanted attribute: flags
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: flags
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: 16
+Nov 22 10:36:10 hmail postfix/smtpd[149]: private/proxymap socket: wanted attribute: (list terminator)
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: (end)
+Nov 22 10:36:10 hmail postfix/smtpd[149]: dict_proxy_open: connect to map=pgsql:/etc/postfix/sql/pgsql_virtual_mailbox_maps.cf status=0 server_flags=fixed
+Nov 22 10:36:10 hmail postfix/smtpd[149]: dict_open: proxy:pgsql:/etc/postfix/sql/pgsql_virtual_mailbox_maps.cf
+Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr request = open
+Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr table = pgsql:/etc/postfix/sql/pgsql_virtual_alias_domain_mailbox_maps.cf
+Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr flags = 0
+Nov 22 10:36:10 hmail postfix/smtpd[149]: private/proxymap socket: wanted attribute: status
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: status
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: 0
+Nov 22 10:36:10 hmail postfix/smtpd[149]: private/proxymap socket: wanted attribute: flags
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: flags
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: 16
+Nov 22 10:36:10 hmail postfix/smtpd[149]: private/proxymap socket: wanted attribute: (list terminator)
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: (end)
+Nov 22 10:36:10 hmail postfix/smtpd[149]: dict_proxy_open: connect to map=pgsql:/etc/postfix/sql/pgsql_virtual_alias_domain_mailbox_maps.cf status=0 server_flags=fixed
+Nov 22 10:36:10 hmail postfix/smtpd[149]: dict_open: proxy:pgsql:/etc/postfix/sql/pgsql_virtual_alias_domain_mailbox_maps.cf
+Nov 22 10:36:10 hmail postfix/smtpd[149]: match_string: parent_domain_matches_subdomains: smtpd_access_maps ~? debug_peer_list
+Nov 22 10:36:10 hmail postfix/smtpd[149]: match_string: parent_domain_matches_subdomains: smtpd_access_maps ~? fast_flush_domains
+Nov 22 10:36:10 hmail postfix/smtpd[149]: match_string: parent_domain_matches_subdomains: smtpd_access_maps ~? mynetworks
+Nov 22 10:36:10 hmail postfix/smtpd[149]: match_string: parent_domain_matches_subdomains: smtpd_access_maps ~? permit_mx_backup_networks
+Nov 22 10:36:10 hmail postfix/smtpd[149]: match_string: parent_domain_matches_subdomains: smtpd_access_maps ~? qmqpd_authorized_clients
+Nov 22 10:36:10 hmail postfix/smtpd[149]: match_string: parent_domain_matches_subdomains: smtpd_access_maps ~? relay_domains
+Nov 22 10:36:10 hmail postfix/smtpd[149]: match_string: parent_domain_matches_subdomains: smtpd_access_maps ~? smtpd_access_maps
+Nov 22 10:36:10 hmail postfix/smtpd[149]: unknown_helo_hostname_tempfail_action = defer_if_permit
+Nov 22 10:36:10 hmail postfix/smtpd[149]: unknown_address_tempfail_action = defer_if_permit
+Nov 22 10:36:10 hmail postfix/smtpd[149]: unverified_recipient_tempfail_action = defer_if_permit
+Nov 22 10:36:10 hmail postfix/smtpd[149]: unverified_sender_tempfail_action = defer_if_permit
+Nov 22 10:36:10 hmail postfix/smtpd[149]: match_string: parent_domain_matches_subdomains: fast_flush_domains ~? debug_peer_list
+Nov 22 10:36:10 hmail postfix/smtpd[149]: match_string: parent_domain_matches_subdomains: fast_flush_domains ~? fast_flush_domains
+Nov 22 10:36:10 hmail postfix/smtpd[149]: warning: queue_minfree(51200000) should be at least 1.5*message_size_limit(104857600)
+Nov 22 10:36:10 hmail postfix/smtpd[149]: auto_clnt_create: transport=local endpoint=private/anvil
+Nov 22 10:36:10 hmail postfix/smtpd[149]: connection established
+Nov 22 10:36:10 hmail postfix/smtpd[149]: master_notify: status 0
+Nov 22 10:36:10 hmail postfix/smtpd[149]: name_mask: resource
+Nov 22 10:36:10 hmail postfix/smtpd[149]: name_mask: software
+Nov 22 10:36:10 hmail postfix/smtpd[149]: connect from mail-oln040092064028.outbound.protection.outlook.com[40.92.64.28]
+Nov 22 10:36:10 hmail postfix/smtpd[149]: match_list_match: mail-oln040092064028.outbound.protection.outlook.com: no match
+Nov 22 10:36:10 hmail postfix/smtpd[149]: match_list_match: 40.92.64.28: no match
+Nov 22 10:36:10 hmail postfix/smtpd[149]: match_list_match: mail-oln040092064028.outbound.protection.outlook.com: no match
+Nov 22 10:36:10 hmail postfix/smtpd[149]: match_list_match: 40.92.64.28: no match
+Nov 22 10:36:10 hmail postfix/smtpd[149]: smtp_stream_setup: maxtime=300 enable_deadline=0
+Nov 22 10:36:10 hmail postfix/smtpd[149]: match_hostname: smtpd_client_event_limit_exceptions: mail-oln040092064028.outbound.protection.outlook.com ~? 127.0.0.0/8
+Nov 22 10:36:10 hmail postfix/smtpd[149]: match_hostaddr: smtpd_client_event_limit_exceptions: 40.92.64.28 ~? 127.0.0.0/8
+Nov 22 10:36:10 hmail postfix/smtpd[149]: match_list_match: mail-oln040092064028.outbound.protection.outlook.com: no match
+Nov 22 10:36:10 hmail postfix/smtpd[149]: match_list_match: 40.92.64.28: no match
+Nov 22 10:36:10 hmail postfix/smtpd[149]: auto_clnt_open: connected to private/anvil
+Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr request = connect
+Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr ident = smtp:40.92.64.28
+Nov 22 10:36:10 hmail postfix/smtpd[149]: private/anvil: wanted attribute: status
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: status
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: 0
+Nov 22 10:36:10 hmail postfix/smtpd[149]: private/anvil: wanted attribute: count
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: count
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: 1
+Nov 22 10:36:10 hmail postfix/smtpd[149]: private/anvil: wanted attribute: rate
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: rate
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: 1
+Nov 22 10:36:10 hmail postfix/smtpd[149]: private/anvil: wanted attribute: (list terminator)
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: (end)
+Nov 22 10:36:10 hmail postfix/smtpd[149]: > mail-oln040092064028.outbound.protection.outlook.com[40.92.64.28]: 220 hmail.float.i.ng ESMTP Postfix
+Nov 22 10:36:10 hmail postfix/smtpd[149]: < mail-oln040092064028.outbound.protection.outlook.com[40.92.64.28]: EHLO EUR01-DB5-obe.outbound.protection.outlook.com
+Nov 22 10:36:10 hmail postfix/smtpd[149]: match_list_match: mail-oln040092064028.outbound.protection.outlook.com: no match
+Nov 22 10:36:10 hmail postfix/smtpd[149]: match_list_match: 40.92.64.28: no match
+Nov 22 10:36:10 hmail postfix/smtpd[149]: > mail-oln040092064028.outbound.protection.outlook.com[40.92.64.28]: 250-hmail.float.i.ng
+Nov 22 10:36:10 hmail postfix/smtpd[149]: > mail-oln040092064028.outbound.protection.outlook.com[40.92.64.28]: 250-PIPELINING
+Nov 22 10:36:10 hmail postfix/smtpd[149]: > mail-oln040092064028.outbound.protection.outlook.com[40.92.64.28]: 250-SIZE 104857600
+Nov 22 10:36:10 hmail postfix/smtpd[149]: > mail-oln040092064028.outbound.protection.outlook.com[40.92.64.28]: 250-ETRN
+Nov 22 10:36:10 hmail postfix/smtpd[149]: > mail-oln040092064028.outbound.protection.outlook.com[40.92.64.28]: 250-ENHANCEDSTATUSCODES
+Nov 22 10:36:10 hmail postfix/smtpd[149]: > mail-oln040092064028.outbound.protection.outlook.com[40.92.64.28]: 250-8BITMIME
+Nov 22 10:36:10 hmail postfix/smtpd[149]: > mail-oln040092064028.outbound.protection.outlook.com[40.92.64.28]: 250-DSN
+Nov 22 10:36:10 hmail postfix/smtpd[149]: > mail-oln040092064028.outbound.protection.outlook.com[40.92.64.28]: 250 CHUNKING
+Nov 22 10:36:10 hmail postfix/smtpd[149]: < mail-oln040092064028.outbound.protection.outlook.com[40.92.64.28]: MAIL FROM:<rabisteve@hotmail.com> SIZE=11895
+Nov 22 10:36:10 hmail postfix/smtpd[149]: extract_addr: input: <rabisteve@hotmail.com>
+Nov 22 10:36:10 hmail postfix/smtpd[149]: smtpd_check_addr: addr=rabisteve@hotmail.com
+Nov 22 10:36:10 hmail postfix/smtpd[149]: connect to subsystem private/rewrite
+Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr request = rewrite
+Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr rule = local
+Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr address = ""
+Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: flags
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: flags
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: 0
+Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: address
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: address
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: ""
+Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: (list terminator)
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: (end)
+Nov 22 10:36:10 hmail postfix/smtpd[149]: rewrite_clnt: local: "" -> ""
+Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr request = rewrite
+Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr rule = local
+Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr address = rabisteve@hotmail.com
+Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: flags
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: flags
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: 0
+Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: address
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: address
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: rabisteve@hotmail.com
+Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: (list terminator)
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: (end)
+Nov 22 10:36:10 hmail postfix/smtpd[149]: rewrite_clnt: local: rabisteve@hotmail.com -> rabisteve@hotmail.com
+Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr request = resolve
+Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr sender =
+Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr address = rabisteve@hotmail.com
+Nov 22 10:36:10 hmail postfix/proxymap[150]: warning: connect to pgsql server localhost: could not connect to server: Connection refused??Is the server running on host "localhost" (127.0.0.1) and accepting??TCP/IP connections on port 5432??could not connect to server: Address not available??Is the server running on host "localhost" (::1) and accepting??TCP/IP connections on port 5432??
+Nov 22 10:36:10 hmail postfix/trivial-rewrite[151]: warning: virtual_alias_domains: proxy:pgsql:/etc/postfix/sql/pgsql_virtual_alias_maps.cf: table lookup problem
+Nov 22 10:36:10 hmail postfix/trivial-rewrite[151]: warning: virtual_alias_domains lookup failure
+Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: flags
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: flags
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: 0
+Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: transport
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: transport
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: CHANNEL NOT UPDATED
+Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: nexthop
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: nexthop
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: NEXTHOP NOT UPDATED
+Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: recipient
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: recipient
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: rabisteve@hotmail.com
+Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: flags
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: flags
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: 8
+Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: (list terminator)
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: (end)
+Nov 22 10:36:10 hmail postfix/smtpd[149]: resolve_clnt: `' -> `rabisteve@hotmail.com' -> transp=`CHANNEL NOT UPDATED' host=`NEXTHOP NOT UPDATED' rcpt=`rabisteve@hotmail.com' flags=fail class=
+Nov 22 10:36:10 hmail postfix/smtpd[149]: ctable_locate: install entry key ?rabisteve@hotmail.com
+Nov 22 10:36:10 hmail postfix/smtpd[149]: extract_addr: in: <rabisteve@hotmail.com>, result: rabisteve@hotmail.com
+Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr request = rewrite
+Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr rule = local
+Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr address = double-bounce
+Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: flags
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: flags
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: 0
+Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: address
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: address
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: double-bounce@hmail.float.i.ng
+Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: (list terminator)
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: (end)
+Nov 22 10:36:10 hmail postfix/smtpd[149]: rewrite_clnt: local: double-bounce -> double-bounce@hmail.float.i.ng
+Nov 22 10:36:10 hmail postfix/smtpd[149]: smtpd_check_rewrite: trying: permit_inet_interfaces
+Nov 22 10:36:10 hmail postfix/smtpd[149]: permit_inet_interfaces: mail-oln040092064028.outbound.protection.outlook.com 40.92.64.28
+Nov 22 10:36:10 hmail postfix/smtpd[149]: fsspace: .: block size 4096, blocks free 10386765
+Nov 22 10:36:10 hmail postfix/smtpd[149]: smtpd_check_queue: blocks 4096 avail 10386765 min_free 51200000 msg_size_limit 104857600
+Nov 22 10:36:10 hmail postfix/smtpd[149]: > mail-oln040092064028.outbound.protection.outlook.com[40.92.64.28]: 250 2.1.0 Ok
+Nov 22 10:36:10 hmail postfix/smtpd[149]: < mail-oln040092064028.outbound.protection.outlook.com[40.92.64.28]: RCPT TO:<stevie@home.gindi.cloud>
+Nov 22 10:36:10 hmail postfix/smtpd[149]: extract_addr: input: <stevie@home.gindi.cloud>
+Nov 22 10:36:10 hmail postfix/smtpd[149]: smtpd_check_addr: addr=stevie@home.gindi.cloud
+Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr request = rewrite
+Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr rule = local
+Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr address = rabisteve@hotmail.com
+Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: flags
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: flags
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: 0
+Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: address
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: address
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: rabisteve@hotmail.com
+Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: (list terminator)
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: (end)
+Nov 22 10:36:10 hmail postfix/smtpd[149]: rewrite_clnt: local: rabisteve@hotmail.com -> rabisteve@hotmail.com
+Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr request = rewrite
+Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr rule = local
+Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr address = stevie@home.gindi.cloud
+Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: flags
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: flags
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: 0
+Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: address
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: address
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: stevie@home.gindi.cloud
+Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: (list terminator)
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: (end)
+Nov 22 10:36:10 hmail postfix/smtpd[149]: rewrite_clnt: local: stevie@home.gindi.cloud -> stevie@home.gindi.cloud
+Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr request = resolve
+Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr sender = rabisteve@hotmail.com
+Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr address = stevie@home.gindi.cloud
+Nov 22 10:36:10 hmail postfix/trivial-rewrite[151]: warning: virtual_alias_domains: proxy:pgsql:/etc/postfix/sql/pgsql_virtual_alias_maps.cf: table lookup problem
+Nov 22 10:36:10 hmail postfix/trivial-rewrite[151]: warning: virtual_alias_domains lookup failure
+Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: flags
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: flags
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: 0
+Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: transport
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: transport
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: CHANNEL NOT UPDATED
+Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: nexthop
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: nexthop
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: NEXTHOP NOT UPDATED
+Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: recipient
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: recipient
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: stevie@home.gindi.cloud
+Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: flags
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: flags
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: 8
+Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: (list terminator)
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: (end)
+Nov 22 10:36:10 hmail postfix/smtpd[149]: resolve_clnt: `rabisteve@hotmail.com' -> `stevie@home.gindi.cloud' -> transp=`CHANNEL NOT UPDATED' host=`NEXTHOP NOT UPDATED' rcpt=`stevie@home.gindi.cloud' flags=fail class=
+Nov 22 10:36:10 hmail postfix/smtpd[149]: ctable_locate: install entry key rabisteve@hotmail.com?stevie@home.gindi.cloud
+Nov 22 10:36:10 hmail postfix/smtpd[149]: extract_addr: in: <stevie@home.gindi.cloud>, result: stevie@home.gindi.cloud
+Nov 22 10:36:10 hmail postfix/smtpd[149]: >>> START Sender address RESTRICTIONS <<<
+Nov 22 10:36:10 hmail postfix/smtpd[149]: generic_checks: name=permit_mynetworks
+Nov 22 10:36:10 hmail postfix/smtpd[149]: permit_mynetworks: mail-oln040092064028.outbound.protection.outlook.com 40.92.64.28
+Nov 22 10:36:10 hmail postfix/smtpd[149]: match_hostname: mynetworks: mail-oln040092064028.outbound.protection.outlook.com ~? 127.0.0.0/8
+Nov 22 10:36:10 hmail postfix/smtpd[149]: match_hostaddr: mynetworks: 40.92.64.28 ~? 127.0.0.0/8
+Nov 22 10:36:10 hmail postfix/smtpd[149]: match_list_match: mail-oln040092064028.outbound.protection.outlook.com: no match
+Nov 22 10:36:10 hmail postfix/smtpd[149]: match_list_match: 40.92.64.28: no match
+Nov 22 10:36:10 hmail postfix/smtpd[149]: generic_checks: name=permit_mynetworks status=0
+Nov 22 10:36:10 hmail postfix/smtpd[149]: generic_checks: name=reject_non_fqdn_sender
+Nov 22 10:36:10 hmail postfix/smtpd[149]: reject_non_fqdn_address: rabisteve@hotmail.com
+Nov 22 10:36:10 hmail postfix/smtpd[149]: generic_checks: name=reject_non_fqdn_sender status=0
+Nov 22 10:36:10 hmail postfix/smtpd[149]: generic_checks: name=reject_unknown_sender_domain
+Nov 22 10:36:10 hmail postfix/smtpd[149]: reject_unknown_address: rabisteve@hotmail.com
+Nov 22 10:36:10 hmail postfix/smtpd[149]: rewrite_clnt: cached: local: stevie@home.gindi.cloud -> stevie@home.gindi.cloud
+Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr request = rewrite
+Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr rule = local
+Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr address = rabisteve@hotmail.com
+Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: flags
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: flags
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: 0
+Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: address
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: address
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: rabisteve@hotmail.com
+Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: (list terminator)
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: (end)
+Nov 22 10:36:10 hmail postfix/smtpd[149]: rewrite_clnt: local: rabisteve@hotmail.com -> rabisteve@hotmail.com
+Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr request = resolve
+Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr sender = stevie@home.gindi.cloud
+Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr address = rabisteve@hotmail.com
+Nov 22 10:36:10 hmail postfix/trivial-rewrite[151]: warning: virtual_alias_domains: proxy:pgsql:/etc/postfix/sql/pgsql_virtual_alias_maps.cf: table lookup problem
+Nov 22 10:36:10 hmail postfix/trivial-rewrite[151]: warning: virtual_alias_domains lookup failure
+Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: flags
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: flags
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: 0
+Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: transport
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: transport
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: CHANNEL NOT UPDATED
+Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: nexthop
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: nexthop
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: NEXTHOP NOT UPDATED
+Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: recipient
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: recipient
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: rabisteve@hotmail.com
+Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: flags
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: flags
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: 8
+Nov 22 10:36:10 hmail postfix/smtpd[149]: private/rewrite socket: wanted attribute: (list terminator)
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: (end)
+Nov 22 10:36:10 hmail postfix/smtpd[149]: resolve_clnt: `stevie@home.gindi.cloud' -> `rabisteve@hotmail.com' -> transp=`CHANNEL NOT UPDATED' host=`NEXTHOP NOT UPDATED' rcpt=`rabisteve@hotmail.com' flags=fail class=
+Nov 22 10:36:10 hmail postfix/smtpd[149]: ctable_locate: install entry key stevie@home.gindi.cloud?rabisteve@hotmail.com
+Nov 22 10:36:10 hmail postfix/smtpd[149]: NOQUEUE: reject: RCPT from mail-oln040092064028.outbound.protection.outlook.com[40.92.64.28]: 451 4.3.0 <rabisteve@hotmail.com>: Temporary lookup failure; from=<rabisteve@hotmail.com> to=<stevie@home.gindi.cloud> proto=ESMTP helo=<EUR01-DB5-obe.outbound.protection.outlook.com>
+Nov 22 10:36:10 hmail postfix/smtpd[149]: > mail-oln040092064028.outbound.protection.outlook.com[40.92.64.28]: 451 4.3.0 <rabisteve@hotmail.com>: Temporary lookup failure
+Nov 22 10:36:10 hmail postfix/smtpd[149]: < mail-oln040092064028.outbound.protection.outlook.com[40.92.64.28]: QUIT
+Nov 22 10:36:10 hmail postfix/smtpd[149]: > mail-oln040092064028.outbound.protection.outlook.com[40.92.64.28]: 221 2.0.0 Bye
+Nov 22 10:36:10 hmail postfix/smtpd[149]: match_hostname: smtpd_client_event_limit_exceptions: mail-oln040092064028.outbound.protection.outlook.com ~? 127.0.0.0/8
+Nov 22 10:36:10 hmail postfix/smtpd[149]: match_hostaddr: smtpd_client_event_limit_exceptions: 40.92.64.28 ~? 127.0.0.0/8
+Nov 22 10:36:10 hmail postfix/smtpd[149]: match_list_match: mail-oln040092064028.outbound.protection.outlook.com: no match
+Nov 22 10:36:10 hmail postfix/smtpd[149]: match_list_match: 40.92.64.28: no match
+Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr request = disconnect
+Nov 22 10:36:10 hmail postfix/smtpd[149]: send attr ident = smtp:40.92.64.28
+Nov 22 10:36:10 hmail postfix/smtpd[149]: private/anvil: wanted attribute: status
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: status
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute value: 0
+Nov 22 10:36:10 hmail postfix/smtpd[149]: private/anvil: wanted attribute: (list terminator)
+Nov 22 10:36:10 hmail postfix/smtpd[149]: input attribute name: (end)
+Nov 22 10:36:10 hmail postfix/smtpd[149]: disconnect from mail-oln040092064028.outbound.protection.outlook.com[40.92.64.28] ehlo=1 mail=1 rcpt=0/1 quit=1 commands=3/4
+Nov 22 10:36:10 hmail postfix/smtpd[149]: master_notify: status 1
+Nov 22 10:36:10 hmail postfix/smtpd[149]: connection closed
+Nov 22 10:36:15 hmail postfix/smtpd[149]: proxymap stream disconnect
+Nov 22 10:36:15 hmail postfix/smtpd[149]: rewrite stream disconnect
+Nov 22 10:37:50 hmail postfix/smtpd[149]: idle timeout -- exiting
+Nov 22 10:39:30 hmail postfix/anvil[147]: statistics: max connection rate 1/60s for (smtp:10.10.3.4) at Nov 22 10:34:25
+Nov 22 10:39:30 hmail postfix/anvil[147]: statistics: max connection count 1 for (smtp:10.10.3.4) at Nov 22 10:34:25
+Nov 22 10:39:30 hmail postfix/anvil[147]: statistics: max cache size 1 at Nov 22 10:34:25
+[steve@home ~]$
