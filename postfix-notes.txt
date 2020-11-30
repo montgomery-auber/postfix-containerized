@@ -72,6 +72,8 @@ https://wiki.alpinelinux.org/wiki/ISP_Mail_Server_3.x_HowTo - postfixadmin - The
 
 http://www.postfix.org/MYSQL_README.html 
 
+https://www.redhat.com/sysadmin/install-configure-dovecot
+
 IMPORTANT - in the following setup lighttpd with php combine the instructions, but change the /etc/lighttpd/lighttpd.conf: ONLY like this
 
 server.modules = (
