@@ -1,21 +1,20 @@
 action items
 create docker for postfix that send 
-create that also receives 
-web interface for postfix 
+
 run postfixadmin-cli to add the admin from the cloudformation form
 FIX !!  when adding user ! Warning: A non-numeric value encountered in /var/www/html/model/MailboxHandler.php on line 225 
 figure backup strategy for postfix 
 Put it all in /opt/postfix-containerized easy dir for backups - make links on host from original location 
 Create linux user postfix and set UID / GID as same for containers - set for opt
 install script to create dirs on server under 
-things to remember - timezone in every container as well as asking in cloudformation 
+things to remember - timezone in every container as well as asking in cloudformation - compose file
 put sql db on volume 
 create certs container
-delete extra files from portfix.../etc/postfix they arent mounted anyway
+delete extra files from postfix.../etc/postfix they arent mounted anyway
 make compose work without root
 install compose on server
 in createpostfixfiles.sh put the password instance ID - be sure that these files dont exist 
-create dovecot container - start with dovecot on a different server
+create dovecot container - start with dovecot on a different server - mailbox_transport in postfix main.cf
 figure backup strategy for
 ON AWS do it in /opt/postfix but still using ./ for docker-compose file
 figure where spam stuff goes, fail2ban ? or just spamhaus and spamassassin
@@ -27,6 +26,14 @@ Encrypted ebs - https://aws.amazon.com/blogs/compute/must-know-best-practices-fo
 
 reverse dns - http://floatingcloud.io/how-to-get-reverse-dns-for-your-ec2-instance-as-well-as-to-raise-email-sending-limit-amazon-web-services/ 
 cloudformation to put it together 
+
+Done, check at the end that they didn't disapear 
+create that also receives 
+web interface for postfix 
+
+
+
+
 
 users inside postfix server are
 postfix:x:100:101:postfix:/var/spool/postfix:/sbin/nologin
@@ -68,11 +75,15 @@ https://hub.docker.com/_/postfixadmin
 https://linuxize.com/post/set-up-an-email-server-with-postfixadmin/
 https://github.com/postfixadmin/postfixadmin/blob/master/INSTALL.TXT
 https://wiki.alpinelinux.org/wiki/Hosting_Web/Email_services_on_Alpine
-https://wiki.alpinelinux.org/wiki/ISP_Mail_Server_3.x_HowTo - postfixadmin - These instructions might be the best
+https://wiki.alpinelinux.org/wiki/ISP_Mail_Server_3.x_HowTo - postfixadmin - These instructions might be the best 
 
 http://www.postfix.org/MYSQL_README.html 
 
 https://www.redhat.com/sysadmin/install-configure-dovecot
+
+https://dovecot.org/pipermail/dovecot/2015-February/099730.html - run dovecot on different server  - mailbox_transport
+https://aaronparecki.com/2006/12/25/1/virtual-users-with-postfix-and-mysql 
+https://www.howtoforge.com/fedora_virtual_postfix_mysql_quota_courier
 
 IMPORTANT - in the following setup lighttpd with php combine the instructions, but change the /etc/lighttpd/lighttpd.conf: ONLY like this
 
