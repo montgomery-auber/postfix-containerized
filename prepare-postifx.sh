@@ -31,7 +31,7 @@ chown -R 106:106 ./var/mail/domains #vmail:postdrop
 
 
 #The following needs to be owned by root
-cd ./etc/postfix
+cd etc/postfix
 #mkdir sql
 #PGPW="byg2812"
 
@@ -85,15 +85,15 @@ EOF
 
 ##Add Dovecot 
 #Create the /etc/dovecot/dovecot-sql.conf file:
-cat - <<EOF > ./etc/dovecot/dovecot-sql.conf
+cat - <<EOF > etc/dovecot/dovecot-sql.conf
 driver = pgsql
 connect = host=pgsql dbname=postfix user=postfixadmin password=$PGPW
 password_query = select username,password from mailbox where local_part = '%n' and domain = '%d'
 default_pass_scheme =  SHA512-CRYPT
 Again, change the password above to your postfix user password, and protect the file from prying eyes:
 EOF
-chown root:root ./etc/dovecot/dovecot-sql.conf
-chmod 600 ./etc/dovecot/dovecot-sql.conf
+chown root:root etc/dovecot/dovecot-sql.conf
+chmod 600 etc/dovecot/dovecot-sql.conf
 
 #chown -R postfix:postfix sql
 chown -R 105:105 sql
