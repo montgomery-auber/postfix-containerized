@@ -83,6 +83,11 @@ dbname = postfixadmin
 query = Select maildir from mailbox where username='%s' and active=true
 EOF
 
+
+#chown -R postfix:postfix sql
+chown -R 105:105 sql
+chmod 644 sql/*
+
 ##Add Dovecot 
 cd ..
 #Create the /etc/dovecot/dovecot-sql.conf file:
@@ -96,8 +101,5 @@ EOF
 chown root:root dovecot/dovecot-sql.conf
 chmod 600 dovecot/dovecot-sql.conf
 
-#chown -R postfix:postfix sql
-chown -R 105:105 sql
-chmod 644 sql/*
 #mkdir -p ./dev/log
 #mkdir -p /opt/postfix/etc/postfix /opt/postfix/var/spool/postfix /opt/postfix/var/spool/mail /opt/postfix/var/log /opt/postfix/var/mail /opt/postfix/var/mail/domains
