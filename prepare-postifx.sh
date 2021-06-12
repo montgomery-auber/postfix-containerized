@@ -19,7 +19,7 @@ fi
 
 # put install docker and compose here
 #add user postfix 
-
+yum remove postfix -y
 mkdir -p ./etc/postfix ./var/spool/postfix ./etc/dovecot ./var/spool/mail ./var/log ./var/mail ./var/mail/domains
 
 #chown -R 106:106 ./var/spool/
