@@ -1,5 +1,5 @@
-FROM alpine:3.13.5
-
+FROM alpine:3.12
+#alpine 3.13.5 doesnt have cyrus plain 
 #Pre-create users and groups so they have correct UID 105 for user/group postfix , etc
 #https://git.alpinelinux.org/aports/tree/main/postfix/postfix.pre-install
 
