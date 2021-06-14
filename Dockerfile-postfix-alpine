@@ -1,4 +1,4 @@
-FROM alpine:3.10
+FROM alpine:3.13.5
 
 #Pre-create users and groups so they have correct UID 105 for user/group postfix , etc
 #https://git.alpinelinux.org/aports/tree/main/postfix/postfix.pre-install

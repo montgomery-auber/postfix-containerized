@@ -1,4 +1,4 @@
-FROM alpine:3.10
+FROM alpine:3.12
  
 RUN addgroup -S postfix -g 105 2>/dev/null
 RUN addgroup -S postdrop -g 106 2>/dev/null
