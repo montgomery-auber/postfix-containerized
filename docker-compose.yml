@@ -25,6 +25,7 @@ services:
        - "80:80"
      restart: unless-stopped
      environment:
+       POSTFIXADMIN_SETUP_PASSWORD: notSecureChangeMe
        POSTFIXADMIN_DB_TYPE: pgsql
        POSTFIXADMIN_DB_HOST: pgsql 
        POSTFIXADMIN_DB_USER: postfixadmin
@@ -56,3 +57,16 @@ services:
        - "25:25"
        - "465:465"
        - "587:587"
+   dovecot: 
+     container_name: dovecot
+     build:
+       context: .
+       dockerfile: Dockerfile-dovecot-alpine
+     restart: unless-stopped
+     volumes:
+       - /etc/localtime:/etc/localtime:ro
+       - /etc/timezone:/etc/timezone:ro 
+     ports:
+       - 143:143
+       - 993:993
+       - 995:995 

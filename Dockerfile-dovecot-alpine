@@ -24,3 +24,6 @@ EXPOSE 995
 
 # Start postfix in foreground mode
 CMD ["dovecot", "-F"]
+
+# docker build -t dovecot -f Dockerfile-dovecot-alpine .
+# docker run -id -p 25:25 -p 143:143 -p 993:993 -p 995:995 dovecot
