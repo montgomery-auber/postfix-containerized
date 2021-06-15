@@ -43,16 +43,17 @@ services:
      #environment: 
          # VARS HERE
      volumes:
+       - ./var/mail/domains/:/var/mail/domains/
+       - ./var/log:/var/log/
+       - /dev/log:/dev/log
        - /etc/localtime:/etc/localtime:ro
        - /etc/timezone:/etc/timezone:ro 
        - ./etc/postfix/master.cf:/etc/postfix/master.cf
        - ./etc/postfix/main.cf:/etc/postfix/main.cf
        - ./etc/postfix/sql/:/etc/postfix/sql/
-       - ./var/spool/postfix:/var/spool/postfix
-       - ./var/spool/mail:/var/spool/mail
-       - ./var/log:/var/log
-       - ./var/mail:/var/mail
-       - ./dev/log:/dev/log
+       - ./var/spool/postfix/:/var/spool/postfix/
+       - ./var/spool/mail/:/var/spool/mail/
+
      ports:
        - "25:25"
        - "465:465"

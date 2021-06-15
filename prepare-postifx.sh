@@ -96,7 +96,6 @@ driver = pgsql
 connect = host=pgsql dbname=postfix user=postfixadmin password=$PGPW
 password_query = select username,password from mailbox where local_part = '%n' and domain = '%d'
 default_pass_scheme =  SHA512-CRYPT
-Again, change the password above to your postfix user password, and protect the file from prying eyes:
 EOF
 chown root:root dovecot/dovecot-sql.conf
 chmod 600 dovecot/dovecot-sql.conf
