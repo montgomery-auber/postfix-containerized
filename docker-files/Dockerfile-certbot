@@ -1,0 +1,2 @@
+FROM certbot/dns-route53
+RUN apk update && apk add curl

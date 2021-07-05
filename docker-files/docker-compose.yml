@@ -3,72 +3,122 @@
 ### VERy important put Db in volume
 version: '3.7'
 services:
-   pgsql:
-     container_name: pgsql
-     image:  postgres:13.0-alpine 
-     restart: unless-stopped
-     environment:
-       POSTGRES_PASSWORD: notSecureChangeMe
-       POSTGRES_DB: postfixadmin
-       POSTGRES_USER: postfixadmin
-       # postgres_password sets it for the user not root - MYSQL_PASSWORD: postfixadminPassword  #### PUT into encrypted secrets
-     ports:
-       - "5432:5432"
+  certbot:
+    container_name: 'certbot'
+    environment: 
+      - FQDN=${FQDN}
+    build: 
+      context: .
+      dockerfile: Dockerfile-certbot 
+    restart: "no"
+    volumes:
+      ## add restart nginx script to install - CHANGE mod 755 for it
+      - ../docker-volumes/etc/letsencrypt:/etc/letsencrypt
+      - ../docker-volumes/var/lib/letsencrypt:/var/lib/letsencrypt
+      - ../docker-volumes/letsencrypt-docker-nginx/src/letsencrypt/letsencrypt-site:/data/letsencrypt
+      - ../docker-volumes/var/log/letsencrypt:/var/log/letsencrypt
+      - ../docker-volumes/.aws:/root/.aws 
+      - ../docker-volumes/etc/nginx/conf.d:/etc/nginx/conf.d  
+      - /var/run/docker.sock:/var/run/docker.sock
+    logging:
+      options:
+        max-size: 50m
+        # If you are manually renewing all of your certificates, the --force-renewal - https://certbot.eff.org/docs/using.html?highlight=hook#pre-and-post-validation-hooks 
 
-   postfixadmin:
-     # https://hub.docker.com/_/postfixadmin
-     container_name: postfixadmin
-     depends_on:
-       - pgsql 
-     image: postfixadmin:latest
-     ports:
-       - "80:80"
-     restart: unless-stopped
-     environment:
-       POSTFIXADMIN_SETUP_PASSWORD: notSecureChangeMe
-       POSTFIXADMIN_DB_TYPE: pgsql
-       POSTFIXADMIN_DB_HOST: pgsql 
-       POSTFIXADMIN_DB_USER: postfixadmin
-       POSTFIXADMIN_DB_NAME: postfixadmin
-       POSTFIXADMIN_DB_PASSWORD: notSecureChangeMe
-       POSTFIXADMIN_SMTP_SERVER: postfix
-       POSTFIXADMIN_SMTP_PORT: 25
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot  certonly  --staging --webroot --webroot-path /data/letsencrypt --email support@floatingcloud.io --agree-tos --no-eff-email --non-interactive -d ${FQDN}  --deploy-hook /etc/letsencrypt/renewal-hooks/deploy/edit-domain-name-for-cert.sh; sleep 24h & wait $${!}; done;'"
+      ##  Add deploy hook either in etc\letsencrypt\renewal-hooks\deploy or here with flag, it needs to edit nginx default.conf with correct domain, then restart nginx  ## ADD post hook restarts nginx with docker  
+     # https://github.com/certbot/certbot/issues/6180#issuecomment-539233867 
+    depends_on: 
+      - nginx 
 
-   postfix:
-     container_name: postfix_server
-     build:  
-       context: .
-       dockerfile: Dockerfile-postfix-alpine
-     restart: unless-stopped
-     #environment: 
-         # VARS HERE
-     volumes:
-       - ../docker-volumes/var/mail/domains/:/var/mail/domains/
-       - ../docker-volumes/var/log:/var/log/
-       - /dev/log:/dev/log
-       - /etc/localtime:/etc/localtime:ro
-       - /etc/timezone:/etc/timezone:ro 
-       - ../docker-volumes/etc/postfix/master.cf:/etc/postfix/master.cf
-       - ../docker-volumes/etc/postfix/main.cf:/etc/postfix/main.cf
-       - ../docker-volumes/etc/postfix/sql/:/etc/postfix/sql/
-       - ../docker-volumes/var/spool/postfix/:/var/spool/postfix/
-       - ../docker-volumes/var/spool/mail/:/var/spool/mail/
-
-     ports:
-       - "25:25"
-       - "465:465"
-       - "587:587"
-   dovecot: 
-     container_name: dovecot
-     build:
-       context: .
-       dockerfile: Dockerfile-dovecot-alpine
-     restart: unless-stopped
-     volumes:
-       ### ADD certbot /etc certs HERE
-       - /etc/localtime:/etc/localtime:ro
-       - /etc/timezone:/etc/timezone:ro
-     ports:
-       - 143:143
-       - 993:993
-       - 995:995 
+  nginx:  
+    container_name: 'nginx'
+    image: nginx:latest
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ../docker-volumes/html:/html
+      - ../docker-volumes/etc/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf  
+      - ../docker-volumes/etc/letsencrypt:/etc/letsencrypt
+      - ../docker-volumes/var/lib/letsencrypt:/var/lib/letsencrypt 
+      - ../docker-volumes/letsencrypt-docker-nginx/src/letsencrypt/letsencrypt-site:/data/letsencrypt
+      - ../docker-volumes/var/log/letsencrypt:/var/log/letsencrypt
+    logging:
+      options:
+        max-size: 50m
+    # entrypoint: "/bin/sh -c 'while :; do sleep 24h & wait $${!}; /usr/sbin/nginx -s reload; done & nginx -g \"daemon off;\"'"
+    healthcheck:
+      test: ["CMD", "ls", "/etc/letsencrypt/archive/${FQDN}"]
+      interval: 15s
+      timeout: 2s
+      retries: 3
+      start_period: 40s
+  pgsql:
+    container_name: pgsql
+    image:  postgres:13.0-alpine 
+    restart: unless-stopped
+    environment:
+      POSTGRES_PASSWORD: notSecureChangeMe
+      POSTGRES_DB: postfixadmin
+      POSTGRES_USER: postfixadmin
+      # postgres_password sets it for the user not root - MYSQL_PASSWORD: postfixadminPassword  #### PUT into encrypted secrets
+    ports:
+      - "5432:5432"
+  postfixadmin:
+    # https://hub.docker.com/_/postfixadmin
+    container_name: postfixadmin
+    depends_on:
+      - pgsql 
+    image: postfixadmin:latest
+    ports:
+      - "8080:80"
+    restart: unless-stopped
+    environment:
+      POSTFIXADMIN_SETUP_PASSWORD: notSecureChangeMe
+      POSTFIXADMIN_DB_TYPE: pgsql
+      POSTFIXADMIN_DB_HOST: pgsql 
+      POSTFIXADMIN_DB_USER: postfixadmin
+      POSTFIXADMIN_DB_NAME: postfixadmin
+      POSTFIXADMIN_DB_PASSWORD: notSecureChangeMe
+      POSTFIXADMIN_SMTP_SERVER: postfix
+      POSTFIXADMIN_SMTP_PORT: 25
+  postfix:
+    container_name: postfix_server
+    build:  
+      context: .
+      dockerfile: Dockerfile-postfix-alpine
+    restart: unless-stopped
+    #environment: 
+        # VARS HERE
+    volumes:
+      - ../docker-volumes/var/mail/domains/:/var/mail/domains/
+      - ../docker-volumes/var/log:/var/log/
+      - /dev/log:/dev/log
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro 
+      - ../docker-volumes/etc/postfix/master.cf:/etc/postfix/master.cf
+      - ../docker-volumes/etc/postfix/main.cf:/etc/postfix/main.cf
+      - ../docker-volumes/etc/postfix/sql/:/etc/postfix/sql/
+      - ../docker-volumes/var/spool/postfix/:/var/spool/postfix/
+      - ../docker-volumes/var/spool/mail/:/var/spool/mail/
+    ports:
+      - "25:25"
+      - "465:465"
+      - "587:587"
+  dovecot: 
+    container_name: dovecot
+    build:
+      context: .
+      dockerfile: Dockerfile-dovecot-alpine
+    restart: unless-stopped
+    volumes:
+      ### ADD certbot /etc certs HERE
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      - ../docker-volumes/etc/letsencrypt:/etc/letsencrypt
+    ports:
+      - 143:143
+      - 993:993
+      - 995:995
