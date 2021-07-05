@@ -43,16 +43,16 @@ services:
      #environment: 
          # VARS HERE
      volumes:
-       - ./var/mail/domains/:/var/mail/domains/
-       - ./var/log:/var/log/
+       - ../docker-volumes/var/mail/domains/:/var/mail/domains/
+       - ../docker-volumes/var/log:/var/log/
        - /dev/log:/dev/log
        - /etc/localtime:/etc/localtime:ro
        - /etc/timezone:/etc/timezone:ro 
-       - ./etc/postfix/master.cf:/etc/postfix/master.cf
-       - ./etc/postfix/main.cf:/etc/postfix/main.cf
-       - ./etc/postfix/sql/:/etc/postfix/sql/
-       - ./var/spool/postfix/:/var/spool/postfix/
-       - ./var/spool/mail/:/var/spool/mail/
+       - ../docker-volumes/etc/postfix/master.cf:/etc/postfix/master.cf
+       - ../docker-volumes/etc/postfix/main.cf:/etc/postfix/main.cf
+       - ../docker-volumes/etc/postfix/sql/:/etc/postfix/sql/
+       - ../docker-volumes/var/spool/postfix/:/var/spool/postfix/
+       - ../docker-volumes/var/spool/mail/:/var/spool/mail/
 
      ports:
        - "25:25"
@@ -65,8 +65,9 @@ services:
        dockerfile: Dockerfile-dovecot-alpine
      restart: unless-stopped
      volumes:
+       ### ADD certbot /etc certs HERE
        - /etc/localtime:/etc/localtime:ro
-       - /etc/timezone:/etc/timezone:ro 
+       - /etc/timezone:/etc/timezone:ro
      ports:
        - 143:143
        - 993:993
