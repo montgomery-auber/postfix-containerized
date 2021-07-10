@@ -18,7 +18,8 @@ services:
       - ../docker-volumes/letsencrypt-docker-nginx/src/letsencrypt/letsencrypt-site:/data/letsencrypt
       - ../docker-volumes/var/log/letsencrypt:/var/log/letsencrypt
       - ../docker-volumes/.aws:/root/.aws 
-      - ../docker-volumes/etc/nginx/conf.d:/etc/nginx/conf.d  
+      - ../docker-volumes/etc/nginx/conf.d:/etc/nginx/conf.d
+      - ../docker-volumes/etc/dovecot:/etc/dovecot
       - /var/run/docker.sock:/var/run/docker.sock
     logging:
       options:
@@ -114,7 +115,7 @@ services:
       dockerfile: Dockerfile-dovecot-alpine
     restart: unless-stopped
     volumes:
-      ../docker-volumes/etc/dovecot:/etc/dovecot
+      - ../docker-volumes/etc/dovecot:/etc/dovecot
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
       - ../docker-volumes/etc/letsencrypt:/etc/letsencrypt
