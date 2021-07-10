@@ -114,7 +114,7 @@ services:
       dockerfile: Dockerfile-dovecot-alpine
     restart: unless-stopped
     volumes:
-      ### ADD certbot /etc certs HERE
+      ../docker-volumes/etc/dovecot:/etc/dovecot
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
       - ../docker-volumes/etc/letsencrypt:/etc/letsencrypt
