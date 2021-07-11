@@ -78,7 +78,7 @@ cd ..
 #Create the /etc/dovecot/dovecot-sql.conf file:
 cat - <<EOF > dovecot/dovecot-sql.conf
 driver = pgsql
-connect = host=pgsql dbname=postfix user=postfixadmin password=$PGPW
+connect = host=pgsql dbname=postfixadmin user=postfixadmin password=$PGPW
 password_query = select username,password from mailbox where local_part = '%n' and domain = '%d'
 default_pass_scheme =  SHA512-CRYPT
 EOF
