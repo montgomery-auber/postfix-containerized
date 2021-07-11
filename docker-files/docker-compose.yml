@@ -116,6 +116,8 @@ services:
     restart: unless-stopped
     volumes:
       - ../docker-volumes/etc/dovecot:/etc/dovecot
+      - ../docker-volumes/var/log:/var/log/
+      - /dev/log:/dev/log
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
       - ../docker-volumes/etc/letsencrypt:/etc/letsencrypt
