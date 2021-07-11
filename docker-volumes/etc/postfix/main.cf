@@ -21,7 +21,7 @@ virtual_alias_maps = proxy:pgsql:/etc/postfix/sql/pgsql_virtual_alias_maps.cf,
 virtual_mailbox_maps = proxy:pgsql:/etc/postfix/sql/pgsql_virtual_mailbox_maps.cf,
        proxy:pgsql:/etc/postfix/sql/pgsql_virtual_alias_domain_mailbox_maps.cf
 
-virtual_mailbox_base = /var/mail/domains/
+virtual_mailbox_base = /var/mail/domains
 virtual_gid_maps = static:106
 virtual_uid_maps = static:106
 virtual_minimum_uid = 100

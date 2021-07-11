@@ -86,7 +86,7 @@ services:
       POSTFIXADMIN_SMTP_SERVER: postfix
       POSTFIXADMIN_SMTP_PORT: 25
   postfix:
-    container_name: postfix_server
+    container_name: postfix
     build:  
       context: .
       dockerfile: Dockerfile-postfix-alpine
@@ -103,7 +103,7 @@ services:
       - ../docker-volumes/etc/postfix/main.cf:/etc/postfix/main.cf
       - ../docker-volumes/etc/postfix/sql/:/etc/postfix/sql/
       - ../docker-volumes/var/spool/postfix/:/var/spool/postfix/
-      - ../docker-volumes/var/spool/mail/:/var/spool/mail/
+      # - ../docker-volumes/var/spool/mail/:/var/spool/mail/
     ports:
       - "25:25"
       - "465:465"
