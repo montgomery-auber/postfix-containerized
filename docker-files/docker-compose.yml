@@ -58,8 +58,14 @@ services:
       start_period: 40s
   pgsql:
     container_name: pgsql
+    #mount DB in volume 
     image:  postgres:13.0-alpine 
     restart: unless-stopped
+    volumes: 
+      - ../docker-volumes/var/log:/var/log/
+      - /dev/log:/dev/log
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro 
     environment:
       POSTGRES_PASSWORD: notSecureChangeMe
       POSTGRES_DB: postfixadmin

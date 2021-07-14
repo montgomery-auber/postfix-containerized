@@ -2,8 +2,8 @@
 compatibility_level = 2 
 
 ###set this as var host and domain
-myhostname=hmail.float.i.ng
-mydomain=hmail.float.i.ng 
+myhostname=test.float.i.ng
+mydomain=test.float.i.ng 
 
 mydestination = localhost.$mydomain, localhost
 mynetworks_style = subnet
@@ -31,8 +31,6 @@ virtual_transport = virtual
 # This next command means you must create a virtual
 # domain for the host itself - ALL mail goes through
 # The virtual transport
-
-
 smtpd_helo_required = yes
 disable_vrfy_command = yes
 
@@ -66,3 +64,5 @@ smtpd_tls_auth_only = yes
 smtputf8_enable = no
 
 maillog_file = /dev/stdout
+
+inet_interfaces = localhost 
