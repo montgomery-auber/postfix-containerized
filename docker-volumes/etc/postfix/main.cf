@@ -64,5 +64,3 @@ smtpd_tls_auth_only = yes
 smtputf8_enable = no
 
 maillog_file = /dev/stdout
-
-inet_interfaces = localhost 

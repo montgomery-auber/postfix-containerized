@@ -72,7 +72,7 @@ dbname = postfixadmin
 query = Select maildir from mailbox where username='%s' and active=true
 EOF
 #chown -R postfix:postfix sql
-sudo chown -R 105:105 sql
+#sudo chown -R 105:105 sql
 chmod 644 sql/*
 ##Add Dovecot 
 cd ..
