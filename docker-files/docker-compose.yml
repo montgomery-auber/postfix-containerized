@@ -73,6 +73,9 @@ services:
       # postgres_password sets it for the user not root - MYSQL_PASSWORD: postfixadminPassword  #### PUT into encrypted secrets
     ports:
       - "5432:5432"
+    logging:
+      options:
+        max-size: 50m
   postfixadmin:
     # https://hub.docker.com/_/postfixadmin
     container_name: postfixadmin
@@ -114,6 +117,9 @@ services:
       - "25:25"
       - "465:465"
       - "587:587"
+    logging:
+      options:
+        max-size: 50m
   dovecot: 
     container_name: dovecot
     build:
@@ -131,3 +137,6 @@ services:
       - 143:143
       - 993:993
       - 995:995
+      logging:
+        options:
+          max-size: 50m
