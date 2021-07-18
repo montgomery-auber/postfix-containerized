@@ -2,8 +2,8 @@
 compatibility_level = 2 
 
 ###set this as var host and domain
-myhostname=test.float.i.ng
-mydomain=test.float.i.ng 
+myhostname=dummy.float.i.ng 
+mydomain=dummy.float.i.ng 
 
 mydestination = localhost.$mydomain, localhost
 mynetworks_style = subnet
