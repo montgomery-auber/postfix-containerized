@@ -1,3 +1,4 @@
-dovecot-sql.conf
+*
 !.gitignore
-!.dovecot.conf
+!conf.d/10-ssl.conf
+dovecot.conf
