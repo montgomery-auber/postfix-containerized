@@ -84,11 +84,26 @@ cd ..
 sudo cat - <<EOF > dovecot/dovecot-sql.conf
 driver = pgsql
 connect = host=pgsql dbname=postfixadmin user=postfixadmin password=$PGPW
-password_query = select username,password from mailbox where local_part = '%n' and domain = '%d'
+password_query = select username as user, password, 1006 as userdb_uid, 1006 as userdb_gid, '*:bytes=' || quota as userdb_quota_rule from mailbox  where local_part = '%n' and domain = '%d'
+user_query = select '/var/mail/domains/' || maildir as home, 1006 as uid, 1006 as gid, '*:bytes=' || quota  as quota_rule from mailbox where local_part = '%n' and domain ='%d'
 default_pass_scheme =  SHA512-CRYPT
 EOF
-sudo chown root:root dovecot/dovecot-sql.conf
-sudo chmod 600 dovecot/dovecot-sql.conf
-#mkdir -p ./dev/log
-#mkdir -p /opt/postfix/etc/postfix /opt/postfix/var/spool/postfix /opt/postfix/var/spool/mail /opt/postfix/var/log /opt/postfix/var/mail /opt/postfix/var/mail/domains
+#Create dovecot quota file
+sudo cat - <<EOF > dovecot/dovecot-dict-quota.conf
+connect = host=pgsql dbname=postfixadmin user=postfixadmin password=$PGPW
+map {
+        pattern = priv/quota/storage
+        table = quota2
+        username_field =username
+        value_field = bytes
+}
+map {
+       pattern= priv/quota/messages
+       table = quota2
+       username_field = username
+       value_field = messages
+}
+EOF
+sudo chown 107:root dovecot/dovecot-sql.conf dovecot/dovecot-dict-quota.conf
+sudo chmod 600 dovecot/dovecot-sql.conf dovecot/dovecot-dict-quota.conf
  

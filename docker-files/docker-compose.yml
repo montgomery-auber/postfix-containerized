@@ -134,6 +134,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
       - ../docker-volumes/etc/letsencrypt:/etc/letsencrypt
+      - ../docker-volumes/var/spool/postfix/:/var/spool/postfix/
     ports:
       - 143:143
       - 993:993
