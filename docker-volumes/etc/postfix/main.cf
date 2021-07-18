@@ -63,3 +63,29 @@ smtpd_tls_auth_only = yes
 smtputf8_enable = no
 
 maillog_file = /dev/stdout
+
+smtpd_tls_cert_file = /etc/letsencrypt/live/dummy.float.i.ng/fullchain.pem
+smtpd_tls_key_file = /etc/letsencrypt/live/dummy.float.i.ng/privkey.pem
+
+# TLS Stuff -- since we allow SASL with tls *only*, we have to set up TLS first                    
+
+smtpd_tls_cert_file = /etc/lighttpd/server-bundle.pem
+smtpd_tls_key_file = /etc/lighttpd/server-bundle.pem
+smtpd_tls_CAfile = /etc/lighttpd/ca-crt.pem
+# If tls_security_level is set to "encrypt", then SMTP rejects 
+# unencrypted email (e.g. normal mail) which is bad.
+# By setting it to "may" you get TLS encrypted mail from google, slashdot, and other 
+# interesting places.  Check your logs to see who
+smtpd_tls_security_level = may
+# Log info about the negotiated encryption levels
+smtpd_tls_received_header = yes
+smtpd_tls_loglevel = 1
+
+# SASL - this allows senders to authenticiate themselves
+# This along with "permit_sasl_authenticated" in smtpd_recipient_restrictions allows relaying
+smtpd_sasl_type = dovecot
+smtpd_sasl_path = private/auth
+smtpd_sasl_auth_enable = yes
+smtpd_sasl_authenticated_header = yes
+broken_sasl_auth_clients = yes
+smtpd_tls_auth_only = yes
