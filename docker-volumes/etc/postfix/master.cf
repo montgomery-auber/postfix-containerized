@@ -20,9 +20,9 @@ submission inet n       -       n       -       -       smtpd
   -o smtpd_sasl_auth_enable=yes
   -o smtpd_tls_auth_only=yes
   -o smtpd_reject_unlisted_recipient=no
-  -o smtpd_client_restrictions=$mua_client_restrictions
-  -o smtpd_helo_restrictions=$mua_helo_restrictions
-  -o smtpd_sender_restrictions=$mua_sender_restrictions
+#  -o smtpd_client_restrictions=$mua_client_restrictions
+#  -o smtpd_helo_restrictions=$mua_helo_restrictions
+#  -o smtpd_sender_restrictions=$mua_sender_restrictions
 #  -o smtpd_recipient_restrictions=
   -o smtpd_relay_restrictions=permit_sasl_authenticated,reject
   -o milter_macro_daemon_name=ORIGINATING
@@ -31,9 +31,9 @@ smtps     inet  n       -       n       -       -       smtpd
   -o smtpd_tls_wrappermode=yes
   -o smtpd_sasl_auth_enable=yes
   -o smtpd_reject_unlisted_recipient=no
-  -o smtpd_client_restrictions=$mua_client_restrictions
-  -o smtpd_helo_restrictions=$mua_helo_restrictions
-  -o smtpd_sender_restrictions=$mua_sender_restrictions
+#  -o smtpd_client_restrictions=$mua_client_restrictions
+#  -o smtpd_helo_restrictions=$mua_helo_restrictions
+#  -o smtpd_sender_restrictions=$mua_sender_restrictions
 #  -o smtpd_recipient_restrictions=
   -o smtpd_relay_restrictions=permit_sasl_authenticated,reject
   -o milter_macro_daemon_name=ORIGINATING
@@ -47,7 +47,7 @@ rewrite   unix  -       -       n       -       -       trivial-rewrite
 bounce    unix  -       -       n       -       0       bounce
 defer     unix  -       -       n       -       0       bounce
 trace     unix  -       -       n       -       0       bounce
-verify    unix  -       -       n       -       1       verify
+verify    unixf  -       -       n       -       1       verify
 flush     unix  n       -       n       1000?   0       flush
 proxymap  unix  -       -       n       -       -       proxymap
 proxywrite unix -       -       n       -       1       proxymap
@@ -131,3 +131,6 @@ postlog   unix-dgram n  -       n       -       1       postlogd
 #mailman   unix  -       n       n       -       -       pipe
 #  flags=FR user=list argv=/usr/lib/mailman/bin/postfix-to-mailman.py
 #  ${nexthop} ${user}
+# The dovecot deliver lda
+dovecot   unix  -       n       n       -       -       pipe
+  flags=DRhu user=vmail:vmail argv=/usr/libexec/dovecot/deliver -f ${sender} -d ${user}@${nexthop}

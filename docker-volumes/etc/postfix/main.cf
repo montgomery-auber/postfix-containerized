@@ -25,7 +25,8 @@ virtual_mailbox_base = /var/mail/domains/
 virtual_gid_maps = static:106
 virtual_uid_maps = static:106
 virtual_minimum_uid = 100
-virtual_transport = virtual
+virtual_transport = dovecot
+dovecot_destination_recipient_limit = 1
 
 # This next command means you must create a virtual
 # domain for the host itself - ALL mail goes through
@@ -64,14 +65,14 @@ smtputf8_enable = no
 
 maillog_file = /dev/stdout
 
-smtpd_tls_cert_file = /etc/letsencrypt/live/dummy.float.i.ng/fullchain.pem
-smtpd_tls_key_file = /etc/letsencrypt/live/dummy.float.i.ng/privkey.pem
-
 # TLS Stuff -- since we allow SASL with tls *only*, we have to set up TLS first                    
 
-smtpd_tls_cert_file = /etc/lighttpd/server-bundle.pem
-smtpd_tls_key_file = /etc/lighttpd/server-bundle.pem
-smtpd_tls_CAfile = /etc/lighttpd/ca-crt.pem
+smtpd_tls_cert_file = /etc/letsencrypt/live/dummy.float.i.ng/fullchain.pem
+smtpd_tls_key_file = /etc/letsencrypt/live/dummy.float.i.ng/privkey.pem
+smtpd_tls_CAfile = /etc/letsencrypt/live/dummy.float.i.ng/chain.pem 
+
+
+
 # If tls_security_level is set to "encrypt", then SMTP rejects 
 # unencrypted email (e.g. normal mail) which is bad.
 # By setting it to "may" you get TLS encrypted mail from google, slashdot, and other 
