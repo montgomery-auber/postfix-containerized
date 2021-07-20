@@ -48,7 +48,7 @@ bounce    unix  -       -       n       -       0       bounce
 defer     unix  -       -       n       -       0       bounce
 trace     unix  -       -       n       -       0       bounce
 verify    unixf  -       -       n       -       1       verify
-flush     unix  n       -       n       1000?   0       flush
+#flush     unix  n       -       n       1000?   0       flush
 proxymap  unix  -       -       n       -       -       proxymap
 proxywrite unix -       -       n       -       1       proxymap
 smtp      unix  -       -       n       -       -       smtp
