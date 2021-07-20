@@ -142,3 +142,7 @@ services:
     logging:
       options:
         max-size: 50m
+    ulimits:
+      nofile:
+        soft: 1027
+        hard: 1027
