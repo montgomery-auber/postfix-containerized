@@ -22,8 +22,7 @@ cd ../docker-volumes
 sudo mkdir -p ./etc/postfix ./var/spool/postfix ./etc/dovecot ./var/log ./var/mail ./var/mail/domains 
 #chown -R 106:106 ./var/spool/
 sudo chmod 640  ./etc/postfix/
-sudo chown -R 106:106 ./var/mail/domains 
-sudo chown -R 106:106 ./var/log/dovecot*
+sudo chown -R 106:106 ./var/mail/domains ./var/log/dovecot* 
 
 #vmail:postdrop
 #chown root:root ./etc/postfix/dynamicmaps.cf
@@ -107,4 +106,3 @@ map {
 EOF
 sudo chown 107:root dovecot/dovecot-sql.conf dovecot/dovecot-dict-quota.conf
 sudo chmod 600 dovecot/dovecot-sql.conf dovecot/dovecot-dict-quota.conf
-sudo chown VMAIL:VMAIL /var/log/dovecot*
