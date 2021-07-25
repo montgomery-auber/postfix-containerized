@@ -81,7 +81,7 @@ services:
     container_name: postfixadmin
     depends_on:
       - pgsql 
-    image: postfixadmin:latest
+    image: postfixadmin:3.3.5
     ports:
       - "8080:80"
     restart: unless-stopped
