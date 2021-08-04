@@ -23,6 +23,7 @@ sudo mkdir -p ./etc/postfix ./var/spool/postfix ./etc/dovecot ./var/log ./var/ma
 #chown -R 106:106 ./var/spool/
 sudo chmod 640  ./etc/postfix/
 sudo chown -R 106:106 ./var/mail/domains ./var/log/dovecot* 
+sudo chmod 644 ./var/log/dovecot* 
 
 #vmail:postdrop
 #chown root:root ./etc/postfix/dynamicmaps.cf
