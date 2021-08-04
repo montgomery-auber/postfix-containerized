@@ -15,7 +15,7 @@ RUN addgroup postfix mail 2>/dev/null
 RUN adduser -S -u 106 -H -h /var/mail/domains -s /sbin/nologin -G postdrop -g vmail vmail 2>/dev/null
 
 # Install dependencies
-RUN apk add --no-cache --update postfix cyrus-sasl cyrus-sasl-plain ca-certificates bash postfix-pgsql postfix-pcre && \
+RUN apk add --no-cache --update postfix cyrus-sasl cyrus-sasl-plain ca-certificates bash postfix-pgsql postfix-pcre dovecot && \
     apk add --no-cache --upgrade musl musl-utils && \
     # Clean up
     (rm "/tmp/"* 2>/dev/null || true) && (rm -rf /var/cache/apk/* 2>/dev/null || true)
