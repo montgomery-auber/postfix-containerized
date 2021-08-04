@@ -5,7 +5,8 @@ FROM alpine:3.12
 
 RUN addgroup -S postfix -g 105 2>/dev/null
 RUN addgroup -S postdrop -g 106 2>/dev/null 
-RUN addgroup -S vmail  -g 107 2>/dev/null
+RUN addgroup -S dovecot -g 107 2>/dev/null
+RUN addgroup -S vmail  -g 108 2>/dev/null
 RUN adduser -S -u 105 -H -h /var/spool/postfix -G postfix -g postfix postfix 2>/dev/null
 
 ### mail:x:12:mail,postfix - check is mail group as gid 12 is in postfixadmin
