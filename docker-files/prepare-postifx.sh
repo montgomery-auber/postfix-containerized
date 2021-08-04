@@ -82,7 +82,7 @@ sudo chmod  -R 777 sql
 ##Add Dovecot 
 cd ..
 #Create the /etc/dovecot/dovecot-sql.conf file:
-sudo cat - <<EOF > dovecot/dovecot-sql.conf
+sudo cat - <<EOF > dovecot/dovecot-pgsql.conf
 driver = pgsql
 connect = host=pgsql dbname=postfixadmin user=postfixadmin password=$PGPW
 password_query = select username as user, password, 1006 as userdb_uid, 1006 as userdb_gid, '*:bytes=' || quota as userdb_quota_rule from mailbox  where local_part = '%n' and domain = '%d'
