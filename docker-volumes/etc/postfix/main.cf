@@ -9,10 +9,6 @@ mydestination = localhost.$mydomain, localhost
 mynetworks_style = subnet
 mynetworks = 127.0.0.0/8
 
-mailbox_transport = virtual
-local_transport = virtual
-local_transport_maps = $virtual_mailbox_maps
-
 virtual_mailbox_domains = proxy:pgsql:/etc/postfix/sql/pgsql_virtual_domains_maps.cf
 virtual_alias_maps = proxy:pgsql:/etc/postfix/sql/pgsql_virtual_alias_maps.cf,
        proxy:pgsql:/etc/postfix/sql/pgsql_virtual_alias_domain_maps.cf,
@@ -20,6 +16,9 @@ virtual_alias_maps = proxy:pgsql:/etc/postfix/sql/pgsql_virtual_alias_maps.cf,
 
 virtual_mailbox_maps = proxy:pgsql:/etc/postfix/sql/pgsql_virtual_mailbox_maps.cf,
        proxy:pgsql:/etc/postfix/sql/pgsql_virtual_alias_domain_mailbox_maps.cf
+mailbox_transport = virtual
+local_transport = virtual
+local_transport_maps = $virtual_mailbox_maps 
 
 virtual_mailbox_base = /var/mail/domains/
 virtual_gid_maps = static:106
