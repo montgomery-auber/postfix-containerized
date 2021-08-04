@@ -18,7 +18,7 @@ virtual_mailbox_maps = proxy:pgsql:/etc/postfix/sql/pgsql_virtual_mailbox_maps.c
        proxy:pgsql:/etc/postfix/sql/pgsql_virtual_alias_domain_mailbox_maps.cf
 mailbox_transport = virtual
 local_transport = virtual
-local_transport_maps = $virtual_mailbox_maps 
+local_recipient_maps = $virtual_mailbox_maps 
 
 virtual_mailbox_base = /var/mail/domains/
 virtual_gid_maps = static:106
