@@ -20,6 +20,7 @@ services:
       - ../docker-volumes/.aws:/root/.aws 
       - ../docker-volumes/etc/nginx/conf.d:/etc/nginx/conf.d
       - ../docker-volumes/etc/dovecot:/etc/dovecot
+      - ../docker-volumes/etc/postfix:/etc/postfix
       - /var/run/docker.sock:/var/run/docker.sock
     logging:
       options:
