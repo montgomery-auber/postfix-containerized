@@ -17,7 +17,7 @@ RUN apk add --no-cache --update postfix cyrus-sasl cyrus-sasl-plain ca-certifica
     # Clean up
     (rm "/tmp/"* 2>/dev/null || true) && (rm -rf /var/cache/apk/* 2>/dev/null || true)
 RUN mkdir -p /var/log/supervisor
-COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY supervisord.ini /etc/supervisor/conf.d/supervisord.ini 
 
 # Expose mail submission agent port
 EXPOSE 587
