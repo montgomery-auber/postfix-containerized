@@ -16,7 +16,7 @@ services:
       - ../docker-volumes/etc/letsencrypt:/etc/letsencrypt
       - ../docker-volumes/var/lib/letsencrypt:/var/lib/letsencrypt
       - ../docker-volumes/letsencrypt-docker-nginx/src/letsencrypt/letsencrypt-site:/data/letsencrypt
-      - ../docker-volumes/var/log/letsencrypt:/var/log/letsencrypt
+      - ../docker-volumes/var/log:/var/log
       - ../docker-volumes/.aws:/root/.aws 
       - ../docker-volumes/etc/nginx/conf.d:/etc/nginx/conf.d
       - ../docker-volumes/etc/dovecot:/etc/dovecot
@@ -57,6 +57,7 @@ services:
       timeout: 2s
       retries: 3
       start_period: 40s
+
   pgsql:
     container_name: pgsql
     #mount DB in volume 
