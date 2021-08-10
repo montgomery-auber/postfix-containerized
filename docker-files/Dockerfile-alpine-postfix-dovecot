@@ -11,15 +11,13 @@ RUN adduser -S -u 105 -H -h /var/spool/postfix -G postfix -g postfix postfix 2>/
 RUN adduser -S -u 107 -H -h /dev/null -G dovecot -g dovecot dovecot 2>/dev/null
 RUN adduser -S -u 106 -H -h /var/mail/domains -s /sbin/nologin -G postdrop -g vmail vmail 2>/dev/null
 
-RUN apt-get update && apt-get install -y supervisor
-RUN mkdir -p /var/log/supervisor
-COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-
 # Install dependencies
 RUN apk add --no-cache --update postfix cyrus-sasl cyrus-sasl-plain ca-certificates bash postfix-pgsql postfix-pcre dovecot dovecot-pgsql supervisord && \
     apk add --no-cache --upgrade musl musl-utils && \
     # Clean up
     (rm "/tmp/"* 2>/dev/null || true) && (rm -rf /var/cache/apk/* 2>/dev/null || true)
+RUN mkdir -p /var/log/supervisor
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Expose mail submission agent port
 EXPOSE 587
