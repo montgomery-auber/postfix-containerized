@@ -108,7 +108,7 @@ services:
         # VARS HERE
     volumes:
       - ../docker-volumes/var/mail/domains/:/var/mail/domains/
-      - ../docker-volumes/var/log:/var/log/
+      - ../docker-volumes/var/log:/var/log
       - /dev/log:/dev/log
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro 
