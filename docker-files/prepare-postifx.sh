@@ -105,5 +105,5 @@ map {
        value_field = messages
 }
 EOF
-sudo chown 107:root dovecot/dovecot-sql.conf dovecot/dovecot-dict-quota.conf
-sudo chmod 600 dovecot/dovecot-sql.conf dovecot/dovecot-dict-quota.conf
+sudo chown 107:root dovecot/dovecot-pgsql.conf dovecot/dovecot-dict-quota.conf
+sudo chmod 600 dovecot/dovecot-pgsql.conf dovecot/dovecot-dict-quota.conf
