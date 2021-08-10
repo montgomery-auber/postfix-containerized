@@ -1,0 +1,38 @@
+FROM alpine:3.12
+#alpine 3.13.5 doesnt have cyrus plain 
+#Pre-create users and groups so they have correct UID 105 for user/group postfix , etc
+#https://git.alpinelinux.org/aports/tree/main/postfix/postfix.pre-install
+
+COPY 
+RUN addgroup -S postfix -g 105 2>/dev/null
+RUN addgroup -S postdrop -g 106 2>/dev/null 
+RUN addgroup -S dovecot -g 107 2>/dev/null
+RUN addgroup -S vmail  -g 108 2>/dev/null
+RUN adduser -S -u 105 -H -h /var/spool/postfix -G postfix -g postfix postfix 2>/dev/null
+RUN adduser -S -u 107 -H -h /dev/null -G dovecot -g dovecot dovecot 2>/dev/null
+RUN adduser -S -u 106 -H -h /var/mail/domains -s /sbin/nologin -G postdrop -g vmail vmail 2>/dev/null
+
+RUN apt-get update && apt-get install -y supervisor
+RUN mkdir -p /var/log/supervisor
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+# Install dependencies
+RUN apk add --no-cache --update postfix cyrus-sasl cyrus-sasl-plain ca-certificates bash postfix-pgsql postfix-pcre dovecot dovecot-pgsql supervisord && \
+    apk add --no-cache --upgrade musl musl-utils && \
+    # Clean up
+    (rm "/tmp/"* 2>/dev/null || true) && (rm -rf /var/cache/apk/* 2>/dev/null || true)
+
+# Expose mail submission agent port
+EXPOSE 587
+EXPOSE 25
+EXPOSE 465
+EXPOSE 143
+EXPOSE 993
+EXPOSE 995 
+
+# Start postfix and dovecot in foreground mode
+CMD ["/usr/bin/supervisord"]
+
+# docker build -t dovecot -f Dockerfile-alpine-postfix-dovecot .
+
+## https://docs.docker.com/config/containers/multi-service_container/

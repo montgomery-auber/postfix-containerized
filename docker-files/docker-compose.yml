@@ -11,7 +11,7 @@ services:
       context: .
       dockerfile: Dockerfile-certbot 
     restart: "no"
-    volumes:
+    volumes: 
       ## add restart nginx script to install - CHANGE mod 755 for it
       - ../docker-volumes/etc/letsencrypt:/etc/letsencrypt
       - ../docker-volumes/var/lib/letsencrypt:/var/lib/letsencrypt
@@ -76,6 +76,7 @@ services:
     logging:
       options:
         max-size: 50m
+
   postfixadmin:
     # https://hub.docker.com/_/postfixadmin
     container_name: postfixadmin
@@ -94,11 +95,12 @@ services:
       POSTFIXADMIN_DB_PASSWORD: notSecureChangeMe
       POSTFIXADMIN_SMTP_SERVER: postfix
       POSTFIXADMIN_SMTP_PORT: 25
+
   postfix:
     container_name: postfix
     build:  
       context: .
-      dockerfile: Dockerfile-postfix-alpine
+      dockerfile: Dockerfile-alpine-postfix-dovecot
     restart: unless-stopped
     #environment: 
         # VARS HERE
@@ -114,32 +116,14 @@ services:
       - ../docker-volumes/var/spool/postfix/:/var/spool/postfix/
       - ../docker-volumes/etc/letsencrypt:/etc/letsencrypt
       - ../docker-volumes/etc/dovecot:/etc/dovecot
-      # - ../docker-volumes/var/spool/mail/:/var/spool/mail/
+      
     ports:
       - "25:25"
       - "465:465"
       - "587:587"
-    logging:
-      options:
-        max-size: 50m
-  dovecot: 
-    container_name: dovecot
-    build:
-      context: .
-      dockerfile: Dockerfile-dovecot-alpine
-    restart: unless-stopped
-    volumes:
-      - ../docker-volumes/etc/dovecot:/etc/dovecot
-      - ../docker-volumes/var/log:/var/log/
-      - /dev/log:/dev/log
-      - /etc/localtime:/etc/localtime:ro
-      - /etc/timezone:/etc/timezone:ro
-      - ../docker-volumes/etc/letsencrypt:/etc/letsencrypt
-      - ../docker-volumes/var/spool/postfix/:/var/spool/postfix/
-    ports:
-      - 143:143
-      - 993:993
-      - 995:995
+      - "143:143"
+      - "993:993"
+      - "995:995"
     logging:
       options:
         max-size: 50m
@@ -147,3 +131,4 @@ services:
       nofile:
         soft: 1027
         hard: 1027
+ 
