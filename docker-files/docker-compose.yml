@@ -11,16 +11,15 @@ services:
       context: .
       dockerfile: Dockerfile-certbot 
     restart: "no"
-    volumes: 
+    volumes:
       ## add restart nginx script to install - CHANGE mod 755 for it
       - ../docker-volumes/etc/letsencrypt:/etc/letsencrypt
       - ../docker-volumes/var/lib/letsencrypt:/var/lib/letsencrypt
       - ../docker-volumes/letsencrypt-docker-nginx/src/letsencrypt/letsencrypt-site:/data/letsencrypt
-      - ../docker-volumes/var/log:/var/log
+      - ../docker-volumes/var/log/letsencrypt:/var/log/letsencrypt
       - ../docker-volumes/.aws:/root/.aws 
       - ../docker-volumes/etc/nginx/conf.d:/etc/nginx/conf.d
       - ../docker-volumes/etc/dovecot:/etc/dovecot
-      - ../docker-volumes/etc/postfix:/etc/postfix
       - /var/run/docker.sock:/var/run/docker.sock
     logging:
       options:
@@ -57,7 +56,6 @@ services:
       timeout: 2s
       retries: 3
       start_period: 40s
-
   pgsql:
     container_name: pgsql
     #mount DB in volume 
@@ -78,13 +76,12 @@ services:
     logging:
       options:
         max-size: 50m
-
   postfixadmin:
     # https://hub.docker.com/_/postfixadmin
     container_name: postfixadmin
     depends_on:
       - pgsql 
-    image: postfixadmin:3.3.5
+    image: postfixadmin:latest
     ports:
       - "8080:80"
     restart: unless-stopped
@@ -97,18 +94,17 @@ services:
       POSTFIXADMIN_DB_PASSWORD: notSecureChangeMe
       POSTFIXADMIN_SMTP_SERVER: postfix
       POSTFIXADMIN_SMTP_PORT: 25
-
   postfix:
     container_name: postfix
     build:  
       context: .
-      dockerfile: Dockerfile-alpine-postfix-dovecot
+      dockerfile: Dockerfile-postfix-alpine
     restart: unless-stopped
     #environment: 
         # VARS HERE
     volumes:
       - ../docker-volumes/var/mail/domains/:/var/mail/domains/
-      - ../docker-volumes/var/log:/var/log
+      - ../docker-volumes/var/log:/var/log/
       - /dev/log:/dev/log
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro 
@@ -116,21 +112,31 @@ services:
       - ../docker-volumes/etc/postfix/main.cf:/etc/postfix/main.cf
       - ../docker-volumes/etc/postfix/sql/:/etc/postfix/sql/
       - ../docker-volumes/var/spool/postfix/:/var/spool/postfix/
-      - ../docker-volumes/etc/letsencrypt:/etc/letsencrypt
-      - ../docker-volumes/etc/dovecot:/etc/dovecot
-      
+      # - ../docker-volumes/var/spool/mail/:/var/spool/mail/
     ports:
       - "25:25"
       - "465:465"
       - "587:587"
-      - "143:143"
-      - "993:993"
-      - "995:995"
     logging:
       options:
         max-size: 50m
-    ulimits:
-      nofile:
-        soft: 1027
-        hard: 1027
- 
+  dovecot: 
+    container_name: dovecot
+    build:
+      context: .
+      dockerfile: Dockerfile-dovecot-alpine
+    restart: unless-stopped
+    volumes:
+      - ../docker-volumes/etc/dovecot:/etc/dovecot
+      - ../docker-volumes/var/log:/var/log/
+      - /dev/log:/dev/log
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      - ../docker-volumes/etc/letsencrypt:/etc/letsencrypt
+    ports:
+      - 143:143
+      - 993:993
+      - 995:995
+      logging:
+        options:
+          max-size: 50m
