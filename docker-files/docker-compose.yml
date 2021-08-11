@@ -112,7 +112,7 @@ services:
       - ../docker-volumes/etc/postfix/main.cf:/etc/postfix/main.cf
       - ../docker-volumes/etc/postfix/sql/:/etc/postfix/sql/
       - ../docker-volumes/var/spool/postfix/:/var/spool/postfix/
-      # - ../docker-volumes/var/spool/mail/:/var/spool/mail/
+      - ../docker-volumes/etc/letsencrypt:/etc/letsencrypt
     ports:
       - "25:25"
       - "465:465"
@@ -137,6 +137,6 @@ services:
       - 143:143
       - 993:993
       - 995:995
-      logging:
-        options:
-          max-size: 50m
+    logging:
+      options:
+        max-size: 50m
