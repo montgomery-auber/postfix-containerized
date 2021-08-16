@@ -80,15 +80,15 @@ sudo chmod  -R 777 sql
 
 ##Add Dovecot 
 cd ..
-#Create the /etc/dovecot/dovecot-sql.conf file:
-sudo cat - <<EOF > dovecot/dovecot-sql.conf
+#Create the /etc/dovecot/dovecot-pgsql.conf file:
+sudo cat - <<EOF > dovecot/dovecot-pgsql.conf
 driver = pgsql
 connect = host=pgsql dbname=postfixadmin user=postfixadmin password=$PGPW
 password_query = select username,password from mailbox where local_part = '%n' and domain = '%d'
 default_pass_scheme =  SHA512-CRYPT
 EOF
-sudo chown root:root dovecot/dovecot-sql.conf
-sudo chmod 600 dovecot/dovecot-sql.conf
+sudo chown root:root dovecot/dovecot-pgsql.conf
+sudo chmod 600 dovecot/dovecot-pgsql.conf
 #mkdir -p ./dev/log
 #mkdir -p /opt/postfix/etc/postfix /opt/postfix/var/spool/postfix /opt/postfix/var/spool/mail /opt/postfix/var/log /opt/postfix/var/mail /opt/postfix/var/mail/domains
  
