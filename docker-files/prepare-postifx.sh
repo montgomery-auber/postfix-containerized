@@ -18,13 +18,13 @@ fi
 # put install docker and compose here
 #add user postfix 
 sudo yum remove postfix -y
-sudo cd ../docker-volumes
+cd ../docker-volumes
 sudo mkdir -p ./etc/postfix ./var/spool/postfix  ./var/spool/postfix/private ./etc/dovecot ./var/log ./var/mail ./var/mail/domains 
 sudo chown -R 105:105 ./var/spool/postfix ./var/spool/postfix/private
 sudo chmod 644  ./etc/postfix/  ./etc/postfix/dynamicmaps.cf ./var/spool/postfix/private
 sudo chown -R 106:106 ./var/mail/domains
 sudo chown -R root:root ./etc/postfix/ 
-sudo cd etc/postfix
+cd etc/postfix
 sudo cat - <<EOF >sql/pgsql_virtual_alias_domain_catchall_maps.cf
 user=postfixadmin
 password = $PGPW
