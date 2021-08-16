@@ -21,7 +21,7 @@ sudo yum remove postfix -y
 cd ../docker-volumes
 sudo mkdir -p ./etc/postfix ./var/spool/postfix  ./var/spool/postfix/private ./etc/dovecot ./var/log ./var/mail ./var/mail/domains 
 sudo chown -R root:105 ./var/spool/postfix 
-sudo chmod -R  664  ./var/spool/postfix 
+sudo chmod -R  666  ./var/spool/postfix 
 sudo chmod 644  ./etc/postfix/  ./etc/postfix/dynamicmaps.cf 
 sudo chown -R 106:106 ./var/mail/domains
 sudo chown -R root:root ./etc/postfix/ 
