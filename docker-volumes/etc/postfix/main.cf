@@ -69,8 +69,6 @@ smtpd_tls_key_file = /etc/letsencrypt/live/dummy.float.i.ng/privkey.pem
 
 # TLS Stuff -- since we allow SASL with tls *only*, we have to set up TLS first                    
 
-smtpd_tls_cert_file = /etc/lighttpd/server-bundle.pem
-smtpd_tls_key_file = /etc/lighttpd/server-bundle.pem
 smtpd_tls_CAfile = /etc/lighttpd/ca-crt.pem
 # If tls_security_level is set to "encrypt", then SMTP rejects 
 # unencrypted email (e.g. normal mail) which is bad.
