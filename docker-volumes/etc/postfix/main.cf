@@ -81,7 +81,7 @@ smtpd_tls_loglevel = 1
 # SASL - this allows senders to authenticiate themselves
 # This along with "permit_sasl_authenticated" in smtpd_recipient_restrictions allows relaying
 smtpd_sasl_type = dovecot
-smtpd_sasl_path = private/auth
+smtpd_sasl_path = /var/spool/postfix/private/auth
 smtpd_sasl_auth_enable = yes
 smtpd_sasl_authenticated_header = yes
 broken_sasl_auth_clients = yes
