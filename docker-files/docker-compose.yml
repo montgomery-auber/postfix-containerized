@@ -19,6 +19,7 @@ services:
       - ../docker-volumes/var/log/letsencrypt:/var/log/letsencrypt
       - ../docker-volumes/.aws:/root/.aws 
       - ../docker-volumes/etc/nginx/conf.d:/etc/nginx/conf.d
+      - ../docker-volumes/etc/postfix:/etc/postfix
       - ../docker-volumes/etc/dovecot:/etc/dovecot
       - /var/run/docker.sock:/var/run/docker.sock
     logging:
@@ -103,17 +104,18 @@ services:
     #environment: 
         # VARS HERE
     volumes:
-      - ../docker-volumes/var/mail/domains/:/var/mail/domains/
-      - ../docker-volumes/var/log:/var/log/
+      - ../docker-volumes/var/mail/domains:/var/mail/domains
+      - ../docker-volumes/var/log:/var/log
+      - ../docker-volumes/etc/postfix:/etc/postfix
       - /dev/log:/dev/log
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro 
-      - ../docker-volumes/etc/postfix/master.cf:/etc/postfix/master.cf
-      - ../docker-volumes/etc/postfix/main.cf:/etc/postfix/main.cf
-      - ../docker-volumes/etc/postfix/sql/:/etc/postfix/sql/
       - ../docker-volumes/var/spool/postfix/:/var/spool/postfix/
       - ../docker-volumes/etc/letsencrypt:/etc/letsencrypt
       - ../docker-volumes/etc/dovecot:/etc/dovecot
+      #- ../docker-volumes/etc/postfix/master.cf:/etc/postfix/master.cf
+      #- ../docker-volumes/etc/postfix/main.cf:/etc/postfix/main.cf
+      #- ../docker-volumes/etc/postfix/sql/:/etc/postfix/sql/
     ports:
       - "25:25"
       - "465:465"
