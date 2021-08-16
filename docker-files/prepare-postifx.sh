@@ -20,15 +20,10 @@ fi
 sudo yum remove postfix -y
 cd ../docker-volumes
 sudo mkdir -p ./etc/postfix ./var/spool/postfix ./etc/dovecot ./var/log ./var/mail ./var/mail/domains 
-#chown -R 106:106 ./var/spool/
-sudo chmod 640  ./etc/postfix/
-sudo chown -R 106:106 ./var/mail/domains 
-
-#vmail:postdrop
-#chown root:root ./etc/postfix/dynamicmaps.cf
-#chmod 644 ./etc/postfix/dynamicmaps.cf
-#The following needs to be owned by root
-sudo chown -R root:root ./var/spool/postfix ./etc/postfix/ 
+chown -R 105:105 ./var/spool/postfix
+sudo chmod 640  ./etc/postfix/  ./etc/postfix/dynamicmaps.cf
+sudo chown -R 106:106 ./var/mail/domains
+sudo chown -R root:root ./etc/postfix/ 
 cd etc/postfix
 sudo cat - <<EOF >sql/pgsql_virtual_alias_domain_catchall_maps.cf
 user=postfixadmin
@@ -73,10 +68,10 @@ dbname = postfixadmin
 query = Select maildir from mailbox where username='%s' and active=true
 EOF
 #chown -R postfix:postfix sql
-sudo chown -R 106:106 sql
+sudo chown -R root:root  sql
 #sudo chown -R root:root sql
 
-sudo chmod  -R 777 sql
+sudo chmod  -R 640 sql
 
 ##Add Dovecot 
 cd ..
