@@ -22,10 +22,10 @@ cd ../docker-volumes
 sudo mkdir -p ./etc/postfix ./var/spool/postfix  ./var/spool/postfix/private ./etc/dovecot ./var/log ./var/mail ./var/mail/domains 
 sudo chown -R root:105 ./var/spool/postfix 
 sudo chmod -R 770 ./var/spool/postfix 
+sudo chown -R root:105 ./etc/postfix/ 
 sudo chmod 750 ./etc/postfix/  
 sudo chmod 644 ./etc/postfix/dynamicmaps.cf 
 sudo chown -R 106:106 ./var/mail/domains
-sudo chown -R root:root ./etc/postfix/ 
 cd etc/postfix
 sudo cat - <<EOF >sql/pgsql_virtual_alias_domain_catchall_maps.cf
 user=postfixadmin
@@ -70,7 +70,6 @@ dbname = postfixadmin
 query = Select maildir from mailbox where username='%s' and active=true
 EOF
 sudo chown -R root:105  sql
-
 sudo chmod  -R 750 sql
 
 ##Add Dovecot 
