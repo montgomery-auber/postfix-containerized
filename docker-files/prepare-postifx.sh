@@ -21,8 +21,9 @@ sudo yum remove postfix -y
 cd ../docker-volumes
 sudo mkdir -p ./etc/postfix ./var/spool/postfix  ./var/spool/postfix/private ./etc/dovecot ./var/log ./var/mail ./var/mail/domains 
 sudo chown -R root:105 ./var/spool/postfix 
-sudo chmod -R  666  ./var/spool/postfix 
-sudo chmod 644  ./etc/postfix/  ./etc/postfix/dynamicmaps.cf 
+sudo chmod -R 770 ./var/spool/postfix 
+sudo chmod 750 ./etc/postfix/  
+sudo chmod 644 ./etc/postfix/dynamicmaps.cf 
 sudo chown -R 106:106 ./var/mail/domains
 sudo chown -R root:root ./etc/postfix/ 
 cd etc/postfix
@@ -68,11 +69,9 @@ hosts = pgsql
 dbname = postfixadmin
 query = Select maildir from mailbox where username='%s' and active=true
 EOF
-#chown -R postfix:postfix sql
-sudo chown -R root:root  sql
-#sudo chown -R root:root sql
+sudo chown -R root:105  sql
 
-sudo chmod  -R 640 sql
+sudo chmod  -R 750 sql
 
 ##Add Dovecot 
 cd ..
