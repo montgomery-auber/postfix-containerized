@@ -25,7 +25,7 @@ sudo chmod -R 770 ./var/spool/postfix
 sudo chown -R root:105 ./etc/postfix/ 
 sudo chmod 750 ./etc/postfix/  
 sudo chmod 644 ./etc/postfix/dynamicmaps.cf 
-sudo chown -R 106:106 ./var/mail/domains
+sudo chown -R 105:106 ./var/mail/domains
 cd etc/postfix
 sudo cat - <<EOF >sql/pgsql_virtual_alias_domain_catchall_maps.cf
 user=postfixadmin
@@ -57,7 +57,7 @@ query = Select goto From alias Where address='%s' and active ='1'
 EOF
 sudo cat - <<EOF >sql/pgsql_virtual_domains_maps.cf
 user=postfixadmin
-password = $PGPW
+password = $PGPW 
 hosts = pgsql
 dbname = postfixadmin
 query = Select domain from domain where domain='%s' and active='1'
@@ -81,8 +81,6 @@ connect = host=pgsql dbname=postfixadmin user=postfixadmin password=$PGPW
 password_query = select username,password from mailbox where local_part = '%n' and domain = '%d'
 default_pass_scheme =  SHA512-CRYPT
 EOF
-sudo chown root:root dovecot/dovecot-pgsql.conf
-sudo chmod 600 dovecot/dovecot-pgsql.conf
-#mkdir -p ./dev/log
-#mkdir -p /opt/postfix/etc/postfix /opt/postfix/var/spool/postfix /opt/postfix/var/spool/mail /opt/postfix/var/log /opt/postfix/var/mail /opt/postfix/var/mail/domains
- 
+sudo chown root:105 dovecot/dovecot-pgsql.conf
+sudo chmod 750 dovecot/dovecot-pgsql.conf
+chown root:105 ../../var/log/dovecot*

@@ -6,23 +6,16 @@ FROM alpine:3.12
 RUN addgroup -S postfix -g 105 2>/dev/null
 RUN addgroup -S postdrop -g 106 2>/dev/null
 RUN adduser -S -u 105 -H -h /var/spool/postfix -G postfix -g postfix postfix 2>/dev/null
-
-### mail:x:12:mail,postfix - check is mail group as gid 12 is in postfixadmin
 RUN addgroup postfix mail 2>/dev/null
-
-###vmail:x:101:102:vmail:/var/mail/domains:/sbin/nologin
 RUN adduser -S -u 106 -H -h /var/mail/domains -s /sbin/nologin -G postdrop -g vmail vmail 2>/dev/null
-
 # Install dependencies
 RUN apk add --no-cache --update postfix cyrus-sasl cyrus-sasl-plain ca-certificates bash postfix-pgsql postfix-pcre && \
     apk add --no-cache --upgrade musl musl-utils && \
     # Clean up
     (rm "/tmp/"* 2>/dev/null || true) && (rm -rf /var/cache/apk/* 2>/dev/null || true)
-
 # Expose mail submission agent port
 EXPOSE 587
 EXPOSE 25
 EXPOSE 465
-
 # Start postfix in foreground mode
 CMD ["postfix", "start-fg"]

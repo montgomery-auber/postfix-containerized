@@ -22,8 +22,8 @@ local_transport = virtual
 local_recipient_maps = $virtual_mailbox_maps
 
 virtual_mailbox_base = /var/mail/domains/
-virtual_gid_maps = static:106
-virtual_uid_maps = static:106
+virtual_gid_maps = static:105
+virtual_uid_maps = static:105
 virtual_minimum_uid = 100
 virtual_transport = virtual
 
