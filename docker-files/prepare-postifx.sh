@@ -83,4 +83,4 @@ default_pass_scheme =  SHA512-CRYPT
 EOF
 sudo chown root:105 dovecot/dovecot-pgsql.conf
 sudo chmod 750 dovecot/dovecot-pgsql.conf
-chown root:105 ../../var/log/dovecot*
+chown root:105 ../var/log/dovecot*
