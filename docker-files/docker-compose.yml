@@ -65,8 +65,6 @@ services:
     restart: unless-stopped
     volumes: 
       - ../docker-volumes/var/log:/var/log/
-      # https://stackoverflow.com/questions/41637505/how-to-persist-data-in-a-dockerized-postgres-database-using-volumes
-      #- ./postgres-data:/var/lib/postgresql/data
       - ../docker_volumes/var/lib/postgresql/data:/var/lib/postgresql/data
       - /dev/log:/dev/log
       - /etc/localtime:/etc/localtime:ro
@@ -74,8 +72,7 @@ services:
     environment:
       POSTGRES_PASSWORD: notSecureChangeMe
       POSTGRES_DB: postfixadmin
-      POSTGRES_USER: postfixadmin
-      # postgres_password sets it for the user not root - MYSQL_PASSWORD: postfixadminPassword  #### PUT into encrypted secrets
+      POSTGRES_USER: postfixadmin 
     ports:
       - "5432:5432"
     logging:
