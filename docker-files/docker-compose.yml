@@ -46,7 +46,7 @@ services:
       - ../docker-volumes/etc/letsencrypt:/etc/letsencrypt
       - ../docker-volumes/var/lib/letsencrypt:/var/lib/letsencrypt 
       - ../docker-volumes/letsencrypt-docker-nginx/src/letsencrypt/letsencrypt-site:/data/letsencrypt
-      - ../docker-volumes/var/log/letsencrypt:/var/log/letsencrypt
+      - ../docker-volumes/var/log/ letsencrypt:/var/log/letsencrypt
     logging:
       options:
         max-size: 50m
@@ -57,6 +57,7 @@ services:
       timeout: 2s
       retries: 3
       start_period: 40s
+
   pgsql:
     container_name: pgsql
     #mount DB in volume 
@@ -64,6 +65,9 @@ services:
     restart: unless-stopped
     volumes: 
       - ../docker-volumes/var/log:/var/log/
+      # https://stackoverflow.com/questions/41637505/how-to-persist-data-in-a-dockerized-postgres-database-using-volumes
+      #- ./postgres-data:/var/lib/postgresql/data
+      - ../docker_volumes/var/lib/postgresql/data:/var/lib/postgresql/data
       - /dev/log:/dev/log
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro 
@@ -77,6 +81,7 @@ services:
     logging:
       options:
         max-size: 50m
+
   postfixadmin:
     # https://hub.docker.com/_/postfixadmin
     container_name: postfixadmin
@@ -95,6 +100,7 @@ services:
       POSTFIXADMIN_DB_PASSWORD: notSecureChangeMe
       POSTFIXADMIN_SMTP_SERVER: postfix
       POSTFIXADMIN_SMTP_PORT: 25
+
   postfix:
     container_name: postfix
     build:  
@@ -123,6 +129,7 @@ services:
     logging:
       options:
         max-size: 50m
+
   dovecot: 
     container_name: dovecot
     build:

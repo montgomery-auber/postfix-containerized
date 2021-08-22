@@ -19,7 +19,7 @@ fi
 #add user postfix 
 sudo yum remove postfix -y
 cd ../docker-volumes
-sudo mkdir -p ./etc/postfix ./var/spool/postfix  ./var/spool/postfix/private ./etc/dovecot ./var/log ./var/mail ./var/mail/domains 
+sudo mkdir -p ./etc/postfix ./var/spool/postfix  ./var/spool/postfix/private ./etc/dovecot ./var/log ./var/mail ./var/mail/domains ./var/lib/postgresql/data
 sudo chown -R root:105 ./var/spool/postfix 
 sudo chmod -R 770 ./var/spool/postfix 
 sudo chown -R root:105 ./etc/postfix/ 
