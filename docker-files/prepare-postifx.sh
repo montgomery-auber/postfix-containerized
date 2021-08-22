@@ -2,22 +2,13 @@
 set -x
 # RUN this as root 
 PGPW="notSecureChangeMe"
-#Detects if script are not running as root... from https://unix.stackexchange.com/questions/443751/run-entire-bash-script-as-root-or-use-sudo-on-the-commands-that-need-it
-if [ "$UID" != "0" ]; then
-   #$0 is the script itself (or the command used to call it)...
-   #$* parameters...
-   if whereis sudo &>/dev/null; then
-     echo "Please type the sudo password for the user $USER"
-     sudo $0 $*
-     exit
-   else
-     echo "Sudo not found. You will need to run this script as root."
-     exit
-   fi 
-fi
-# put install docker and compose here
-#add user postfix 
+# Change file names, so that after git pull config files wont be overwritten with dummy domain
+cp ../docker-volumes/etc/nginx/conf.d/default.conf.dummy ../docker-volumes/etc/nginx/conf.d/default.conf
+cp ../docker-volumes/etc/dovecot/dovecot.conf.dummy  ../docker-volumes/etc/dovecot/dovecot.conf
+cp ../docker-volumes/etc/postfix/main.cf.dummy ../docker-volumes/etc/postfix/main.cf
+# Remove postfix if it's installed, it takes the needed ports
 sudo yum remove postfix -y
+#make sure tree structure and privleges are correct
 cd ../docker-volumes
 sudo mkdir -p ./etc/postfix ./var/spool/postfix  ./var/spool/postfix/private ./etc/dovecot ./var/log ./var/mail ./var/mail/domains ./var/lib/postgresql/data
 sudo rm -rf ./var/lib/postgresql/data/.gitignore
@@ -27,6 +18,7 @@ sudo chown -R root:105 ./etc/postfix/
 sudo chmod 750 ./etc/postfix/  
 sudo chmod 644 ./etc/postfix/dynamicmaps.cf 
 sudo chown -R 105:106 ./var/mail/domains
+# Create files connecting postfix and dovecot to postgres
 cd etc/postfix
 sudo cat - <<EOF >sql/pgsql_virtual_alias_domain_catchall_maps.cf
 user=postfixadmin
