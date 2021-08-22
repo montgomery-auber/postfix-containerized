@@ -65,7 +65,7 @@ services:
     restart: unless-stopped
     volumes: 
       - ../docker-volumes/var/log:/var/log/
-      - ../docker_volumes/var/lib/postgresql/data:/var/lib/postgresql/data
+      - ../docker-volumes/var/lib/postgresql/data:/var/lib/postgresql/data
       - /dev/log:/dev/log
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro 
