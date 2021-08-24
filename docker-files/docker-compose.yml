@@ -42,7 +42,7 @@ services:
       - "443:443"
     volumes:
       - ../docker-volumes/html:/html
-      - ../docker-volumes/etc/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf  
+      - ../docker-volumes/etc/nginx/conf.d:/etc/nginx/conf.d
       - ../docker-volumes/etc/letsencrypt:/etc/letsencrypt
       - ../docker-volumes/var/lib/letsencrypt:/var/lib/letsencrypt 
       - ../docker-volumes/letsencrypt-docker-nginx/src/letsencrypt/letsencrypt-site:/data/letsencrypt
@@ -86,7 +86,7 @@ services:
       - pgsql 
     image: postfixadmin:latest
     ports:
-      - "8080:80"
+      - "80"
     restart: unless-stopped
     environment:
       POSTFIXADMIN_SETUP_PASSWORD: notSecureChangeMe
@@ -149,4 +149,17 @@ services:
     logging:
       options:
         max-size: 50m
+
+  roundcube:
+    # https://hub.docker.com/_/postfixadmin
+    container_name: roundcube
+    depends_on:
+      - postfix 
+    image: roundcube/roundcubemail:1.4.x-fpm
+    ports:
+      - "80"
+    restart: unless-stopped
+    environment:
+      ROUNDCUBEMAIL_DEFAULT_HOST: postfix 
+      ROUNDCUBEMAIL_SMTP_SERVER: postfix 
         
