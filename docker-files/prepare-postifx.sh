@@ -9,6 +9,13 @@ cp ../docker-volumes/etc/postfix/main.cf.dummy ../docker-volumes/etc/postfix/mai
 # Remove postfix if it's installed, it takes the needed ports
 sudo yum remove postfix -y
 #make sure tree structure and privleges are correct
+
+#create .env file for fqdn and password
+sudo cat - <<EOF > .env
+FQDN=$1
+PGPW=$PGPW 
+EOF
+
 cd ../docker-volumes
 sudo mkdir -p ./etc/postfix ./var/spool/postfix  ./var/spool/postfix/private ./etc/dovecot ./var/log ./var/mail ./var/mail/domains ./var/lib/postgresql/data
 sudo rm -rf ./var/lib/postgresql/data/.gitignore

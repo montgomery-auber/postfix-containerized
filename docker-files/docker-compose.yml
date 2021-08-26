@@ -7,6 +7,7 @@ services:
     container_name: 'certbot'
     environment: 
       - FQDN=${FQDN}
+      - PGPW=${PGPW}
     build: 
       context: .
       dockerfile: Dockerfile-certbot 
@@ -70,7 +71,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro 
     environment:
-      POSTGRES_PASSWORD: notSecureChangeMe
+      POSTGRES_PASSWORD: ${PGPW}
       POSTGRES_DB: postfixadmin
       POSTGRES_USER: postfixadmin 
     ports:
@@ -89,12 +90,12 @@ services:
       - "80"
     restart: unless-stopped
     environment:
-      POSTFIXADMIN_SETUP_PASSWORD: notSecureChangeMe
+      POSTFIXADMIN_SETUP_PASSWORD: ${PGPW}
       POSTFIXADMIN_DB_TYPE: pgsql
       POSTFIXADMIN_DB_HOST: pgsql 
       POSTFIXADMIN_DB_USER: postfixadmin
       POSTFIXADMIN_DB_NAME: postfixadmin
-      POSTFIXADMIN_DB_PASSWORD: notSecureChangeMe
+      POSTFIXADMIN_DB_PASSWORD: ${PGPW}
       POSTFIXADMIN_SMTP_SERVER: postfix
       POSTFIXADMIN_SMTP_PORT: 25
 
