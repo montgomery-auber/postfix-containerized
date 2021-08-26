@@ -85,7 +85,7 @@ sudo chown root:105 dovecot/dovecot-pgsql.conf
 sudo chmod 750 dovecot/dovecot-pgsql.conf
 chown root:105 ../var/log/dovecot*
 cd ../../docker-files
-docker-compose up -d 
+/usr/local/bin/docker-compose up -d 
 sleep 30
 docker exec pgsql  psql "postgresql://postfixadmin:$PGPW@pgsql:5432/postfixadmin" -c 'CREATE DATABASE roundcube'
 docker restart roundcube 
