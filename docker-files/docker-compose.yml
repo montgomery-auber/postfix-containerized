@@ -143,8 +143,7 @@ services:
       - ../docker-volumes/etc/letsencrypt:/etc/letsencrypt
       - ../docker-volumes/var/spool/postfix/:/var/spool/postfix/
       - ../docker-volumes/var/mail/domains/:/var/mail/domains/
-    ports:
-      - 110:110 
+    ports: 
       - 143:143
       - 993:993
       - 995:995
