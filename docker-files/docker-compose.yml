@@ -74,7 +74,7 @@ services:
       POSTGRES_DB: postfixadmin
       POSTGRES_USER: postfixadmin 
     ports:
-      - "5432:5432"
+      - "5432"
     logging:
       options:
         max-size: 50m
@@ -143,6 +143,7 @@ services:
       - ../docker-volumes/var/spool/postfix/:/var/spool/postfix/
       - ../docker-volumes/var/mail/domains/:/var/mail/domains/
     ports:
+      - 110:110 
       - 143:143
       - 993:993
       - 995:995

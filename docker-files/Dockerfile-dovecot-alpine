@@ -18,6 +18,7 @@ RUN apk add --no-cache --update dovecot-pop3d dovecot-pgsql bash && \
 
 # Expose mail submission agent port
 EXPOSE 25
+EXPOSE 110
 EXPOSE 143
 EXPOSE 993
 EXPOSE 995 
