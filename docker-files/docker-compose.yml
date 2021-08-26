@@ -154,12 +154,12 @@ services:
     # https://hub.docker.com/_/postfixadmin
     container_name: roundcube
     depends_on:
-      - postfix 
+      - dovecot 
     image: roundcube/roundcubemail:1.4.x-fpm
     ports:
       - "80"
     restart: unless-stopped
     environment:
-      ROUNDCUBEMAIL_DEFAULT_HOST: postfix 
-      ROUNDCUBEMAIL_SMTP_SERVER: postfix 
+      ROUNDCUBEMAIL_DEFAULT_HOST: dovecot 
+      ROUNDCUBEMAIL_SMTP_SERVER: dovecot 
         

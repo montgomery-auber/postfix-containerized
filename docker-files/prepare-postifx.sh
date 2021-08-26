@@ -1,7 +1,7 @@
 #!/bin/bash
 set -x
 # RUN this as root 
-PGPW="notSecureChangeMe"
+PGPW=$(/usr/bin/curl -s http://169.254.169.254/latest/meta-data/instance-id)
 # Change file names, so that after git pull config files wont be overwritten with dummy domain
 cp ../docker-volumes/etc/nginx/conf.d/default.conf.dummy ../docker-volumes/etc/nginx/conf.d/default.conf
 cp ../docker-volumes/etc/dovecot/dovecot.conf.dummy  ../docker-volumes/etc/dovecot/dovecot.conf
