@@ -84,3 +84,15 @@ EOF
 sudo chown root:105 dovecot/dovecot-pgsql.conf
 sudo chmod 750 dovecot/dovecot-pgsql.conf
 chown root:105 ../var/log/dovecot*
+cd ../../docker-files
+docker-compose up -d 
+sleep 30
+docker exec pgsql  psql "postgresql://postfixadmin:$PGPW@pgsql:5432/postfixadmin" -c 'CREATE DATABASE roundcube'
+docker restart roundcube 
+docker exec -it postfixadmin /var/www/html/scripts/postfixadmin-cli admin add admin@$1  --password $PGPW --password2 $PGPW --superadmin 1 --active 1
+sleep 1
+docker exec -it postfixadmin /var/www/html/scripts/postfixadmin-cli domain add  $1  --mailboxes 0 --active 1
+sleep 1
+docker exec -it postfixadmin /var/www/html/scripts/postfixadmin-cli admin update admin@$1 --domains $1 
+sleep 1
+docker exec -it postfixadmin /var/www/html/scripts/postfixadmin-cli mailbox add admin@$1 --password $PGPW --password2 $PGPW  --welcome-mail   --email-other 
