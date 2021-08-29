@@ -161,7 +161,7 @@ services:
       - "80"
     restart: unless-stopped
     environment:
-      ROUNDCUBEMAIL_DEFAULT_HOST: tls://dovecot 
+      ROUNDCUBEMAIL_DEFAULT_HOST: dovecot 
       ROUNDCUBEMAIL_SMTP_SERVER: dovecot 
       ROUNDCUBEMAIL_SMTP_SERVER: tls://postfix
       ROUNDCUBEMAIL_SMTP_PORT: 25
