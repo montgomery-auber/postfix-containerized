@@ -3,9 +3,9 @@ set -x
 # RUN this as root 
 PGPW=$(/usr/bin/curl -s http://169.254.169.254/latest/meta-data/instance-id)
 # Change file names, so that after git pull config files wont be overwritten with dummy domain
-cp ../docker-volumes/etc/nginx/conf.d/default.conf.dummy ../docker-volumes/etc/nginx/conf.d/default.conf
-cp ../docker-volumes/etc/dovecot/dovecot.conf.dummy  ../docker-volumes/etc/dovecot/dovecot.conf
-cp ../docker-volumes/etc/postfix/main.cf.dummy ../docker-volumes/etc/postfix/main.cf
+sudo cp ../docker-volumes/etc/nginx/conf.d/default.conf.dummy ../docker-volumes/etc/nginx/conf.d/default.conf
+sudo cp ../docker-volumes/etc/dovecot/dovecot.conf.dummy  ../docker-volumes/etc/dovecot/dovecot.conf
+sudo cp ../docker-volumes/etc/postfix/main.cf.dummy ../docker-volumes/etc/postfix/main.cf
 # Remove postfix if it's installed, it takes the needed ports
 sudo yum remove postfix -y
 #make sure tree structure and privleges are correct
@@ -80,7 +80,7 @@ driver = pgsql
 connect = host=pgsql dbname=postfixadmin user=postfixadmin password=$PGPW
 password_query = select username,password from mailbox where local_part = '%n' and domain = '%d'
 default_pass_scheme =  SHA512-CRYPT
-EOF
+EOF 
 sudo chown root:105 dovecot/dovecot-pgsql.conf
 sudo chmod 750 dovecot/dovecot-pgsql.conf
 chown root:105 ../var/log/dovecot*

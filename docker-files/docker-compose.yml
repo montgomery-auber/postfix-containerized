@@ -171,15 +171,14 @@ services:
       ROUNDCUBEMAIL_DB_PORT: 5432 
       ROUNDCUBEMAIL_DB_USER: postfixadmin
       ROUNDCUBEMAIL_DB_PASSWORD: ${PGPW}
-      ROUNDCUBEMAIL_DB_NAME: postfixadmin
+      ROUNDCUBEMAIL_DB_NAME: roundcube
     volumes:
       - ../docker-volumes/var/roundcube/config/:/var/roundcube/config/ 
       - ../docker-volumes/etc/dovecot:/etc/dovecot
       - ../docker-volumes/var/log:/var/log/
       - /dev/log:/dev/log
       - /etc/localtime:/etc/localtime:ro
-      - /etc/timezone:/etc/timezone:ro
+      - /etc/timezone/:/etc/timezone/:ro
       - ../docker-volumes/etc/letsencrypt:/etc/letsencrypt
       - ../docker-volumes/var/spool/postfix/:/var/spool/postfix/
       - ../docker-volumes/var/mail/domains/:/var/mail/domains/
-      ./config/:/var/roundcube/config/ 
