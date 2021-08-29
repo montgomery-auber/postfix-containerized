@@ -161,7 +161,7 @@ services:
       - "80"
     restart: unless-stopped
     environment:
-      ROUNDCUBEMAIL_DEFAULT_HOST: dovecot 
+      ROUNDCUBEMAIL_DEFAULT_HOST: tls://dovecot 
       ROUNDCUBEMAIL_SMTP_SERVER: dovecot 
       ROUNDCUBEMAIL_SMTP_SERVER: tls://postfix
       ROUNDCUBEMAIL_SMTP_PORT: 25
@@ -172,3 +172,12 @@ services:
       ROUNDCUBEMAIL_DB_USER: postfixadmin
       ROUNDCUBEMAIL_DB_PASSWORD: ${PGPW}
       ROUNDCUBEMAIL_DB_NAME: postfixadmin
+  volumes:
+    - ../docker-volumes/etc/dovecot:/etc/dovecot
+    - ../docker-volumes/var/log:/var/log/
+    - /dev/log:/dev/log
+    - /etc/localtime:/etc/localtime:ro
+    - /etc/timezone:/etc/timezone:ro
+    - ../docker-volumes/etc/letsencrypt:/etc/letsencrypt
+    - ../docker-volumes/var/spool/postfix/:/var/spool/postfix/
+    - ../docker-volumes/var/mail/domains/:/var/mail/domains/
