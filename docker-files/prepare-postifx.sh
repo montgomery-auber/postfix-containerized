@@ -71,16 +71,16 @@ query = Select maildir from mailbox where username='%s' and active=true
 EOF
 sudo chown -R root:105  sql
 sudo chmod  -R 750 sql
-
 ##Add Dovecot 
 cd ..
 #Create the /etc/dovecot/dovecot-pgsql.conf file:
-sudo cat - <<EOF > dovecot/dovecot-pgsql.conf
+sudo cat - <<EOF >dovecot/dovecot-pgsql.conf
 driver = pgsql
 connect = host=pgsql dbname=postfixadmin user=postfixadmin password=$PGPW
 password_query = select username,password from mailbox where local_part = '%n' and domain = '%d'
 default_pass_scheme =  SHA512-CRYPT
-EOF 
+EOF
+
 sudo chown root:105 dovecot/dovecot-pgsql.conf
 sudo chmod 750 dovecot/dovecot-pgsql.conf
 chown root:105 ../var/log/dovecot*
