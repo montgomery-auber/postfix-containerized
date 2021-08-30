@@ -10,7 +10,6 @@ When running the prep script BE SURE to add your domain!<br />
 Then run:<br />
 sudo  ./prepare-postfix.sh  yourdomain.com<br />
 docker-compose up -d <br />
-docker exec -it postfixadmin /var/www/html/scripts/postfixadmin-cli admin add YOUREMAIL@YOURDOMAIN.com  --password SECRETPASS1! --password2 SECRETPASS1! --superadmin 1 --active 1<br />
 now go to your https://yourdomain.com<br />
 login with admin@yourdomain.com and secret pass that is set to the instance id<br />
 Add domains and users from https://yourdomain.com/admin login with admin@yourdomain.com and password. From there you can add mailboxes and domains (that have mx records pointing there)<br />
