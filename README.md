@@ -6,8 +6,9 @@ set your DNS to point your domain to the server that will serve your email, etc.
 Add an MX record with your domain name pointing to the A record that you made for this server. The internet will not be able to deliver mail without MX record. An Mx Record tells which server to deliver mail to.<br />
 When you run the docker-files/prepare-postfix.sh it creates a 90 day letsencrypt free Certificate which renews.
 Password is set to the EC2 instance id , you can find it in your AWS Console, You can change this in docker-files/prepare-postfix.sh<br />
+When running the prep script BE SURE to add your domain!<br />
 Then run:<br />
-sudo  ./prepare-postfix.sh<br />
+sudo  ./prepare-postfix.sh  yourdomain.com<br />
 docker-compose up -d <br />
 docker exec -it postfixadmin /var/www/html/scripts/postfixadmin-cli admin add YOUREMAIL@YOURDOMAIN.com  --password SECRETPASS1! --password2 SECRETPASS1! --superadmin 1 --active 1<br />
 now go to your https://yourdomain.com<br />
