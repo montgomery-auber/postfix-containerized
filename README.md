@@ -9,8 +9,7 @@ Password is set to the EC2 instance id , you can find it in your AWS Console, Yo
 When running the prep script BE SURE to add your domain!<br />
 Then run:<br />
 sudo  ./prepare-postfix.sh  yourdomain.com<br />
-docker-compose up -d <br />
 now go to your https://yourdomain.com<br />
-login with admin@yourdomain.com and secret pass that is set to the instance id<br />
+login to webmail with admin@yourdomain.com and secret pass that is set to the instance id, now you can send and receive email as admin<br />
 Add domains and users from https://yourdomain.com/admin login with admin@yourdomain.com and password. From there you can add mailboxes and domains (that have mx records pointing there)<br />
 You can use the webmail roundcube included and also connect email clients like MS outlook<br />
