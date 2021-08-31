@@ -1,4 +1,4 @@
-##Write script that creates dirs and users
+cat ##Write script that creates dirs and users
 # https://hub.docker.com/_/postgres
 ### VERy important put Db in volume
 version: '3.7'
@@ -184,3 +184,6 @@ services:
       - ../docker-volumes/etc/letsencrypt:/etc/letsencrypt
       - ../docker-volumes/var/spool/postfix/:/var/spool/postfix/
       - ../docker-volumes/var/mail/domains/:/var/mail/domains/
+    logging:
+      options:
+        max-size: 50m
