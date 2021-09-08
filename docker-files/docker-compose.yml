@@ -1,4 +1,4 @@
-cat ##Write script that creates dirs and users
+##Write script that creates dirs and users
 # https://hub.docker.com/_/postgres
 ### VERy important put Db in volume
 version: '3.7'
@@ -50,6 +50,7 @@ services:
       - ../docker-volumes/var/lib/letsencrypt:/var/lib/letsencrypt 
       - ../docker-volumes/letsencrypt-docker-nginx/src/letsencrypt/letsencrypt-site:/data/letsencrypt
       - ../docker-volumes/var/log/ letsencrypt:/var/log/letsencrypt
+      - /etc/localtime:/etc/localtime:ro 
     logging:
       options:
         max-size: 50m
@@ -70,8 +71,7 @@ services:
       - ../docker-volumes/var/log:/var/log/
       - ../docker-volumes/var/lib/postgresql/data:/var/lib/postgresql/data
       - /dev/log:/dev/log
-      - /etc/localtime:/etc/localtime:ro
-      - /etc/timezone:/etc/timezone:ro 
+      - /etc/localtime:/etc/localtime:ro 
     environment:
       POSTGRES_PASSWORD: ${PGPW}
       POSTGRES_DB: postfixadmin
@@ -91,6 +91,8 @@ services:
     ports:
       - "80"
     restart: unless-stopped
+    volumes:
+      - /etc/localtime:/etc/localtime:ro 
     environment:
       POSTFIXADMIN_SETUP_PASSWORD: ${PGPW}
       POSTFIXADMIN_DB_TYPE: pgsql
@@ -100,6 +102,9 @@ services:
       POSTFIXADMIN_DB_PASSWORD: ${PGPW}
       POSTFIXADMIN_SMTP_SERVER: postfix
       POSTFIXADMIN_SMTP_PORT: 25
+    logging:
+      options:
+        max-size: 50m
 
   postfix:
     container_name: postfix
@@ -114,14 +119,10 @@ services:
       - ../docker-volumes/var/log:/var/log
       - ../docker-volumes/etc/postfix:/etc/postfix
       - /dev/log:/dev/log
-      - /etc/localtime:/etc/localtime:ro
-      - /etc/timezone:/etc/timezone:ro 
+      - /etc/localtime:/etc/localtime:ro 
       - ../docker-volumes/var/spool/postfix/:/var/spool/postfix/
       - ../docker-volumes/etc/letsencrypt:/etc/letsencrypt
       - ../docker-volumes/etc/dovecot:/etc/dovecot
-      #- ../docker-volumes/etc/postfix/master.cf:/etc/postfix/master.cf
-      #- ../docker-volumes/etc/postfix/main.cf:/etc/postfix/main.cf
-      #- ../docker-volumes/etc/postfix/sql/:/etc/postfix/sql/
     ports:
       - "25:25"
       - "465:465"
@@ -141,7 +142,6 @@ services:
       - ../docker-volumes/var/log:/var/log/
       - /dev/log:/dev/log
       - /etc/localtime:/etc/localtime:ro
-      - /etc/timezone:/etc/timezone:ro
       - ../docker-volumes/etc/letsencrypt:/etc/letsencrypt
       - ../docker-volumes/var/spool/postfix/:/var/spool/postfix/
       - ../docker-volumes/var/mail/domains/:/var/mail/domains/
@@ -180,7 +180,6 @@ services:
       - ../docker-volumes/var/log:/var/log/
       - /dev/log:/dev/log
       - /etc/localtime:/etc/localtime:ro
-      - /etc/timezone/:/etc/timezone/:ro
       - ../docker-volumes/etc/letsencrypt:/etc/letsencrypt
       - ../docker-volumes/var/spool/postfix/:/var/spool/postfix/
       - ../docker-volumes/var/mail/domains/:/var/mail/domains/
