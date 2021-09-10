@@ -33,12 +33,18 @@ services:
      # https://github.com/certbot/certbot/issues/6180#issuecomment-539233867 
      # put  --staging in the certbot command when fiddling
      # moved --post-hook /etc/letsencrypt/renewal-hooks/deploy/edit-domain-name-for-cert.sh - to after semicolon 
+    healthcheck:
+      test: ["CMD", "ls", "/etc/letsencrypt/archive/${FQDN}"]
+      interval: 1h
+      timeout: 2s
+      retries: 2
+      start_period: 90s
     depends_on: 
       - nginx 
 
   nginx:  
     container_name: 'nginx'
-    image: nginx:latest
+    image: nginx:1.21.3
     restart: unless-stopped
     ports:
       - "80:80"
@@ -65,7 +71,7 @@ services:
   pgsql:
     container_name: pgsql
     #mount DB in volume 
-    image:  postgres:13.0-alpine 
+    image:  postgres:13.4-alpine 
     restart: unless-stopped
     volumes: 
       - ../docker-volumes/var/log:/var/log/
@@ -87,7 +93,7 @@ services:
     container_name: postfixadmin
     depends_on:
       - pgsql 
-    image: postfixadmin:latest
+    image: postfixadmin:3.3.10-apache
     ports:
       - "80"
     restart: unless-stopped
@@ -136,6 +142,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile-dovecot-alpine
+      #dovecot alpine container installs latest apk 
     restart: unless-stopped
     volumes:
       - ../docker-volumes/etc/dovecot:/etc/dovecot
@@ -159,6 +166,7 @@ services:
     depends_on:
       - dovecot 
     image: roundcube/roundcubemail:1.4.11-apache
+    #check 1.5 when it becomes availble 
     ports:
       - "80"
     restart: unless-stopped
