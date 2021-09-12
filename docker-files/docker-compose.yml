@@ -35,7 +35,7 @@ services:
      # moved --post-hook /etc/letsencrypt/renewal-hooks/deploy/edit-domain-name-for-cert.sh - to after semicolon 
     healthcheck:
       test: ["CMD", "ls", "/etc/letsencrypt/archive/${FQDN}"]
-      interval: 1h
+      interval: 1m
       timeout: 2s
       retries: 2
       start_period: 90s
@@ -62,8 +62,8 @@ services:
         max-size: 50m
     # entrypoint: "/bin/sh -c 'while :; do sleep 24h & wait $${!}; /usr/sbin/nginx -s reload; done & nginx -g \"daemon off;\"'"
     healthcheck:
-      test: ["CMD", "ls", "/etc/letsencrypt/archive/${FQDN}"]
-      interval: 15s
+      test: [ "CMD", "curl",  https://${FQDN}" ]
+      interval: 1m
       timeout: 2s
       retries: 3
       start_period: 40s
@@ -84,6 +84,11 @@ services:
       POSTGRES_USER: postfixadmin 
     ports:
       - "5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 30s
+      timeout: 3s
+      retries: 5
     logging:
       options:
         max-size: 50m
@@ -111,6 +116,12 @@ services:
     logging:
       options:
         max-size: 50m
+    healthcheck:
+      test: [ "CMD", "curl",  https://${FQDN}/admin/login.php" ]
+      interval: 1m
+      timeout: 2s
+      retries: 3
+      start_period: 40s
 
   postfix:
     container_name: postfix
@@ -118,8 +129,6 @@ services:
       context: .
       dockerfile: Dockerfile-postfix-alpine
     restart: unless-stopped
-    #environment: 
-        # VARS HERE
     volumes:
       - ../docker-volumes/var/mail/domains:/var/mail/domains
       - ../docker-volumes/var/log:/var/log
@@ -133,6 +142,12 @@ services:
       - "25:25"
       - "465:465"
       - "587:587"
+    healthcheck:
+      test: [ "CMD", "netstat", "-l", "|", "grep", "smtp" ]
+      interval: 1m
+      timeout: 2s
+      retries: 3
+      start_period: 40s
     logging:
       options:
         max-size: 50m
@@ -156,6 +171,12 @@ services:
       - 143:143
       - 993:993
       - 995:995
+    healthcheck:
+      test: [ "CMD", "netstat", "-l", "|", "grep", "143" ]
+      interval: 1m
+      timeout: 2s
+      retries: 3
+      start_period: 40s
     logging:
       options:
         max-size: 50m
@@ -191,6 +212,12 @@ services:
       - ../docker-volumes/etc/letsencrypt:/etc/letsencrypt
       - ../docker-volumes/var/spool/postfix/:/var/spool/postfix/
       - ../docker-volumes/var/mail/domains/:/var/mail/domains/
+    healthcheck:
+      test: [ "CMD", "netstat", "-l", "|", "grep", "http" ]
+      interval: 1m
+      timeout: 2s
+      retries: 3
+      start_period: 40s
     logging:
       options:
         max-size: 50m
