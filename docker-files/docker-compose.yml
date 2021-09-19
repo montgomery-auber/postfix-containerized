@@ -62,7 +62,7 @@ services:
         max-size: 50m
     # entrypoint: "/bin/sh -c 'while :; do sleep 24h & wait $${!}; /usr/sbin/nginx -s reload; done & nginx -g \"daemon off;\"'"
     healthcheck:
-      test: [ "CMD", "curl",  https://${FQDN}" ]
+      test: [ "CMD", "curl",  "https://${FQDN}" ]
       interval: 1m
       timeout: 2s
       retries: 3
@@ -117,7 +117,7 @@ services:
       options:
         max-size: 50m
     healthcheck:
-      test: [ "CMD", "curl",  https://${FQDN}/admin/login.php" ]
+      test: [ "CMD", "curl",  "https://${FQDN}/admin/login.php" ]
       interval: 1m
       timeout: 2s
       retries: 3
@@ -213,7 +213,7 @@ services:
       - ../docker-volumes/var/spool/postfix/:/var/spool/postfix/
       - ../docker-volumes/var/mail/domains/:/var/mail/domains/
     healthcheck:
-      test: [ "CMD", "netstat", "-l", "|", "grep", "http" ]
+      test: [ "CMD", "curl",  "https://${FQDN}" ]
       interval: 1m
       timeout: 2s
       retries: 3
