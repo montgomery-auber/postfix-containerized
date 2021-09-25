@@ -28,7 +28,7 @@ services:
         max-size: 50m
         # If you are manually renewing all of your certificates, the --force-renewal - https://certbot.eff.org/docs/using.html?highlight=hook#pre-and-post-validation-hooks 
 
-    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot  certonly  --webroot --webroot-path /data/letsencrypt --email support@floatingcloud.io --agree-tos --no-eff-email --non-interactive -d ${FQDN}; /etc/letsencrypt/renewal-hooks/deploy/edit-domain-name-for-cert.sh; sleep 24h & wait $${!}; done;'"
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot  certonly  --webroot --webroot-path /data/letsencrypt --email admin@${FQDN} --agree-tos --no-eff-email --non-interactive -d ${FQDN}; /etc/letsencrypt/renewal-hooks/deploy/edit-domain-name-for-cert.sh; sleep 24h & wait $${!}; done;'"
       ##  Add deploy hook either in etc\letsencrypt\renewal-hooks\deploy or here with flag, it needs to edit nginx default.conf with correct domain, then restart nginx  ## ADD post hook restarts nginx with docker  
      # https://github.com/certbot/certbot/issues/6180#issuecomment-539233867 
      # put  --staging in the certbot command when fiddling

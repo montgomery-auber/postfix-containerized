@@ -1,7 +1,7 @@
 auth_mechanisms = plain login
 auth_username_format = %Lu
-auth_verbose = yes
-auth_debug = yes
+#auth_verbose = yes
+#auth_debug = yes
 auth_debug_passwords = no
 
 disable_plaintext_auth = no
