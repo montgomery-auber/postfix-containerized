@@ -22,6 +22,8 @@ services:
       - ../docker-volumes/etc/postfix:/etc/postfix
       - ../docker-volumes/etc/dovecot:/etc/dovecot
       - /var/run/docker.sock:/var/run/docker.sock
+      - /dev/log:/dev/log
+      - /etc/localtime:/etc/localtime:ro 
     logging:
       options:
         max-size: 50m
@@ -55,6 +57,7 @@ services:
       - ../docker-volumes/var/lib/letsencrypt:/var/lib/letsencrypt 
       - ../docker-volumes/letsencrypt-docker-nginx/src/letsencrypt/letsencrypt-site:/data/letsencrypt
       - /etc/localtime:/etc/localtime:ro 
+      - /dev/log:/dev/log
     logging:
       options:
         max-size: 50m
