@@ -36,7 +36,7 @@ disable_vrfy_command = yes
 # 100MB size limit
 message_size_limit = 104857600
 virtual_mailbox_limit = 104857600
-queue_minfree = 51200000
+queue_minfree = 167772160
 
 smtpd_sender_restrictions =
        permit_mynetworks,

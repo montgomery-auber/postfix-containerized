@@ -18,7 +18,7 @@ services:
       - ../docker-volumes/var/lib/letsencrypt:/var/lib/letsencrypt
       - ../docker-volumes/letsencrypt-docker-nginx/src/letsencrypt/letsencrypt-site:/data/letsencrypt
       - ../docker-volumes/var/log/letsencrypt:/var/log/letsencrypt
-      - ../docker-volumes/.aws:/root/.aws 
+      - ../docker-volumes/.aws:/root/.aws
       - ../docker-volumes/etc/nginx/conf.d:/etc/nginx/conf.d
       - ../docker-volumes/etc/postfix:/etc/postfix
       - ../docker-volumes/etc/dovecot:/etc/dovecot
@@ -55,7 +55,7 @@ services:
       - ../docker-volumes/etc/letsencrypt:/etc/letsencrypt
       - ../docker-volumes/var/lib/letsencrypt:/var/lib/letsencrypt 
       - ../docker-volumes/letsencrypt-docker-nginx/src/letsencrypt/letsencrypt-site:/data/letsencrypt
-      - ../docker-volumes/var/log/ letsencrypt:/var/log/letsencrypt
+      - ../docker-volumes/var/log/:/var/log/
       - /etc/localtime:/etc/localtime:ro 
     logging:
       options:
@@ -82,6 +82,7 @@ services:
       POSTGRES_PASSWORD: ${PGPW}
       POSTGRES_DB: postfixadmin
       POSTGRES_USER: postfixadmin 
+      PGUSER: postgres
     ports:
       - "5432"
     healthcheck:
@@ -140,8 +141,6 @@ services:
       - ../docker-volumes/etc/dovecot:/etc/dovecot
     ports:
       - "25:25"
-      - "465:465"
-      - "587:587"
     healthcheck:
       test: [ "CMD", "netstat", "-l", "|", "grep", "smtp" ]
       interval: 1m
@@ -169,8 +168,6 @@ services:
       - ../docker-volumes/var/mail/domains/:/var/mail/domains/
     ports: 
       - 143:143
-      - 993:993
-      - 995:995
     healthcheck:
       test: [ "CMD", "netstat", "-l", "|", "grep", "143" ]
       interval: 1m
@@ -182,12 +179,12 @@ services:
         max-size: 50m
 
   roundcube:
-    # https://hub.docker.com/_/postfixadmin
     container_name: roundcube
     depends_on:
       - dovecot 
-    image: roundcube/roundcubemail:1.4.11-apache
-    #check 1.5 when it becomes availble 
+    build:
+      context: .
+      dockerfile: Dockerfile-roundcube-apache
     ports:
       - "80"
     restart: unless-stopped
@@ -206,7 +203,7 @@ services:
     volumes:
       - ../docker-volumes/var/roundcube/config/:/var/roundcube/config/ 
       - ../docker-volumes/etc/dovecot:/etc/dovecot
-      - ../docker-volumes/var/log:/var/log/
+      - ../docker-volumes/var/log/roundcube-apache2:/var/log/apache2
       - /dev/log:/dev/log
       - /etc/localtime:/etc/localtime:ro
       - ../docker-volumes/etc/letsencrypt:/etc/letsencrypt

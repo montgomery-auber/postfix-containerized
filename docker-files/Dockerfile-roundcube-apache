@@ -1,0 +1,4 @@
+FROM roundcube/roundcubemail:1.4.11-apache
+RUN ln -sf /dev/stdout /var/log/apache2/access.log \
+	&& ln -sf /dev/stderr /var/log/apache2/error.log
+#check 1.5 when it becomes availble 
