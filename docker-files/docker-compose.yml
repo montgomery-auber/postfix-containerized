@@ -55,7 +55,6 @@ services:
       - ../docker-volumes/etc/letsencrypt:/etc/letsencrypt
       - ../docker-volumes/var/lib/letsencrypt:/var/lib/letsencrypt 
       - ../docker-volumes/letsencrypt-docker-nginx/src/letsencrypt/letsencrypt-site:/data/letsencrypt
-      - ../docker-volumes/var/log/:/var/log/
       - /etc/localtime:/etc/localtime:ro 
     logging:
       options:
