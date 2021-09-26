@@ -17,7 +17,6 @@ services:
       - ../docker-volumes/etc/letsencrypt:/etc/letsencrypt
       - ../docker-volumes/var/lib/letsencrypt:/var/lib/letsencrypt
       - ../docker-volumes/letsencrypt-docker-nginx/src/letsencrypt/letsencrypt-site:/data/letsencrypt
-      - ../docker-volumes/var/log/letsencrypt:/var/log/letsencrypt
       - ../docker-volumes/.aws:/root/.aws
       - ../docker-volumes/etc/nginx/conf.d:/etc/nginx/conf.d
       - ../docker-volumes/etc/postfix:/etc/postfix

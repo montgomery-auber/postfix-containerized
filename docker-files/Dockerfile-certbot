@@ -1,2 +1,3 @@
 FROM certbot/dns-route53:v1.19.0
 RUN apk update && apk add curl
+RUN ln -sf /dev/stderr /var/log/letsencrypt/letsencrypt.log 
