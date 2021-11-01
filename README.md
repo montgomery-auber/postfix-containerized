@@ -1,8 +1,8 @@
-### Postfix Email Server using docker-compose and scripts
+### Postfix Linux Email Server using docker-compose and scripts
 You can simplify this Postfix installation by using [pre-installed EC2 ](https://aws.amazon.com/marketplace/pp/B0797V545N/ref=_PTNR_github) </br>
-This release works of Postfix Email Server as a full email, configured email server, with Postfix, Dovecot, Postgres, Letsencrypt Certicate and Roundcube. </br>
-See official Page of Postfix Email Server at our site [floatingCloud.io](http://floatingcloud.io/mail-server-linux-postfix-using-mysql-tons-users/)</br>
-To use this Complete Postfix Email Server:</br>
+This release works of Postfix Linux Email Server as a full email, configured email server, with Postfix, Dovecot, Postgres, Letsencrypt Certicate and Roundcube. </br>
+See official Page of Postfix Linux Email Server at our site [floatingCloud.io](http://floatingcloud.io/mail-server-linux-postfix-using-mysql-tons-users/)</br>
+To use this Complete Postfix Linux Email Server:</br>
 - First setup an A record and MX record that points to your server.
 [http://floatingcloud.io/setup-mx-record-in-route-53-with-a-domain-that-you-registered-with-aws/](http://floatingcloud.io/setup-mx-record-in-route-53-with-a-domain-that-you-registered-with-aws/)
 `cd  postfix-containerized/docker-files`
