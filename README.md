@@ -12,5 +12,5 @@ To use this Complete Postfix Linux Email Server:</br>
 - This script creates an https certificates which are used by the Dovecot IMAP server and the Roudncube webmail as well as an admin user with username admin@YOUR-FQDN .
 - Open https://YOUR-FQDN the password is the Instance ID
 - Postfixadmin is included for easy User Admin in Web UI, You can add users login to https://YOUR-FQDN/admin with same credentials, click on “Add Mailbox”
-- Spam Protection: this Postfix Email Server also rejects known spam using "reject_rbl_client" filtering from trusted Spamhaus and spamcop.
+- Spam Protection: this Postfix Email Server also rejects known spam using "reject_rbl_client" filtering from trusted Filters.
 Enjoy!
