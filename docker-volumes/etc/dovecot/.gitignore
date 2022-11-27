@@ -1,3 +1,4 @@
 !.gitignore
 dovecot.conf
 dovecot-sql.conf
+dovecot-pgsql.conf

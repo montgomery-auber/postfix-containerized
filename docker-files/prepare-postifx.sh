@@ -1,7 +1,10 @@
 #!/bin/bash
 set -x
+# REMEMBER TO PUT PASSWORD AS INSTANCE ID
+
 # RUN this as root 
-PGPW=$(/usr/bin/curl -s http://169.254.169.254/latest/meta-data/instance-id)
+PGPW=HardPassword12
+#PGPW=$(/usr/bin/curl -s http://169.254.169.254/latest/meta-data/instance-id)
 if [ $# -eq 0 ]; then
     echo "No arguments provided"
     exit 1
@@ -93,7 +96,8 @@ sudo chown root:105 dovecot/dovecot-pgsql.conf
 sudo chmod 750 dovecot/dovecot-pgsql.conf
 chown root:105 ../var/log/dovecot*
 cd ../../docker-files
-/usr/local/bin/docker-compose up -d 
+/usr/bin/docker compose up -d 
+#/usr/local/bin/docker-compose up -d
 sleep 30
 docker exec pgsql  psql "postgresql://postfixadmin:$PGPW@pgsql:5432/postfixadmin" -c 'CREATE DATABASE roundcube'
 docker restart roundcube 

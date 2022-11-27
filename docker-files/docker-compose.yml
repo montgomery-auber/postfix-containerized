@@ -11,7 +11,7 @@ services:
     build: 
       context: .
       dockerfile: Dockerfile-certbot 
-    restart: "no"
+    restart: unless-stopped
     volumes:
       ## add restart nginx script to install - CHANGE mod 755 for it
       - ../docker-volumes/etc/letsencrypt:/etc/letsencrypt
@@ -45,7 +45,8 @@ services:
 
   nginx:  
     container_name: 'nginx'
-    image: nginx:1.21.3
+    ######!!!!!!!remove latest
+    image: nginx:latest
     restart: unless-stopped
     ports:
       - "80:80"
@@ -69,153 +70,156 @@ services:
       retries: 3
       start_period: 40s
 
-  pgsql:
-    container_name: pgsql
-    #mount DB in volume 
-    image:  postgres:13.4-alpine 
-    restart: unless-stopped
-    volumes: 
-      - ../docker-volumes/var/log:/var/log/
-      - ../docker-volumes/var/lib/postgresql/data:/var/lib/postgresql/data
-      - /dev/log:/dev/log
-      - /etc/localtime:/etc/localtime:ro 
-    environment:
-      POSTGRES_PASSWORD: ${PGPW}
-      POSTGRES_DB: postfixadmin
-      POSTGRES_USER: postfixadmin 
-      PGUSER: postgres
-    ports:
-      - "5432"
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready"]
-      interval: 30s
-      timeout: 3s
-      retries: 5
-    logging:
-      options:
-        max-size: 50m
 
-  postfixadmin:
-    # https://hub.docker.com/_/postfixadmin
-    container_name: postfixadmin
-    depends_on:
-      - pgsql 
-    image: postfixadmin:3.3.10-apache
-    ports:
-      - "80"
-    restart: unless-stopped
-    volumes:
-      - /etc/localtime:/etc/localtime:ro 
-    environment:
-      POSTFIXADMIN_SETUP_PASSWORD: ${PGPW}
-      POSTFIXADMIN_DB_TYPE: pgsql
-      POSTFIXADMIN_DB_HOST: pgsql 
-      POSTFIXADMIN_DB_USER: postfixadmin
-      POSTFIXADMIN_DB_NAME: postfixadmin
-      POSTFIXADMIN_DB_PASSWORD: ${PGPW}
-      POSTFIXADMIN_SMTP_SERVER: postfix
-      POSTFIXADMIN_SMTP_PORT: 25
-    logging:
-      options:
-        max-size: 50m
-    healthcheck:
-      test: [ "CMD", "curl",  "https://${FQDN}/admin/login.php" ]
-      interval: 1m
-      timeout: 2s
-      retries: 3
-      start_period: 40s
 
-  postfix:
-    container_name: postfix
-    build:  
-      context: .
-      dockerfile: Dockerfile-postfix-alpine
-    restart: unless-stopped
-    volumes:
-      - ../docker-volumes/var/mail/domains:/var/mail/domains
-      - ../docker-volumes/var/log:/var/log
-      - ../docker-volumes/etc/postfix:/etc/postfix
-      - /dev/log:/dev/log
-      - /etc/localtime:/etc/localtime:ro 
-      - ../docker-volumes/var/spool/postfix/:/var/spool/postfix/
-      - ../docker-volumes/etc/letsencrypt:/etc/letsencrypt
-      - ../docker-volumes/etc/dovecot:/etc/dovecot
-    ports:
-      - "25:25"
-    healthcheck:
-      test: [ "CMD", "netstat", "-l", "|", "grep", "smtp" ]
-      interval: 1m
-      timeout: 2s
-      retries: 3
-      start_period: 40s
-    logging:
-      options:
-        max-size: 50m
 
-  dovecot: 
-    container_name: dovecot
-    build:
-      context: .
-      dockerfile: Dockerfile-dovecot-alpine
-      #dovecot alpine container installs latest apk 
-    restart: unless-stopped
-    volumes:
-      - ../docker-volumes/etc/dovecot:/etc/dovecot
-      - ../docker-volumes/var/log:/var/log/
-      - /dev/log:/dev/log
-      - /etc/localtime:/etc/localtime:ro
-      - ../docker-volumes/etc/letsencrypt:/etc/letsencrypt
-      - ../docker-volumes/var/spool/postfix/:/var/spool/postfix/
-      - ../docker-volumes/var/mail/domains/:/var/mail/domains/
-    ports: 
-      - 143:143
-    healthcheck:
-      test: [ "CMD", "netstat", "-l", "|", "grep", "143" ]
-      interval: 1m
-      timeout: 2s
-      retries: 3
-      start_period: 40s
-    logging:
-      options:
-        max-size: 50m
-
-  roundcube:
-    container_name: roundcube
-    depends_on:
-      - dovecot 
-    build:
-      context: .
-      dockerfile: Dockerfile-roundcube-apache
-    ports:
-      - "80"
-    restart: unless-stopped
-    environment:
-      ROUNDCUBEMAIL_DEFAULT_HOST: dovecot 
-      ROUNDCUBEMAIL_SMTP_SERVER: dovecot 
-      ROUNDCUBEMAIL_SMTP_SERVER: tls://${FQDN}
-      ROUNDCUBEMAIL_SMTP_PORT: 25
-      ROUNDCUBEMAIL_UPLOAD_MAX_FILESIZE: 15M
-      ROUNDCUBEMAIL_DB_TYPE: pgsql
-      ROUNDCUBEMAIL_DB_HOST: pgsql
-      ROUNDCUBEMAIL_DB_PORT: 5432 
-      ROUNDCUBEMAIL_DB_USER: postfixadmin
-      ROUNDCUBEMAIL_DB_PASSWORD: ${PGPW}
-      ROUNDCUBEMAIL_DB_NAME: roundcube
-    volumes:
-      - ../docker-volumes/var/roundcube/config/:/var/roundcube/config/ 
-      - ../docker-volumes/etc/dovecot:/etc/dovecot
-      - ../docker-volumes/var/log/roundcube-apache2:/var/log/apache2
-      - /dev/log:/dev/log
-      - /etc/localtime:/etc/localtime:ro
-      - ../docker-volumes/etc/letsencrypt:/etc/letsencrypt
-      - ../docker-volumes/var/spool/postfix/:/var/spool/postfix/
-      - ../docker-volumes/var/mail/domains/:/var/mail/domains/
-    healthcheck:
-      test: [ "CMD", "curl",  "https://${FQDN}" ]
-      interval: 1m
-      timeout: 2s
-      retries: 3
-      start_period: 40s
-    logging:
-      options:
-        max-size: 50m
+#  pgsql:
+#    container_name: pgsql
+#    #mount DB in volume 
+#    image:  postgres:13.4-alpine 
+#    restart: unless-stopped
+#    volumes: 
+#      - ../docker-volumes/var/log:/var/log/
+#      - ../docker-volumes/var/lib/postgresql/data:/var/lib/postgresql/data
+#      - /dev/log:/dev/log
+#      - /etc/localtime:/etc/localtime:ro 
+#    environment:
+#      POSTGRES_PASSWORD: ${PGPW}
+#      POSTGRES_DB: postfixadmin
+#      POSTGRES_USER: postfixadmin 
+#      PGUSER: postgres
+#    ports:
+#      - "5432"
+#    healthcheck:
+#      test: ["CMD-SHELL", "pg_isready"]
+#      interval: 30s
+#      timeout: 3s
+#      retries: 5
+#    logging:
+#      options:
+#        max-size: 50m
+#
+#  postfixadmin:
+#    # https://hub.docker.com/_/postfixadmin
+#    container_name: postfixadmin
+#    depends_on:
+#      - pgsql 
+#    image: postfixadmin:3.3.10-apache
+#    ports:
+#      - "80"
+#    restart: unless-stopped
+#    volumes:
+#      - /etc/localtime:/etc/localtime:ro 
+#    environment:
+#      POSTFIXADMIN_SETUP_PASSWORD: ${PGPW}
+#      POSTFIXADMIN_DB_TYPE: pgsql
+#      POSTFIXADMIN_DB_HOST: pgsql 
+#      POSTFIXADMIN_DB_USER: postfixadmin
+#      POSTFIXADMIN_DB_NAME: postfixadmin
+#      POSTFIXADMIN_DB_PASSWORD: ${PGPW}
+#      POSTFIXADMIN_SMTP_SERVER: postfix
+#      POSTFIXADMIN_SMTP_PORT: 25
+#    logging:
+#      options:
+#        max-size: 50m
+#    healthcheck:
+#      test: [ "CMD", "curl",  "https://${FQDN}/admin/login.php" ]
+#      interval: 1m
+#      timeout: 2s
+#      retries: 3
+#      start_period: 40s
+#
+#  postfix:
+#    container_name: postfix
+#    build:  
+#      context: .
+#      dockerfile: Dockerfile-postfix-alpine
+#    restart: unless-stopped
+#    volumes:
+#      - ../docker-volumes/var/mail/domains:/var/mail/domains
+#      - ../docker-volumes/var/log:/var/log
+#      - ../docker-volumes/etc/postfix:/etc/postfix
+#      - /dev/log:/dev/log
+#      - /etc/localtime:/etc/localtime:ro 
+#      - ../docker-volumes/var/spool/postfix/:/var/spool/postfix/
+#      - ../docker-volumes/etc/letsencrypt:/etc/letsencrypt
+#      - ../docker-volumes/etc/dovecot:/etc/dovecot
+#    ports:
+#      - "25:25"
+#    healthcheck:
+#      test: [ "CMD", "netstat", "-l", "|", "grep", "smtp" ]
+#      interval: 1m
+#      timeout: 2s
+#      retries: 3
+#      start_period: 40s
+#    logging:
+#      options:
+#        max-size: 50m
+#
+#  dovecot: 
+#    container_name: dovecot
+#    build:
+#      context: .
+#      dockerfile: Dockerfile-dovecot-alpine
+#      #dovecot alpine container installs latest apk 
+#    restart: unless-stopped
+#    volumes:
+#      - ../docker-volumes/etc/dovecot:/etc/dovecot
+#      - ../docker-volumes/var/log:/var/log/
+#      - /dev/log:/dev/log
+#      - /etc/localtime:/etc/localtime:ro
+#      - ../docker-volumes/etc/letsencrypt:/etc/letsencrypt
+#      - ../docker-volumes/var/spool/postfix/:/var/spool/postfix/
+#      - ../docker-volumes/var/mail/domains/:/var/mail/domains/
+#    ports: 
+#      - 143:143
+#    healthcheck:
+#      test: [ "CMD", "netstat", "-l", "|", "grep", "143" ]
+#      interval: 1m
+#      timeout: 2s
+#      retries: 3
+#      start_period: 40s
+#    logging:
+#      options:
+#        max-size: 50m
+#
+#  roundcube:
+#    container_name: roundcube
+#    depends_on:
+#      - dovecot 
+#    build:
+#      context: .
+#      dockerfile: Dockerfile-roundcube-apache
+#    ports:
+#      - "80"
+#    restart: unless-stopped
+#    environment:
+#      ROUNDCUBEMAIL_DEFAULT_HOST: dovecot 
+#      ROUNDCUBEMAIL_SMTP_SERVER: dovecot 
+#      ROUNDCUBEMAIL_SMTP_SERVER: tls://${FQDN}
+#      ROUNDCUBEMAIL_SMTP_PORT: 25
+#      ROUNDCUBEMAIL_UPLOAD_MAX_FILESIZE: 15M
+#      ROUNDCUBEMAIL_DB_TYPE: pgsql
+#      ROUNDCUBEMAIL_DB_HOST: pgsql
+#      ROUNDCUBEMAIL_DB_PORT: 5432 
+#      ROUNDCUBEMAIL_DB_USER: postfixadmin
+#      ROUNDCUBEMAIL_DB_PASSWORD: ${PGPW}
+#      ROUNDCUBEMAIL_DB_NAME: roundcube
+#    volumes:
+#      - ../docker-volumes/var/roundcube/config/:/var/roundcube/config/ 
+#      - ../docker-volumes/etc/dovecot:/etc/dovecot
+#      - ../docker-volumes/var/log/roundcube-apache2:/var/log/apache2
+#      - /dev/log:/dev/log
+#      - /etc/localtime:/etc/localtime:ro
+#      - ../docker-volumes/etc/letsencrypt:/etc/letsencrypt
+#      - ../docker-volumes/var/spool/postfix/:/var/spool/postfix/
+#      - ../docker-volumes/var/mail/domains/:/var/mail/domains/
+#    healthcheck:
+#      test: [ "CMD", "curl",  "https://${FQDN}" ]
+#      interval: 1m
+#      timeout: 2s
+#      retries: 3
+#      start_period: 40s
+#    logging:
+#      options:
+#        max-size: 50m
