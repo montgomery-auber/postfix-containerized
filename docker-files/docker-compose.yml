@@ -143,6 +143,8 @@ services:
       - ../docker-volumes/etc/dovecot:/etc/dovecot
     ports:
       - "25:25"
+      - "465:465"
+      - "587:587"
     healthcheck:
       test: [ "CMD", "netstat", "-l", "|", "grep", "smtp" ]
       interval: 1m
