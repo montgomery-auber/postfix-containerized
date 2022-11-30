@@ -171,7 +171,9 @@ services:
       - ../docker-volumes/var/spool/postfix/:/var/spool/postfix/
       - ../docker-volumes/var/mail/domains/:/var/mail/domains/
     ports: 
-      - 143:143
+      - "143:143"
+      - "993:993"
+      - "995:995"
     healthcheck:
       test: [ "CMD", "netstat", "-l", "|", "grep", "143" ]
       interval: 1m
