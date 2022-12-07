@@ -73,7 +73,7 @@ services:
   pgsql:
     container_name: pgsql
     #mount DB in volume 
-    image:  postgres:13.4-alpine 
+    image:  postgres:15.1-alpine
     restart: unless-stopped
     volumes: 
       - ../docker-volumes/var/log:/var/log/
