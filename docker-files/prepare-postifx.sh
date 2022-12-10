@@ -94,7 +94,7 @@ EOF
 
 sudo chown root:105 dovecot/dovecot-pgsql.conf
 sudo chmod 750 dovecot/dovecot-pgsql.conf
-chown root:105 ../var/log/dovecot/*
+chown -R root:105 ../var/log/dovecot
 cd ../../docker-files
 /usr/bin/docker compose up -d 
 #/usr/local/bin/docker-compose up -d

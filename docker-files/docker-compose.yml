@@ -190,7 +190,7 @@ services:
     logging:
       options:
         max-size: 50m
-        depends_on:
+      depends_on:
       pgsql:
         condition: service_healthy
 
