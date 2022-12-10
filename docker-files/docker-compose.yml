@@ -70,6 +70,9 @@ services:
       timeout: 2s
       retries: 3
       start_period: 40s
+    depends_on:
+      roundcube:
+        condition: service_healthy
 
   pgsql:
     container_name: pgsql
@@ -103,8 +106,8 @@ services:
     depends_on:
       pgsql:
         condition: service_healthy
-      postfix:
-        condition: service_healthy
+ #     postfix:
+ #       condition: service_healthy
     image: postfixadmin:3.3.10-apache 
     ports:
       - "80"
@@ -237,8 +240,8 @@ services:
     depends_on:
       pgsql:
         condition: service_healthy
-      postfix:
-        condition: service_healthy
-      dovecot:
-        condition: service_healthy
+#      postfix:
+#        condition: service_healthy
+#      dovecot:
+#        condition: service_healthy
 
