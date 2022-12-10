@@ -191,8 +191,8 @@ services:
       options:
         max-size: 50m
       depends_on:
-      pgsql:
-        condition: service_healthy
+        pgsql:
+          condition: service_healthy
 
   roundcube:
     container_name: roundcube
