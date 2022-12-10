@@ -41,12 +41,13 @@ services:
       retries: 2
       start_period: 90s
     depends_on: 
-      - nginx 
+      nginx:
+          condition: service_healthy
 
   nginx:  
     container_name: 'nginx'
     ######!!!!!!!remove latest
-    image: nginx:latest
+    image: nginx:1.22
     restart: unless-stopped
     ports:
       - "80:80"
@@ -100,8 +101,11 @@ services:
     # https://hub.docker.com/_/postfixadmin
     container_name: postfixadmin
     depends_on:
-      - pgsql 
-    image: postfixadmin:3.3.10-apache
+      pgsql:
+        condition: service_healthy
+      postfix:
+        condition: service_healthy
+    image: postfixadmin:3.3.10-apache 
     ports:
       - "80"
     restart: unless-stopped
@@ -154,6 +158,9 @@ services:
     logging:
       options:
         max-size: 50m
+    depends_on:
+      pgsql:
+        condition: service_healthy
 
   dovecot: 
     container_name: dovecot
@@ -183,6 +190,9 @@ services:
     logging:
       options:
         max-size: 50m
+        depends_on:
+      pgsql:
+        condition: service_healthy
 
   roundcube:
     container_name: roundcube
@@ -216,7 +226,7 @@ services:
       - ../docker-volumes/var/spool/postfix/:/var/spool/postfix/
       - ../docker-volumes/var/mail/domains/:/var/mail/domains/
     healthcheck:
-      test: [ "CMD", "curl",  "https://${FQDN}" ]
+      test: [ "CMD", "curl",  "https://${FQDN}?ping=ping" ]
       interval: 1m
       timeout: 2s
       retries: 3
@@ -224,3 +234,11 @@ services:
     logging:
       options:
         max-size: 50m
+    depends_on:
+      pgsql:
+        condition: service_healthy
+      postfix:
+        condition: service_healthy
+      dovecot:
+        condition: service_healthy
+
