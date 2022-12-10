@@ -41,7 +41,7 @@ services:
       start_period: 90s
     depends_on: 
       nginx:
-          condition: service_healthy
+          condition: service_started
 
   nginx:  
     container_name: 'nginx'
@@ -234,7 +234,7 @@ services:
       interval: 1m
       timeout: 2s
       retries: 3
-      start_period: 40s
+      start_period: 4s
     logging:
       options:
         max-size: 50m
