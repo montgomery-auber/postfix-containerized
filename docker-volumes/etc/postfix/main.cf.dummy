@@ -44,7 +44,6 @@ smtpd_sender_restrictions =
        reject_unknown_sender_domain
 
 smtpd_recipient_restrictions =
-       replace spamhaureject_non_fqdn_recipient,
        reject_unknown_recipient_domain,
        permit_mynetworks,
        permit_sasl_authenticated,
