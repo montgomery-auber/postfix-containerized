@@ -3,8 +3,8 @@ set -x
 # REMEMBER TO PUT PASSWORD AS INSTANCE ID
 
 # RUN this as root 
-PGPW=HardPassword12
-#PGPW=$(/usr/bin/curl -s http://169.254.169.254/latest/meta-data/instance-id)
+#PGPW=HardPassword12
+PGPW=$(/usr/bin/curl -s http://169.254.169.254/latest/meta-data/instance-id)
 if [ $# -eq 0 ]; then
     echo "No arguments provided"
     exit 1

@@ -199,8 +199,6 @@ services:
 
   roundcube:
     container_name: roundcube
-    depends_on:
-      - dovecot 
     build:
       context: .
       dockerfile: Dockerfile-roundcube-apache
