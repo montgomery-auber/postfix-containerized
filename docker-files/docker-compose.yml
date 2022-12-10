@@ -95,6 +95,7 @@ services:
       interval: 30s
       timeout: 3s
       retries: 5
+      start_period: 4s
     logging:
       options:
         max-size: 50m
@@ -228,7 +229,8 @@ services:
       - ../docker-volumes/var/spool/postfix/:/var/spool/postfix/
       - ../docker-volumes/var/mail/domains/:/var/mail/domains/
     healthcheck:
-      test: [ "CMD", "curl",  "https://${FQDN}?ping=ping" ]
+      test: [ "CMD", "curl",  "http://roundcube?ping=ping" ]
+      #test: [ "CMD", "curl",  "https://${FQDN}?ping=ping" ]
       interval: 1m
       timeout: 2s
       retries: 3
