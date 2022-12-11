@@ -1,4 +1,4 @@
-##Write script that creates dirs and users
+##Write script that creates dirs and usersdepends_on
 # https://hub.docker.com/_/postgres
 ### VERy important put Db in volume
 version: '3.7'
@@ -72,6 +72,8 @@ services:
     depends_on:
       roundcube:
         condition: service_healthy
+      postfixadmin:
+        condition: service_started
 
   pgsql:
     container_name: pgsql
@@ -100,15 +102,30 @@ services:
       options:
         max-size: 50m
 
+### Before runnning postfix run this command in a container 
+
+##docker exec pgsql  psql "postgresql://postfixadmin:$PGPW@pgsql:5432/roundcube" -c 'CREATE DATABASE postfixadmin'
+  createpgpostfixadmindb:
+    container_name: createpgpostfixadmindb
+    image:  postgres:15.1-alpine
+    restart: never 
+    command: sh -c "psql "postgresql://postfixadmin:$PGPW@pgsql:5432/roundcube" -c 'CREATE DATABASE postfixadmin'"
+    logging:
+      options:
+        max-size: 50m
+    depends_on:
+      pgsql:
+        condition: service_started
+
   postfixadmin:
     # https://hub.docker.com/_/postfixadmin
     container_name: postfixadmin
     depends_on:
-      pgsql:
-        condition: service_healthy
+      createpgpostfixadmindb:
+        condition: service_completed_successfully
  #     postfix:
  #       condition: service_healthy
-    image: postfixadmin:3.3.10-apache 
+    image: postfixadmin:3.3.13-apache 
     ports:
       - "80"
     restart: unless-stopped
