@@ -108,14 +108,14 @@ services:
   createpgpostfixadmindb:
     container_name: createpgpostfixadmindb
     image:  postgres:15.1-alpine
-    restart: never 
+    restart:  no
     command: sh -c "psql "postgresql://postfixadmin:$PGPW@pgsql:5432/roundcube" -c 'CREATE DATABASE postfixadmin'"
     logging:
       options:
         max-size: 50m
     depends_on:
       pgsql:
-        condition: service_started
+        condition: service_healthy
 
   postfixadmin:
     # https://hub.docker.com/_/postfixadmin
@@ -148,7 +148,7 @@ services:
       interval: 1m
       timeout: 2s
       retries: 3
-      start_period: 40s
+      start_period: 10s
 
   postfix:
     container_name: postfix
@@ -174,7 +174,7 @@ services:
       interval: 1m
       timeout: 2s
       retries: 3
-      start_period: 40s
+      start_period: 10s
     logging:
       options:
         max-size: 50m

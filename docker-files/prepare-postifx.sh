@@ -97,9 +97,12 @@ sudo chmod 750 dovecot/dovecot-pgsql.conf
 chown -R root:105 ../var/log/dovecot
 cd ../../docker-files
 docker compose up -d 
-#sleep 30
-docker exec pgsql  psql "postgresql://postfixadmin:$PGPW@pgsql:5432/roundcube" -c 'CREATE DATABASE postfixadmin'
-docker restart roundcube
+sleep 90
+#docker exec pgsql  psql "postgresql://postfixadmin:$PGPW@pgsql:5432/roundcube" -c 'CREATE DATABASE postfixadmin'
+#docker restart roundcube
+
+
+## consider putting these into another container that runs command from one to the other
 
 docker exec -it postfixadmin /var/www/html/scripts/postfixadmin-cli admin add admin@$1  --password $PGPW --password2 $PGPW --superadmin 1 --active 1
 sleep 1
