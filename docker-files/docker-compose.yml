@@ -108,7 +108,7 @@ services:
   createpgpostfixadmindb:
     container_name: createpgpostfixadmindb
     image:  postgres:15.1-alpine
-    restart:  no
+    restart:  "no"
     command: sh -c "psql "postgresql://postfixadmin:$PGPW@pgsql:5432/roundcube" -c 'CREATE DATABASE postfixadmin'"
     logging:
       options:
