@@ -1,4 +1,4 @@
-FROM alpine:3.12
+FROM alpine:3.17
 #alpine 3.13.5 doesnt have cyrus plain 
 #Pre-create users and groups so they have correct UID 105 for user/group postfix , etc
 #https://git.alpinelinux.org/aports/tree/main/postfix/postfix.pre-install
@@ -9,9 +9,8 @@ RUN adduser -S -u 105 -H -h /var/spool/postfix -G postfix -g postfix postfix 2>/
 RUN addgroup postfix mail 2>/dev/null
 RUN adduser -S -u 106 -H -h /var/mail/domains -s /sbin/nologin -G postdrop -g vmail vmail 2>/dev/null
 # Install dependencies
-RUN apk add --no-cache --update postfix cyrus-sasl cyrus-sasl-plain ca-certificates bash postfix-pgsql postfix-pcre && \
+RUN apk add --no-cache --update postfix cyrus-sasl ca-certificates bash postfix-pgsql postfix-pcre && \
     apk add --no-cache --upgrade musl musl-utils && \
-    # Clean up
     (rm "/tmp/"* 2>/dev/null || true) && (rm -rf /var/cache/apk/* 2>/dev/null || true)
 # Expose mail submission agent port
 EXPOSE 587
@@ -19,3 +18,6 @@ EXPOSE 25
 EXPOSE 465
 # Start postfix in foreground mode
 CMD ["postfix", "start-fg"]
+
+
+# removed  adding  cyrus-sasl-plain, might be included in regular cyrus for 3.17
