@@ -28,8 +28,8 @@ PGPW=$PGPW
 EOF
 
 cd ../docker-volumes
-sudo mkdir -p ./etc/postfix ./var/spool/postfix  ./var/spool/postfix/private ./etc/dovecot ./var/log ./var/mail ./var/mail/domains ./var/lib/postgresql/data ./var/log/dovecot
-sudo rm -rf ./var/lib/postgresql/data/.gitignore
+sudo mkdir -p ./etc/postfix ./var/spool/postfix/private ./etc/dovecot ./var/log ./var/mail ./var/mail/domains ./var/lib/postgresql/data ./var/log/dovecot
+#sudo rm -rf ./var/lib/postgresql/data/.gitignore
 sudo chown -R root:105 ./var/spool/postfix 
 sudo chmod -R 770 ./var/spool/postfix 
 sudo chown -R root:105 ./etc/postfix/ 
