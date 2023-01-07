@@ -101,7 +101,6 @@ sleep 90
 #docker exec pgsql  psql "postgresql://postfixadmin:$PGPW@pgsql:5432/roundcube" -c 'CREATE DATABASE postfixadmin'
 #docker restart roundcube
 
-
 ## consider putting these into another container that runs command from one to the other
 
 docker exec -it postfixadmin /var/www/html/scripts/postfixadmin-cli admin add admin@$1  --password $PGPW --password2 $PGPW --superadmin 1 --active 1
@@ -111,3 +110,4 @@ sleep 1
 docker exec -it postfixadmin /var/www/html/scripts/postfixadmin-cli admin update admin@$1 --domains $1 
 sleep 1
 docker exec -it postfixadmin /var/www/html/scripts/postfixadmin-cli mailbox add admin@$1 --password $PGPW --password2 $PGPW  --welcome-mail   --email-other 
+cp ../docker-volumes/var/log/.gitignore ../docker-volumes/var/lib/postgresql/data/.gitignore
