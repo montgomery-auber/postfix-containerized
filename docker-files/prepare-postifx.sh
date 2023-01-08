@@ -24,7 +24,8 @@ sudo yum remove postfix -y
 #create .env file for fqdn and password
 sudo cat - <<EOF > .env
 FQDN=$1
-PGPW=$PGPW 
+PGPW=$PGPW
+FLOATING_POSTFIX_VERSION=3.7.3
 EOF
 
 cd ../docker-volumes
