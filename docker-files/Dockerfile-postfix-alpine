@@ -9,7 +9,7 @@ RUN adduser -S -u 105 -H -h /var/spool/postfix -G postfix -g postfix postfix 2>/
 RUN addgroup postfix mail 2>/dev/null
 RUN adduser -S -u 106 -H -h /var/mail/domains -s /sbin/nologin -G postdrop -g vmail vmail 2>/dev/null
 # Install dependencies
-RUN apk add --no-cache --update postfix cyrus-sasl ca-certificates bash postfix-pgsql postfix-pcre && \
+RUN apk add --no-cache --update postfix=3.7.3-r1 cyrus-sasl ca-certificates bash postfix-pgsql postfix-pcre && \
     apk add --no-cache --upgrade musl musl-utils && \
     (rm "/tmp/"* 2>/dev/null || true) && (rm -rf /var/cache/apk/* 2>/dev/null || true)
 # Expose mail submission agent port
