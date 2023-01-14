@@ -11,7 +11,7 @@ services:
     build: 
       context: .
       dockerfile: Dockerfile-certbot 
-    restart: "no"
+    restart: unless-stopped
     volumes:
       ## add restart nginx script to install - CHANGE mod 755 for it
       - ../docker-volumes/etc/letsencrypt:/etc/letsencrypt
