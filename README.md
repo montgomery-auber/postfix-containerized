@@ -1,13 +1,12 @@
 ### Postfix Linux Email Server using docker-compose and scripts
-To upgrade from the old version of 3.5 run the following
-
-VERY important! First make a backup AMI image of your Floating Cloud Email server.
-Run the following commands
-yum update -y 
-cd /opt/postfix-containerized/docker-files/
-git pull
-git checkout postfix3.5
-./prepare-postifx.sh YOUR-FQDN
+To upgrade from the old version of 3.5 run the following</br>
+VERY important! First make a backup AMI image of your Floating Cloud Email server.</br>
+Run the following commands:</br>
+yum update -y </br>
+cd /opt/postfix-containerized/docker-files/</br>
+git pull</br>
+git checkout postfix3.5</br>
+./prepare-postifx.sh YOUR-FQDN</br>
 
 
 You can simplify this Postfix installation by using [pre-installed EC2 ](https://aws.amazon.com/marketplace/pp/B0797V545N/ref=_PTNR_github) </br>
