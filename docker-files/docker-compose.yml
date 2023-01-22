@@ -4,7 +4,6 @@ services:
     container_name: 'certbot'
     environment: 
       - FQDN=${FQDN}
-      - PGPW=${PGPW}
     build: 
       context: .
       dockerfile: Dockerfile-certbot 
