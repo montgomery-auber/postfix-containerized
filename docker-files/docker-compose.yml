@@ -204,9 +204,11 @@ services:
 
   roundcube:
     container_name: roundcube
-    build:
-      context: .
-      dockerfile: Dockerfile-roundcube-apache
+    # Add the following back if roundcube logs don't appear in the docker logs, then open a case with them.
+    #build:
+    #  context: .
+    #  dockerfile: Dockerfile-roundcube-apache
+    image: montgomeryauber/roundcubemail:1.6.0-apache
     ports:
       - "80"
     restart: unless-stopped
@@ -222,6 +224,7 @@ services:
       ROUNDCUBEMAIL_DB_USER: postfixadmin
       ROUNDCUBEMAIL_DB_PASSWORD: ${PGPW}
       ROUNDCUBEMAIL_DB_NAME: roundcube
+      #
     volumes:
       - ../docker-volumes/var/roundcube/config/:/var/roundcube/config/ 
       - ../docker-volumes/etc/dovecot:/etc/dovecot
