@@ -27,7 +27,7 @@ FQDN=$1
 PGPW=$PGPW
 FLOATING_POSTFIX_VERSION=3.7.3
 EOF
-
+sudo yum update -y
 cd ../docker-volumes
 sudo mkdir -p ./etc/postfix ./var/spool/postfix/private ./etc/dovecot ./var/log ./var/mail ./var/mail/domains ./var/lib/postgresql/data ./var/log/dovecot
 sudo rm -rf ./var/lib/postgresql/data/.gitignore
