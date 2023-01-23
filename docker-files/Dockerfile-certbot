@@ -1,4 +1,3 @@
-#FROM certbot/certbot:v1.19.0
 FROM certbot/certbot:arm64v8-v2.2.0 as base-arm64
 FROM certbot/certbot:v2.2.0 as base-amd64
 
@@ -6,10 +5,3 @@ FROM base-${TARGETARCH}
 RUN apk update && apk add curl
 RUN mkdir -p /var/log/letsencrypt/
 RUN /bin/ln -sf /dev/stderr /var/log/letsencrypt/letsencrypt.log 
-
-#https://github.com/docker/buildx/issues/1091
-#FROM imageA as base-arm64
-#FROM imageB as base-amd64
-## ...repeat for as many architectures as you like
-#
-#FROM base-${TARGETARCH}
