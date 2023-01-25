@@ -2,6 +2,6 @@ FROM certbot/certbot:arm64v8-v2.2.0 as base-arm64
 FROM certbot/certbot:v2.2.0 as base-amd64
 
 FROM base-${TARGETARCH}
-#RUN apk update && apk add curl
-#RUN mkdir -p /var/log/letsencrypt/
-#RUN /bin/ln -sf /dev/stderr /var/log/letsencrypt/letsencrypt.log 
+RUN apk update && apk add curl
+RUN mkdir -p /var/log/letsencrypt/
+RUN /bin/ln -sf /dev/stderr /var/log/letsencrypt/letsencrypt.log 
