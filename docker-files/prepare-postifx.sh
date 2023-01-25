@@ -1,9 +1,9 @@
 #!/bin/bash
 set -x
-# REMEMBER TO PUT PASSWORD AS INSTANCE ID
+# Redirect all output to logfile.txt
+exec > >(tee -a floating-postfix-install.log) 2>&1
 
 # RUN this as root 
-#PGPW=HardPassword12
 PGPW=$(/usr/bin/curl -s http://169.254.169.254/latest/meta-data/instance-id)
 if [ $# -eq 0 ]; then
     echo "No arguments provided"
