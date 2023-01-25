@@ -204,11 +204,9 @@ services:
 
   roundcube:
     container_name: roundcube
-    # Add the following back if roundcube logs don't appear in the docker logs, then open a case with them.
-    #build:
-    #  context: .
-    #  dockerfile: Dockerfile-roundcube-apache
-    image: montgomeryauber/roundcubemail:1.6.0-apache
+    build:
+      context: .
+      dockerfile: Dockerfile-roundcube-apache
     ports:
       - "80"
     restart: unless-stopped

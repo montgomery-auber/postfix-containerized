@@ -1,5 +1,4 @@
 #FROM roundcube/roundcubemail:1.6.0-apache
 FROM montgomeryauber/roundcubemail:1.6.0-apache
-#Check if the following is still  needed, if yes, inform them.
 RUN ln -sf /dev/stdout /var/log/apache2/access.log \
 	&& ln -sf /dev/stderr /var/log/apache2/error.log
