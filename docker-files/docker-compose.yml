@@ -17,7 +17,6 @@ services:
       - ../docker-volumes/etc/postfix:/etc/postfix
       - ../docker-volumes/etc/dovecot:/etc/dovecot
       - /var/run/docker.sock:/var/run/docker.sock
-      - /dev/log:/dev/log
       - /etc/localtime:/etc/localtime:ro 
     logging:
       options:
@@ -52,7 +51,6 @@ services:
       - ../docker-volumes/var/lib/letsencrypt:/var/lib/letsencrypt 
       - ../docker-volumes/letsencrypt-docker-nginx/src/letsencrypt/letsencrypt-site:/data/letsencrypt
       - /etc/localtime:/etc/localtime:ro 
-      - /dev/log:/dev/log
     logging:
       options:
         max-size: 50m
@@ -74,9 +72,7 @@ services:
     image:  postgres:15.1-alpine
     restart: unless-stopped
     volumes: 
-      - ../docker-volumes/var/log:/var/log/
       - ../docker-volumes/var/lib/postgresql/data:/var/lib/postgresql/data
-      - /dev/log:/dev/log
       - /etc/localtime:/etc/localtime:ro 
     environment:
       POSTGRES_PASSWORD: ${PGPW}
@@ -146,9 +142,7 @@ services:
     restart: unless-stopped
     volumes:
       - ../docker-volumes/var/mail/domains:/var/mail/domains
-      - ../docker-volumes/var/log:/var/log
       - ../docker-volumes/etc/postfix:/etc/postfix
-      - /dev/log:/dev/log
       - /etc/localtime:/etc/localtime:ro 
       - ../docker-volumes/var/spool/postfix/:/var/spool/postfix/
       - ../docker-volumes/etc/letsencrypt:/etc/letsencrypt
@@ -223,7 +217,6 @@ services:
     volumes:
       - ../docker-volumes/var/roundcube/config/:/var/roundcube/config/ 
       - ../docker-volumes/etc/dovecot:/etc/dovecot
-      - /dev/log:/dev/log
       - /etc/localtime:/etc/localtime:ro
       - ../docker-volumes/etc/letsencrypt:/etc/letsencrypt
       - ../docker-volumes/var/spool/postfix/:/var/spool/postfix/
