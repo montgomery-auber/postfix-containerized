@@ -221,11 +221,10 @@ services:
       ROUNDCUBEMAIL_DB_USER: postfixadmin
       ROUNDCUBEMAIL_DB_PASSWORD: ${PGPW}
       ROUNDCUBEMAIL_DB_NAME: roundcube
-      #
+    
     volumes:
       - ../docker-volumes/var/roundcube/config/:/var/roundcube/config/ 
       - ../docker-volumes/etc/dovecot:/etc/dovecot
-      - ../docker-volumes/var/log/roundcube-apache2:/var/log/apache2
       - /dev/log:/dev/log
       - /etc/localtime:/etc/localtime:ro
       - ../docker-volumes/etc/letsencrypt:/etc/letsencrypt
