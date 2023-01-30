@@ -179,8 +179,6 @@ services:
     restart: unless-stopped
     volumes:
       - ../docker-volumes/etc/dovecot:/etc/dovecot
-      - ../docker-volumes/var/log:/var/log/
-      - /dev/log:/dev/log
       - /etc/localtime:/etc/localtime:ro
       - ../docker-volumes/etc/letsencrypt:/etc/letsencrypt
       - ../docker-volumes/var/spool/postfix/:/var/spool/postfix/
