@@ -1,0 +1,1 @@
+$config['plugins'] = array('xskin', 'password');
