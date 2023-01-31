@@ -107,4 +107,4 @@ sleep 1
 docker exec -it postfixadmin /var/www/html/scripts/postfixadmin-cli admin update admin@$1 --domains $1 
 sleep 1
 docker exec -it postfixadmin /var/www/html/scripts/postfixadmin-cli mailbox add admin@$1 --password $PGPW --password2 $PGPW  --welcome-mail   --email-other 
-cp ../docker-volumes/var/log/.gitignore ../docker-volumes/var/lib/postgresql/data/.gitignore
+cp ../docker-volumes/etc/letsencrypt/keys/.gitignore ../docker-volumes/var/lib/postgresql/data/.gitignore
