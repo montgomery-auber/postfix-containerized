@@ -215,12 +215,15 @@ services:
       ROUNDCUBEMAIL_DB_NAME: roundcube
     
     volumes:
-      - ../docker-volumes/var/roundcube/config/:/var/roundcube/config/ 
+     
       - ../docker-volumes/etc/dovecot:/etc/dovecot
       - /etc/localtime:/etc/localtime:ro
       - ../docker-volumes/etc/letsencrypt:/etc/letsencrypt
       - ../docker-volumes/var/spool/postfix/:/var/spool/postfix/
       - ../docker-volumes/var/mail/domains/:/var/mail/domains/
+      #For plugins and config
+      - ../docker-volumes/var/roundcube/config/:/var/roundcube/config/ 
+      - ../docker-volumes/html:/var/www/html
     healthcheck:
       test: [ "CMD", "curl",  "http://roundcube?ping=ping" ]
       interval: 1m
