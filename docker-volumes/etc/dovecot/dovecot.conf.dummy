@@ -21,7 +21,7 @@ info_log_path = /dev/stdout
 debug_log_path = /dev/stdout
 
 
-protocols = imap
+protocols = imap pop3
 
 service anvil {
   client_limit = 1024
