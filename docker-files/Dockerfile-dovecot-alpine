@@ -11,7 +11,7 @@ RUN addgroup postfix mail 2>/dev/null
 RUN adduser -S -u 106 -H -h /var/mail/domains -s /sbin/nologin -G postdrop -g vmail vmail 2>/dev/null
 
 # Install dependencies
-RUN apk add --no-cache --update dovecot=2.3.20-r6 dovecot-pgsql=2.3.20-r6 bash && \
+RUN apk add --no-cache --update dovecot=2.3.20-r6 dovecot-pgsql=2.3.20-r6 bash dovecot-pop3d=2.3.20-r6 && \
     apk add --no-cache --upgrade musl=1.2.3-r4 musl-utils=1.2.3-r4 && \
     # Clean up
     (rm "/tmp/"* 2>/dev/null || true) && (rm -rf /var/cache/apk/* 2>/dev/null || true)

@@ -1,4 +1,3 @@
-#FROM roundcube/roundcubemail:1.6.0-apache
-FROM montgomeryauber/roundcubemail:1.6.0-apache
+FROM roundcube/roundcubemail:1.6.1-apache
 RUN ln -sf /dev/stdout /var/log/apache2/access.log \
 	&& ln -sf /dev/stderr /var/log/apache2/error.log
