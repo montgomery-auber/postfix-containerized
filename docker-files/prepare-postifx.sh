@@ -25,7 +25,7 @@ sudo yum remove postfix -y
 sudo cat - <<EOF > .env
 FQDN=$1
 PGPW=$PGPW
-FLOATING_POSTFIX_VERSION=3.7.3
+FLOATING_POSTFIX_VERSION=3.7.4
 EOF
 #sudo yum update -y
 cd ../docker-volumes
