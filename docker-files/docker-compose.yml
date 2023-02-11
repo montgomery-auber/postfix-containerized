@@ -7,7 +7,7 @@ services:
     build: 
       context: .
       dockerfile: Dockerfile-certbot 
-    restart: unless-stopped
+    restart: always
     volumes:
       - ../docker-volumes/etc/letsencrypt:/etc/letsencrypt
       - ../docker-volumes/var/lib/letsencrypt:/var/lib/letsencrypt
